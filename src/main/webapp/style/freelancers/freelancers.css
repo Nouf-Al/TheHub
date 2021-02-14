@@ -1,0 +1,31 @@
+@charset "ISO-8859-1";
+
+.freelancers {
+    height: 100vh;
+    padding: 79px 0 0 0;
+}
+
+.freelancer {
+    width: 274px;
+    display: inline-block;
+    margin: 0 10px 46px 10px;
+}
+
+img {
+    width: 124px;
+    margin: 16px AUTO;
+}
+.header p {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 6px;
+    text-align: center;
+    
+}
+
+.body p{
+    font-size: 15px;
+    margin: 2px;
+    text-align: center;
+    
+}

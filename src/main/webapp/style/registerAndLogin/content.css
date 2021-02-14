@@ -1,0 +1,41 @@
+@charset "ISO-8859-1";
+
+.line {
+  width: 0.01%;
+  position: relative;
+  margin: 11px 238px;
+  background: black;
+  height: 115px;
+}
+
+img {
+  width: 55%;
+  margin: 0 78px;
+  /* position: relative; */
+  display: block;
+}
+
+
+
+.left-side {
+	padding: 14px 69px;
+}
+
+.left-side .caption {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: left;
+  margin: 37px 0 26px 0;
+}
+
+.left-side input.btn.btn-block {
+    background: #1A488E;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.left-side p.float-right {
+    margin: 8px 0;
+    font-size: 11px;
+}
