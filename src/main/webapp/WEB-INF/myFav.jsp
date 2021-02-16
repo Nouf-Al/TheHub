@@ -66,8 +66,12 @@
 					<c:forEach items="${user.projects_likes}" var="project">
 						<div class="row m-0 p-0">
 							<div class="col-sm mx-2 mb-3 section rounded">
-								<p class="float-left m-0 p-0">${project.title}</p>
-								<a class="float-right" href="#">Unlike</a>
+								<a href="/freelance/projects/${project.id}"><p class="float-left m-0 p-0">${project.title}</p></a>
+								<div class="float-right">
+									<a href="/freelance/projects/${project.id }/like">
+									<img src="/images/icons/like.png" alt="like" /></a>
+								</div>
+								
 							</div>
 						</div>
 					</c:forEach>
