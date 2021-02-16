@@ -63,41 +63,41 @@
 				<img class="user-profile-pic m-3" src="/images/icons/user.png" alt="profile" />
 			</div>
 			<div class="col-sm-2 p-0">
-			 	<div class="row mx-0">
-			 		<div class="col-sm p-0">
-			 			<div class="h3 text-center">${client.firstname } ${client.lastname }</div>
-			 		</div>
-			 	</div>
-			 	<div class="row mx-0">
-			 		<div class="col-sm p-0 py-2 h-50 text-center ">
-				 		<div class="h2 m-0">*****</div>
-				 		<div class="h5 m-0">Rating</div>
-			 		</div>
-			 	</div>
+				<div class="row mx-0">
+					<div class="col-sm p-0">
+						<div class="h3 text-center">${client.firstname } ${client.lastname }</div>
+					</div>
+				</div>
+				<div class="row mx-0">
+					<div class="col-sm p-0 py-2 h-50 text-center ">
+						<div class="h2 m-0">*****</div>
+						<div class="h5 m-0">Rating</div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="col-sm p-0">
-			 	<div class="row mx-0">
-			 		<div class="col-sm p-0 d-flex user-loc">
-				 		<img class="location" alt="location" src="/images/icons/location.png">
+				<div class="row mx-0">
+					<div class="col-sm p-0 d-flex user-loc">
+						<img class="location" alt="location" src="/images/icons/location.png">
 						<div class="h4">${client.city}</div>
-			 		</div>
-			 	</div>
-			 	
-			 	<div class="row mx-0">
-			 		<div class="col-4 p-0 text-center ">
-			 			<div class="h2">4</div>
-			 			<div class="h5">Completed</div>
-			 		</div>
-			 		<div class="col-4 p-0 text-center ">
-			 			<div class="h2">2</div>
-			 			<div class="h5">Open</div>
-			 		</div>
-			 		<div class="col-4 p-0 text-center ">
-			 			<div class="h2">8</div>
-			 			<div class="h5">In Progress</div>
-			 		</div>
-			 	</div>
+					</div>
+				</div>
+				
+				<div class="row mx-0">
+					<div class="col-4 p-0 text-center ">
+						<div class="h2">4</div>
+						<div class="h5">Completed</div>
+					</div>
+					<div class="col-4 p-0 text-center ">
+						<div class="h2">2</div>
+						<div class="h5">Open</div>
+					</div>
+					<div class="col-4 p-0 text-center ">
+						<div class="h2">8</div>
+						<div class="h5">In Progress</div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="col-sm-1 p-0 text-center">

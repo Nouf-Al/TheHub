@@ -59,12 +59,12 @@
 			<div class=" row p-0 m-0">
 				
 				<div class="col-sm-3 m-0 p-0">
-					<div class="categories-container shadow-sm">
+					<div class="categories-container shadow-sm p-4">
 						<h3>Categories</h3>
 						<hr />
 						<c:forEach items="${categories }" var="category">
 							<div class="span">
-								<a href="/freelance/projects/category/${category.id}"><p>${category.title }</p></a>
+								<a class="p-3 mb-3 w-100 shadow-sm" href="/freelance/projects/category/${category.id}"><p class="p-0 m-0">${category.title }</p></a>
 							</div>
 						</c:forEach>
 					</div>

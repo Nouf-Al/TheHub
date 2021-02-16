@@ -1,9 +1,5 @@
 @charset "ISO-8859-1";
 
-.projects-container {
-  padding: 28px 0;
-}
-
 .projects-container .search-container {
   /*margin: 0 0 19px 39px;*/
 }
@@ -59,7 +55,7 @@
   width: 100%;
   float: right;
   margin: 0;
-  padding: 21px 25px;
+  /* padding: 21px 25px; */
   border-radius: 3px;
   border: 0.1px solid #8080805e;
 }
@@ -73,6 +69,10 @@
 .projects-container .categories-container p {
   font-size: 14px;
   padding: 3px 0;
+}
+
+.projects-container .categories-container a:hover {
+  background: rgba(128, 128, 128, 0.075);
 }
 
 .projects-container .categories-container .span {

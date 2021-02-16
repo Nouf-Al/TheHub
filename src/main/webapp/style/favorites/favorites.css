@@ -1,0 +1,46 @@
+.section{
+    background-color: #58acf70d;
+    padding: 19px 23px;
+}
+
+.left-col{
+    /* font-size: 20px; */
+    margin-right: 20px;
+    height: fit-content;
+}
+
+.left-col h3{
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 0 6px 0;
+}
+
+.left-col p{
+    font-size: 14px;
+    padding: 3px 0;
+}
+
+.left-col p:hover {
+    background: rgba(128, 128, 128, 0.075);
+}
+
+.right-col h3{
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 0 6px 0;
+}
+
+.right-col p{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.section:hover {
+    background:#58acf74b;
+}
+
+@media screen and (max-width: 576px) {
+    .left-col{
+        margin-right: 0;
+    }
+}

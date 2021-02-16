@@ -241,19 +241,6 @@ public class HomeController {
 		return "newProject.jsp";
 	}
 
-//    private int getSessionCount(HttpSession sesh) {
-//		Object seshVal = sesh.getAttribute("count");
-//		if(seshVal == null) {
-//			setSessionCount(sesh, 0);
-//			seshVal = sesh.getAttribute("count");
-//		}
-//		return (Integer)seshVal;
-//	}
-//	
-//	private void setSessionCount(HttpSession sesh, int val) {
-//		sesh.setAttribute("count", val);
-//	}
-
 	@RequestMapping(value = "/freelance/projects/create", method = RequestMethod.POST)
 	public String createProject(Model model, @Valid @ModelAttribute("newProject") Project newProject,
 			BindingResult result, HttpSession session) {
@@ -290,9 +277,6 @@ public class HomeController {
 		} else {
 			model.getAttribute("isClose");
 		}
-//    	int currCount = getSessionCount(session);
-//		setSessionCount(session, ++currCount);
-//		model.addAttribute("users_views", getSessionCount(session));
 		return "viewProject.jsp";
 	}
 
@@ -351,6 +335,22 @@ public class HomeController {
 		return "redirect:/freelance/projects";
 	}
 
+	@GetMapping("/freelance/favorites")
+	public String myFav(Model model, HttpSession session) {		
+		// model.addAttribute("projects", freelanceSer.getAllProjects());
+		// model.addAttribute("categories", freelanceSer.getAllCategories());
+		model.addAttribute("isFreelancer", false);
+		model.addAttribute("isClient", false);
+		if (session.getAttribute("user_type").equals("freelancer")) {
+			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isFreelancer", true);
+		} else {
+			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isClient", true);
+		}
+		return "myFav.jsp";
+		
+	}
 //	question
 	@RequestMapping(value = "/freelance/projects/{id}/create/question", method = RequestMethod.POST)
 	public String createQuestion(Model model, @PathVariable(value = "id") Long id,
