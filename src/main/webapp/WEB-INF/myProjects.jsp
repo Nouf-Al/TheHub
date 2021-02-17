@@ -6,12 +6,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Favorites</title>
+	<title>My Projects</title>
 	<link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
 	<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="/style/style.css" />
-	<link rel="stylesheet" href="/style/favorites/favorites.css" />
+	<link rel="stylesheet" href="/style/projects/myprojects.css" />
 	<link rel="stylesheet" href="/style/menu.css" />
 </head>
 <body>
@@ -54,41 +54,41 @@
 	<div class="dashboard-container">
 			<div class=" row p-0 m-0">
 				<div class="left-col col-sm-3 p-4 border shadow-sm rounded mb-4">				
-					<h3>My Favorite</h3>
+					<h3>Status</h3>
 					<hr>
-					<a href="/"><p class="p-3 mb-3 w-100 shadow-sm" >Projects</p></a>
-					<a href="/"><p class="p-3 mb-3 w-100 shadow-sm" >Freelancers</p></a>
+					<p class="p-3 mb-3 w-100 shadow-sm" >Open</p>
+					<p class="p-3 mb-3 w-100 shadow-sm" >Closed</p>
 				</div>
 
 				<div class="right-col col-sm p-4 border shadow-sm rounded">
 					<h3>Projects</h3>
 					<hr>
-					<c:forEach items="${user.projects_likes}" var="project">
+					<c:forEach items="${user.projects}" var="project">
 						<div class="row m-0 p-0">
 							<div class="col-sm mx-2 mb-3 section rounded">
 								<div class="row m-0 p-0">
-									<div class="col p-0 m-0">
-										<div class="row m-0 p-0">
-											<div class="col p-0 m-0">
-												<a href="/freelance/projects/${project.id}"><h4 class="float-left m-0 p-0">${project.title}</p></h4></a>
-											</div>
+                                    <div class="col m-0 p-0">
+                                        <a href="/freelance/projects/${project.id}"><h4>${project.title}</h4></a>
+                                    </div>
+                                    <div class="col m-0 p-0">
+                                        <div class="float-right">
+                                            <div class="btn btn-outline-success">Open</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-										</div>
-										<div class="row m-0 p-0">
-											<div class="col p-0 m-0">
-												<p class="float-left m-0 p-0">${project.category.title}</p>
-											</div>
-											
-										</div>
-										
-									</div>
-									<div class="col p-0 m-0">
-										<div class="float-right">
-											<a href="/freelance/projects/${project.id}/unlike/favorites">
-											<img src="/images/icons/delete.png" alt="like" /></a>
-										</div>
-									</div>
-								</div>
+                                <div class="row m-0 p-0 mt-3">
+                                    <div class="col-sm m-0 p-0">
+                                        <p>Submitted offers: ${project.freelancers_offer.size()}</p>
+                                        <p>Posted on: <fmt:formatDate value="${project.createdAt }" type="date" pattern="MMMM dd, yyyy" /></p>
+                                        <p>Duration: ${project.duration} day</p>
+                                    </div>
+                                    <div class="col-sm m-0 p-0">
+                                        <p>Category: ${project.category.title}</p>
+                                        <p>Estimated Budget: ${project.price} SR</p>
+                                        <p>Likes: ${project.freelancers_like.size()}</p>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</c:forEach>

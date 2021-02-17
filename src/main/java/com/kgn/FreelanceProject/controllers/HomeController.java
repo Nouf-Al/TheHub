@@ -351,6 +351,24 @@ public class HomeController {
 		return "myFav.jsp";
 		
 	}
+
+	@GetMapping("/freelance/myprojects")
+	public String myProjects(Model model, HttpSession session) {		
+		// model.addAttribute("projects", freelanceSer.getAllProjects());
+		// model.addAttribute("categories", freelanceSer.getAllCategories());
+		model.addAttribute("isFreelancer", false);
+		model.addAttribute("isClient", false);
+		if (session.getAttribute("user_type").equals("freelancer")) {
+			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isFreelancer", true);
+		} else {
+			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isClient", true);
+		}
+		return "myProjects.jsp";
+		
+	}
+
 //	question
 	@RequestMapping(value = "/freelance/projects/{id}/create/question", method = RequestMethod.POST)
 	public String createQuestion(Model model, @PathVariable(value = "id") Long id,
@@ -411,12 +429,12 @@ public class HomeController {
 		return "redirect:/freelance/projects";
 	}
 
-	@RequestMapping(value = "/freelance/projects/{id}/unlike")
-	public String unlike(@PathVariable(value = "id") Long id, HttpSession session) {
+	@RequestMapping(value = "/freelance/projects/{id}/unlike/{page}")
+	public String unlike(@PathVariable(value = "id") Long id,@PathVariable(value = "page") String page, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.unlike(u, p);
-		return "redirect:/freelance/projects";
+		return "redirect:/freelance/"+page;
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/likeFromViewProject")

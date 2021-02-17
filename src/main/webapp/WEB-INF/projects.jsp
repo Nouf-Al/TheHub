@@ -133,7 +133,7 @@
 
 																<c:when test="${project.isContain(user.id) }">
 																${project.freelancers_like.size()}
-																	<a href="/freelance/projects/${project.id }/unlike">
+																	<a href="/freelance/projects/${project.id }/unlike/projects">
 																	<img src="/images/icons/like.png" alt="like" /></a>
 																</c:when>
 																<c:otherwise>
