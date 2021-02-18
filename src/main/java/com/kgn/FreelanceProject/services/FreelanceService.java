@@ -82,6 +82,21 @@ public class FreelanceService {
 		return projectRepo.findByCategoryId(id);
 	}
 
+	public List<Project> findByClientId(Long id) {
+		return projectRepo.findByClientId(id);
+	}
+
+	public List<Project> filterMyProjectsByCategory(Long clientId, Long categoryId) {
+		List<Project> projects = projectRepo.findByClientId(clientId);
+		List<Project> projectsFilterd = new ArrayList<Project>();
+		for (Project project : projects){
+			if(project.getCategory().getId() == categoryId){
+				projectsFilterd.add(project);
+			}
+		}
+		return projectsFilterd;
+	}
+
 	public void like(Freelancer u, Project p) {
 		p.getFreelancers_like().add(u);
 		projectRepo.save(p);

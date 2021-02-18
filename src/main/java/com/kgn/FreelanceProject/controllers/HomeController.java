@@ -228,7 +228,6 @@ public class HomeController {
 			model.addAttribute("isClient", true);
 		}
 		return "projects.jsp";
-
 	}
 
 	@RequestMapping("/freelance/projects/new")
@@ -354,19 +353,38 @@ public class HomeController {
 
 	@GetMapping("/freelance/myprojects")
 	public String myProjects(Model model, HttpSession session) {		
-		// model.addAttribute("projects", freelanceSer.getAllProjects());
-		// model.addAttribute("categories", freelanceSer.getAllCategories());
+		model.addAttribute("categories", freelanceSer.getAllCategories());
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isFreelancer", true);
 		} else {
-			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+			Client user = userSer.findClientById((Long) session.getAttribute("user_id"));
+			model.addAttribute("user", user);
 			model.addAttribute("isClient", true);
+			model.addAttribute("projects", freelanceSer.findByClientId(user.getId()));
+
 		}
 		return "myProjects.jsp";
 		
+	}
+
+	@RequestMapping(value = "/freelance/myprojects/category/{id}")
+	public String filterMyProjectsByCategory(Model model, HttpSession session, @PathVariable Long id) {
+		model.addAttribute("categories", freelanceSer.getAllCategories());
+		model.addAttribute("isFreelancer", false);
+		model.addAttribute("isClient", false);
+		if (session.getAttribute("user_type").equals("freelancer")) {
+			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isFreelancer", true);
+		} else {
+			Client user = userSer.findClientById((Long) session.getAttribute("user_id"));
+			model.addAttribute("user", user);
+			model.addAttribute("isClient", true);
+			model.addAttribute("projects", freelanceSer.filterMyProjectsByCategory(user.getId(), id));
+		}
+		return "myProjects.jsp";
 	}
 
 //	question

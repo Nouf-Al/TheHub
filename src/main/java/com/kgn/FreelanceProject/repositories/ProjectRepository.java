@@ -12,5 +12,7 @@ import com.kgn.FreelanceProject.models.Project;
 public interface ProjectRepository extends CrudRepository<Project,Long>{
 	List<Project> findByTitleContaining(String search);
 	List<Project> findByCategoryId(Long id);
+	List<Project> findByClientId(Long id);
+	
 }
 

@@ -53,17 +53,36 @@
 
 	<div class="dashboard-container">
 			<div class=" row p-0 m-0">
-				<div class="left-col col-sm-3 p-4 border shadow-sm rounded mb-4">				
-					<h3>Status</h3>
-					<hr>
-					<p class="p-3 mb-3 w-100 shadow-sm" >Open</p>
-					<p class="p-3 mb-3 w-100 shadow-sm" >Closed</p>
+				<div class="left-col col-sm-3">				
+					<div class="row">
+						<div class="col p-0 m-0 mb-4">
+							<a href="/freelance/projects/new"><button class="new-project">Post New Project</button></a>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col  p-4 border shadow-sm rounded mb-4">
+							<h3>Status</h3>
+							<hr>
+							<p class="p-3 mb-3 w-100 shadow-sm" >Open</p>
+							<p class="p-3 mb-3 w-100 shadow-sm" >Closed</p>
+
+							<h3 class="mt-4">Categories</h3>
+							<hr>
+							<div class="span">
+								<a href="/freelance/myprojects"><p class="p-3 mb-3 w-100 shadow-sm">All Projects</p></a>
+								<c:forEach items="${categories }" var="category">
+									<a href="/freelance/myprojects/category/${category.id}"><p class="p-3 mb-3 w-100 shadow-sm">${category.title }</p></a>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="right-col col-sm p-4 border shadow-sm rounded">
-					<h3>Projects</h3>
+					<h3>Projects (${projects.size()})</h3>
 					<hr>
-					<c:forEach items="${user.projects}" var="project">
+					<c:forEach items="${projects}" var="project">
 						<div class="row m-0 p-0">
 							<div class="col-sm mx-2 mb-3 section rounded">
 								<div class="row m-0 p-0">
