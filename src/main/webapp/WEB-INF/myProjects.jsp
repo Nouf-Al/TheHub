@@ -32,23 +32,42 @@
 				<span class="float-right"> 
 					<c:if test="${isClient eq true }">
 						<a href="/freelance/projects/new"><button class="post-project">+ Project</button></a>
-						<span class="user-info"> 
-							<a href="/client/profile/${user.id}">${user.firstname } ${user.lastname }</a>
-							<img src="/images/user_pic.svg" alt="user" />
-						</span>
-					</c:if>
-					
-					<c:if test="${isClient eq false }">
-						<span class="user-info"> 
-							<a href="/freelancer/profile/${user.id}">${user.firstname } ${user.lastname }</a>
-							<img src="/images/user_pic.svg" alt="user" />
-						</span>
-					</c:if>
-					
-					<a href="/logout"><img src="/images/icons/logout (1).png" alt="logout" style="width: 21px; margin: 0 0 0 11px; " /></a>
+						
+					<div class="dropdown" style="float:right;">
+						<div class="dropbtn">
+							<span class="user-info"> 
+								${user.firstname } ${user.lastname }
+								<img src="/images/user_pic.svg" alt="user" />
+							</span>
+						</div>
+						<div class="dropdown-content shadow-sm">
+							<a href="/client/profile/${user.id}">Profile</a>
+							<a href="/freelance/myprojects">My Projects</a>
+							<a href="/freelance/favorites">Favorites</a>
+							<a href="/logout">Logout</a>
+						</div>
+					</div>
+				</c:if>	
+				<c:if test="${isClient eq false }">						
+					<div class="dropdown" style="float:right;">
+						<div class="dropbtn">
+							<span class="user-info"> 
+								${user.firstname } ${user.lastname }
+								<img src="/images/user_pic.svg" alt="user" />
+							</span>
+						</div>
+						<div class="dropdown-content shadow-sm">
+							<a href="/freelancer/profile/${user.id}">Profile</a>
+							<a href="/freelance/myprojects">My Projects</a>
+							<a href="/freelance/favorites">Favorites</a>
+							<a href="/logout">Logout</a>
+						</div>
+					</div>
+				</c:if>			
 				</span>
+				</div>
+				
 			</div>
-		</div>
 	</div>
 
 	<div class="dashboard-container">

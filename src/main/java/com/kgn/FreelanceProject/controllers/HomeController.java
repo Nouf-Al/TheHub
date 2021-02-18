@@ -335,7 +335,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/freelance/favorites")
-	public String myFav(Model model, HttpSession session) {		
+	public String favorites(Model model, HttpSession session) {		
 		// model.addAttribute("projects", freelanceSer.getAllProjects());
 		// model.addAttribute("categories", freelanceSer.getAllCategories());
 		model.addAttribute("isFreelancer", false);
@@ -347,7 +347,7 @@ public class HomeController {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
-		return "myFav.jsp";
+		return "favorites.jsp";
 		
 	}
 
