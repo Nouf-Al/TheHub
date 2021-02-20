@@ -174,25 +174,28 @@ public class HomeController {
 	}
 
 	@GetMapping("/freelance/projects")
-	public String allProjects(Model model, HttpSession session) {
-		if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
-			return "redirect:/";
-		} else if (userSer.findClientById((Long) session.getAttribute("user_id")) == null) {
-			return "redirect:/";
-		} else {
-			model.addAttribute("projects", freelanceSer.getAllProjects());
-			model.addAttribute("categories", freelanceSer.getAllCategories());
-			model.addAttribute("isFreelancer", false);
-			model.addAttribute("isClient", false);
-			if (session.getAttribute("user_type").equals("freelancer")) {
-				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-				model.addAttribute("isFreelancer", true);
-			} else {
-				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
-				model.addAttribute("isClient", true);
-			}
-			return "projects.jsp";
+	public String projects(Model model, HttpSession session) {
+		if(session.getAttribute("user_type") == "freelancer" && userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
+			return "redirect:/";			
 		}
+
+		if(session.getAttribute("user_type") == "client" && userSer.findClientById((Long) session.getAttribute("user_id")) == null) {
+			return "redirect:/";
+		}
+		
+		model.addAttribute("projects", freelanceSer.getAllProjects());
+		model.addAttribute("categories", freelanceSer.getAllCategories());
+		model.addAttribute("isFreelancer", false);
+		model.addAttribute("isClient", false);
+		if (session.getAttribute("user_type").equals("freelancer")) {
+			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isFreelancer", true);
+		} else {
+			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isClient", true);
+		}
+		return "projects.jsp";
+		
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)

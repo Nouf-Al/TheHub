@@ -1,0 +1,74 @@
+@charset "ISO-8859-1";
+
+.projects-container .project-info .sub-info p {
+  font-size: 12px;
+  align-self: center;
+  margin: 0;
+  color: #969595;
+}
+
+
+.right-col a{
+  font-size: 15px;
+}
+
+.statistics p, .offers p{
+  font-size: 14px;
+}
+
+.client-info img{
+  width: 111px;
+  margin: 0 0 10px 0;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 8px 15px; */
+    background: #3f51b575;
+}
+
+.question-header p {
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+.question-body {
+    /* padding: 10px 15px; */
+    background: #80808012;
+}
+
+.answer-header {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 8px 15px; */
+    background: #b9bcca75;
+}
+
+.answer-header p {
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+.answer-body {
+    /* padding: 10px 15px; */
+    background: #80808012;
+}
+
+@media screen and (max-width: 576px) {
+  .right-col{
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .left-section{
+    padding-right: 0 !important;
+  }
+
+  .col-sm-4.border.border-dark.text-center.border-top-0.border-bottom-0 {
+    border: none !important;
+}
+}
+

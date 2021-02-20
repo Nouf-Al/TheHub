@@ -17,7 +17,7 @@
 
 .projects-container .project .card {
   padding: 17px 20px;
-  height: 232px;
+  /* height: 232px; */
 }
 
 .projects-container .project .card p {
@@ -86,5 +86,25 @@
   height: 25px;
   padding: 5px 0;
   margin: 0 5px 0 5px;
+}
+
+.left-col{
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .left-col{
+      margin-right:0;
+  }
+  .search-container {
+    margin-top: 1.5rem;
+  }
+  .search-input{
+    margin-bottom: 0.8rem;
+    padding-right: 0;
+  }
+  .projects-container .project .card p {
+    font-size: 12px;
+  }
 }
 /*# sourceMappingURL=projects.css.map */

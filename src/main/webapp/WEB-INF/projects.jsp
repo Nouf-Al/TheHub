@@ -56,9 +56,9 @@
 
 	<div class="dashboard-container">
 		<div class="projects-container">
-			<div class=" row p-0 m-0">
+			<div class="row p-0 m-0">
 				
-				<div class="col-sm-3 m-0 p-0">
+				<div class="left-col col-sm-3 px-0">
 					<div class="categories-container shadow-sm p-4">
 						<h3>Categories</h3>
 						<hr />
@@ -70,13 +70,13 @@
 					</div>
 				</div>
 				
-				<div class="col-sm-9 m-0 p-0">
+				<div class="right-col col-sm p-0">
 					<div class="row m-0">
-						<div class="col-12 mx-4 px-4">
+						<div class="col-12 p-0">
 							<div class="search-container">
 							<form action="/search" method="post">
 								<div class="row m-0 p-0">
-									<div class="col-sm-10 pl-0">
+									<div class="col-sm-10 pl-0 search-input">
 										<input type="search" placeholder="Search for projects" class="form-control shadow-sm" name="title"/>
 									</div>
 									<div class="col-sm-2 px-0">
@@ -89,9 +89,9 @@
 					</div>
 
 					<div class="row m-0">
-						<div class="col-12 px-4 mx-4">
+						<div class="col-12 p-0">
 							<c:forEach items="${projects }" var="project">
-							<div class="project shadow-sm mt-5">
+							<div class="project shadow-sm mt-4">
 								<div class="card">
 									<div class="header">
 										<div class="row">
@@ -117,16 +117,16 @@
 										<hr />
 										<div class="block">
 											<div class="row">
-												<div class="col-2">
+												<div class="col-3">
 													<p>Deadline</p>
 													<p>3 days left</p>
 												</div>
 
-												<div class="col-2">
+												<div class="col-3">
 													<p>Offers</p>
 													<p>${project.count(project.id) }/30</p>
 												</div>
-												<div class="col-8">
+												<div class="col-6">
 													<span class="float-right col3"> 
 													<c:if test="${ isFreelancer eq true}">
 															<c:choose>

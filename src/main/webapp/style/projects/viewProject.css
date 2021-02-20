@@ -1,52 +1,30 @@
-@charset "ISO-8859-1";
-
-.projects-container {
-  padding: 28px 0;
-}
-
-
-.projects-container .search-container input {
-  padding: 7px 13px;
-  height: 37px;
-  font-size: 13px;
-}
-
-.projects-container .project {
-  width: 100%;
-}
-
-.projects-container .project .card {
-  	padding: 17px 20px;
-	height: 212px;
-}
-
-.projects-container .project .card p {
+.projects-container .project .project-info p {
   font-size: 14px;
 }
 
-.projects-container .project .card h3 {
+.projects-container .project .project-info h3 {
   font-size: 19px;
 }
 
-.projects-container .project .card .header .time {
+.projects-container .project .project-info .header .time {
   font-size: 12px;
   color: #969595;
 }
 
-.projects-container .project .card .header p {
+.projects-container .project .project-info .header p {
   font-size: 13px;
 }
 
-.projects-container .project .card .body {
+.projects-container .project .project-info .body {
   padding: 30px 0 0 0px;
 }
 
-.projects-container .project .card .footer .col3 {
+.projects-container .project .project-info .footer .col3 {
   height: 63px;
   padding: 14px 0;
 }
 
-.projects-container .project .card .footer .col3 img {
+.projects-container .project .project-info .footer .col3 img {
   width: 22px;
   margin: 0 11px;
 }
@@ -130,12 +108,8 @@ button.btn.btn-block {
 .description-card {
     padding: 17px 20px;
     width: 851px;
-  	border: 0.1px solid #8080805e;
+    border: 0.1px solid #8080805e;
     border-radius: 3px;
-}
-
-.questions {
-   	
 }
 
 .question-header {
@@ -191,5 +165,3 @@ button.btn.btn-block {
     width: 111px;
     margin: 0 0 10px 0;
 }
-
-/*# sourceMappingURL=projects.css.map */
