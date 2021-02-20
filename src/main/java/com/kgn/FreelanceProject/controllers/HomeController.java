@@ -58,7 +58,7 @@ public class HomeController {
 		} else {
 			session.setAttribute("user_id", newUser.getId());
 			session.setAttribute("user_type", "freelancer");
-			return "redirect:/freelance/projects";
+			return "redirect:/freelancer/login";
 		}
 	}
 
@@ -80,7 +80,8 @@ public class HomeController {
 		} else {
 			session.setAttribute("user_id", newUser.getId());
 			session.setAttribute("user_type", "client");
-			return "redirect:/freelance/projects";
+			return "redirect:/client/login";
+			
 		}
 	}
 
@@ -103,6 +104,7 @@ public class HomeController {
 		session.setAttribute("user_id", u.getId());
 		session.setAttribute("user_type", "freelancer");
 		return "redirect:/freelance/projects";
+		
 	}
 
 	@RequestMapping("/freelancer/login")
@@ -175,27 +177,26 @@ public class HomeController {
 
 	@GetMapping("/freelance/projects")
 	public String projects(Model model, HttpSession session) {
-		if(session.getAttribute("user_type") == "freelancer" && userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
-			return "redirect:/";			
-		}
-
-		if(session.getAttribute("user_type") == "client" && userSer.findClientById((Long) session.getAttribute("user_id")) == null) {
+		if (userSer.findClientById((Long) session.getAttribute("user_id")) == null && (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null)) {
 			return "redirect:/";
+		} 
+		// else if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
+		// 	return "redirect:/";
+		// }
+		else {
+			model.addAttribute("projects", freelanceSer.getAllProjects());
+			model.addAttribute("categories", freelanceSer.getAllCategories());
+			model.addAttribute("isFreelancer", false);
+			model.addAttribute("isClient", false);
+			if (session.getAttribute("user_type").equals("freelancer")) {
+				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isFreelancer", true);
+			} else if (session.getAttribute("user_type").equals("client")) {
+				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", true);
+			}
+			return "projects.jsp";
 		}
-		
-		model.addAttribute("projects", freelanceSer.getAllProjects());
-		model.addAttribute("categories", freelanceSer.getAllCategories());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-		if (session.getAttribute("user_type").equals("freelancer")) {
-			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
-		} else {
-			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isClient", true);
-		}
-		return "projects.jsp";
-		
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)

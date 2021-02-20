@@ -48,7 +48,7 @@
 						</span>
 					</c:if>
 					
-					<a href="/logout"><img src="/images/icons/logout (1).png" alt="logout" style="width: 21px; margin: 0 0 0 11px; " /></a>
+					<a href="/logout"><img src="/images/icons/logout (1).png" alt="logout" style="width: 21px; margin: 0 0 0 11px; " /> Logout</a>
 				</span>
 			</div>
 		</div>
@@ -132,7 +132,7 @@
 															<c:choose>
 
 																<c:when test="${project.isContain(user.id) }">
-																${project.freelancers_like.size()}
+																${project.freelancers_like.size() }
 																	<a href="/freelance/projects/${project.id }/unlike/projects">
 																	<img src="/images/icons/like.png" alt="like" /></a>
 																</c:when>
