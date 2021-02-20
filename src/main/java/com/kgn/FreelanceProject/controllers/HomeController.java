@@ -58,7 +58,7 @@ public class HomeController {
 		} else {
 			session.setAttribute("user_id", newUser.getId());
 			session.setAttribute("user_type", "freelancer");
-			return "redirect:/freelance/projects";
+			return "redirect:/freelancer/login";
 		}
 	}
 
@@ -80,7 +80,8 @@ public class HomeController {
 		} else {
 			session.setAttribute("user_id", newUser.getId());
 			session.setAttribute("user_type", "client");
-			return "redirect:/freelance/projects";
+			return "redirect:/client/login";
+			
 		}
 	}
 
@@ -103,6 +104,7 @@ public class HomeController {
 		session.setAttribute("user_id", u.getId());
 		session.setAttribute("user_type", "freelancer");
 		return "redirect:/freelance/projects";
+		
 	}
 
 	@RequestMapping("/freelancer/login")
@@ -175,11 +177,13 @@ public class HomeController {
 
 	@GetMapping("/freelance/projects")
 	public String allProjects(Model model, HttpSession session) {
-		if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
+		if (userSer.findClientById((Long) session.getAttribute("user_id")) == null && (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null)) {
 			return "redirect:/";
-		} else if (userSer.findClientById((Long) session.getAttribute("user_id")) == null) {
-			return "redirect:/";
-		} else {
+		} 
+		// else if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
+		// 	return "redirect:/";
+		// }
+		else {
 			model.addAttribute("projects", freelanceSer.getAllProjects());
 			model.addAttribute("categories", freelanceSer.getAllCategories());
 			model.addAttribute("isFreelancer", false);
@@ -187,7 +191,7 @@ public class HomeController {
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isFreelancer", true);
-			} else {
+			} else if (session.getAttribute("user_type").equals("client")) {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
 			}

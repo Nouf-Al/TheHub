@@ -76,6 +76,10 @@ public class Client {
 	@OneToMany(mappedBy = "reviewedClient", fetch = FetchType.LAZY)
 	private List<ReviewOnClient> reviewsOnClient;
 	
+	// @ManyToMany(fetch = FetchType.LAZY)
+	// @JoinTable(name = "clientLikes", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	// private List<Project> projects_likes;
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
 	private List<Freelancer> reviewedFreelancers;
@@ -246,4 +250,12 @@ public class Client {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
+
+	// public List<Project> getProjects_likes() {
+	// 	return projects_likes;
+	// }
+
+	// public void setProjects_likes(List<Project> projects_likes) {
+	// 	this.projects_likes = projects_likes;
+	// }
 }

@@ -36,9 +36,16 @@
 					<c:if test="${isClient eq true }">
 						<a href="/freelance/projects/new"><button class="post-project">+ Project</button></a>
 					</c:if>
-					<span class="user-info"> <a href="/client/profile/${user.id}">${user.firstname } ${user.lastname }</a>
-						<img src="/images/user_pic.svg" alt="user" />
-					</span>
+					<c:if test="${isClient eq true }">
+						<span class="user-info"> <a href="/client/profile/${user.id}">${user.firstname } ${user.lastname }</a>
+							<img src="/images/user_pic.svg" alt="user" />
+						</span>
+					</c:if> 
+					<c:if test="${isFreelancer eq true }">
+						<span class="user-info"> <a href="/freelancer/profile/${user.id}">${user.firstname } ${user.lastname }</a>
+							<img src="/images/user_pic.svg" alt="user" />
+						</span>
+					</c:if> 
 				</span>
 			</div>
 		</div>
