@@ -48,7 +48,7 @@
 						</span>
 					</c:if>
 					
-					<a href="/logout"><img src="/images/icons/logout (1).png" alt="logout" style="width: 21px; margin: 0 0 0 11px; " /> Logout</a>
+					<a href="/logout"><img src="/images/icons/logout (1).png" alt="logout" style="width: 21px; margin: 0 0 0 11px; " /></a>
 				</span>
 			</div>
 		</div>
