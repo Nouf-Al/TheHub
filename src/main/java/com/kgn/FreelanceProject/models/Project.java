@@ -64,7 +64,7 @@ public class Project {
 	private Category category;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = "client_id" )
 	private Client client;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -75,7 +75,9 @@ public class Project {
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
 	private List<Freelancer> freelancers_like;
 
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "client_likes", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
+	private List<Client> clients_like;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "offers", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
@@ -185,13 +187,13 @@ public class Project {
 	public void setFreelancers_like(List<Freelancer> freelancers_like) {
 		this.freelancers_like = freelancers_like;
 	}
-	// public List<Client> getClients_like() {
-	// 	return clients_like;
-	// }
+	public List<Client> getClients_like() {
+		return clients_like;
+	}
 
-	// public void setClients_like(List<Client> clients_like) {
-	// 	this.clients_like = clients_like;
-	// }
+	public void setClients_like(List<Client> clients_like) {
+		this.clients_like = clients_like;
+	}
 
 	public List<Freelancer> getFreelancers_offer() {
 		return freelancers_offer;
@@ -221,6 +223,14 @@ public class Project {
 
 	public Boolean isContain(Long id) {
 		for (Freelancer u : freelancers_like) {
+			if(u.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public Boolean isClientContain(Long id) {
+		for (Client u : clients_like) {
 			if(u.getId() == id) {
 				return true;
 			}

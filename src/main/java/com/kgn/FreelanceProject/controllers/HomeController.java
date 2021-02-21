@@ -456,6 +456,21 @@ public class HomeController {
 		freelanceSer.unlike(u, p);
 		return "redirect:/freelance/"+page;
 	}
+	@RequestMapping(value = "/freelance/projects/{id}/client/like")
+	public String clientlike(@PathVariable(value = "id") Long id, HttpSession session) {
+		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
+		Project p = freelanceSer.getOneProject(id);
+		freelanceSer.clientLike(u, p);
+		return "redirect:/freelance/projects";
+	}
+
+	@RequestMapping(value = "/freelance/projects/{id}/client/unlike/{page}")
+	public String clientunlike(@PathVariable(value = "id") Long id,@PathVariable(value = "page") String page, HttpSession session) {
+		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
+		Project p = freelanceSer.getOneProject(id);
+		freelanceSer.clientUnlike(u, p);
+		return "redirect:/freelance/"+page;
+	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/likeFromViewProject")
 	public String likeFromViewProject(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
@@ -547,6 +562,8 @@ public class HomeController {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
+		
+		model.addAttribute("reviews", freelanceSer.returnFreelancerReviews(freelancer.getId()) );
 		model.addAttribute("freelancer", freelancer);
 
 		return "profile_f.jsp";
