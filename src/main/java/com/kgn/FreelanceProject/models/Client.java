@@ -70,15 +70,9 @@ public class Client {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
-
-//	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-//	private List<Review> reviews;
 	@OneToMany(mappedBy = "reviewedClient", fetch = FetchType.LAZY)
 	private List<ReviewOnClient> reviewsOnClient;
-	
-	// @ManyToMany(fetch = FetchType.LAZY)
-	// @JoinTable(name = "clientLikes", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-	// private List<Project> projects_likes;
+
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))

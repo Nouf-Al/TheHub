@@ -157,9 +157,7 @@ public class HomeController {
 
 	@RequestMapping("/freelance/freelancers")
 	public String allFreelancers(Model model, HttpSession session) {
-		if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
-			return "redirect:/";
-		} else if (userSer.findClientById((Long) session.getAttribute("user_id")) == null) {
+		if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null && userSer.findClientById((Long) session.getAttribute("user_id")) == null) {
 			return "redirect:/";
 		} else {
 			model.addAttribute("freelancers", freelanceSer.getAllFreelancers());

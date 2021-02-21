@@ -75,9 +75,7 @@ public class Project {
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
 	private List<Freelancer> freelancers_like;
 
-	// @ManyToMany(fetch = FetchType.LAZY)
-	// @JoinTable(name = "clientLikes", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
-	// private List<Client> clients_like;
+	
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "offers", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))

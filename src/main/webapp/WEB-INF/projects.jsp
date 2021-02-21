@@ -130,7 +130,6 @@
 													<span class="float-right col3"> 
 													<c:if test="${ isFreelancer eq true}">
 															<c:choose>
-
 																<c:when test="${project.isContain(user.id) }">
 																${project.freelancers_like.size() }
 																	<a href="/freelance/projects/${project.id }/unlike/projects">
@@ -138,7 +137,7 @@
 																</c:when>
 																<c:otherwise>
 																${project.freelancers_like.size()}
-																	<a href="/freelance/projects/${project.id }/like">
+																	<a href="/freelance/projects/${project.id}/like">
 																	<img src="/images/icons/unlike.png" alt="unlike" /></a>
 																</c:otherwise>
 															</c:choose>
