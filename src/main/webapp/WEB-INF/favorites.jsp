@@ -86,35 +86,64 @@
 				<div class="right-col col-sm p-4 border shadow-sm rounded">
 					<h3>Projects</h3>
 					<hr>
-					<c:forEach items="${user.projects_likes}" var="project">
-						<div class="row m-0 p-0">
-							<div class="col-sm mx-2 mb-3 section rounded">
+					<c:choose>
+						<c:when test="${isFreelancer eq true}">
+							<c:forEach items="${user.projects_likes}" var="project">
 								<div class="row m-0 p-0">
-									<div class="col p-0 m-0">
+									<div class="col-sm mx-2 mb-3 section rounded">
 										<div class="row m-0 p-0">
 											<div class="col p-0 m-0">
-												<a href="/freelance/projects/${project.id}"><h4 class="float-left m-0 p-0">${project.title}</p></h4></a>
+												<div class="row m-0 p-0">
+													<div class="col p-0 m-0">
+														<a href="/freelance/projects/${project.id}"><h4 class="float-left m-0 p-0">${project.title}</p></h4></a>
+													</div>
+												</div>
+												<div class="row m-0 p-0">
+													<div class="col p-0 m-0">
+														<p class="float-left m-0 p-0">${project.category.title}</p>
+													</div>
+												</div>
 											</div>
-
-										</div>
-										<div class="row m-0 p-0">
 											<div class="col p-0 m-0">
-												<p class="float-left m-0 p-0">${project.category.title}</p>
+												<div class="float-right">
+													<a href="/freelance/projects/${project.id}/unlike/favorites">
+													<img src="/images/icons/delete.png" alt="like" /></a>
+												</div>
 											</div>
-											
-										</div>
-										
-									</div>
-									<div class="col p-0 m-0">
-										<div class="float-right">
-											<a href="/freelance/projects/${project.id}/unlike/favorites">
-											<img src="/images/icons/delete.png" alt="like" /></a>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</c:forEach>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${user.projects_likes}" var="project">
+								<div class="row m-0 p-0">
+									<div class="col-sm mx-2 mb-3 section rounded">
+										<div class="row m-0 p-0">
+											<div class="col p-0 m-0">
+												<div class="row m-0 p-0">
+													<div class="col p-0 m-0">
+														<a href="/freelance/projects/${project.id}"><h4 class="float-left m-0 p-0">${project.title}</p></h4></a>
+													</div>
+												</div>
+												<div class="row m-0 p-0">
+													<div class="col p-0 m-0">
+														<p class="float-left m-0 p-0">${project.category.title}</p>
+													</div>
+												</div>
+											</div>
+											<div class="col p-0 m-0">
+												<div class="float-right">
+													<a href="/freelance/projects/${project.id}/client/unlike/favorites">
+													<img src="/images/icons/delete.png" alt="like" /></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 	</div>

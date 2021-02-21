@@ -74,8 +74,9 @@ public class Client {
 	private List<ReviewOnClient> reviewsOnClient;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "clients_likes", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	@JoinTable(name = "client_likes", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> projects_likes;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
 	private List<Freelancer> reviewedFreelancers;
@@ -247,11 +248,11 @@ public class Client {
 		this.updatedAt = new Date();
 	}
 
-	// public List<Project> getProjects_likes() {
-	// 	return projects_likes;
-	// }
+	public List<Project> getProjects_likes() {
+		return projects_likes;
+	}
 
-	// public void setProjects_likes(List<Project> projects_likes) {
-	// 	this.projects_likes = projects_likes;
-	// }
+	public void setProjects_likes(List<Project> projects_likes) {
+		this.projects_likes = projects_likes;
+	}
 }
