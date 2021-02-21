@@ -16,58 +16,62 @@
 </head>
 <body>
 	<div class="nav-container ">
-		<div class="menu-row row">
-			<div class="col p-0 m-0">
-				<div class="left">
-					<h1 id="logo">
-						<a href="/">Freelance</a>
-					</h1>
-					<div class="links">
+		<div class="row p-0 menu-row">
+			<div class="col p-0 left-menu">
+				<h1 id="logo"><a href="/">Freelance</a></h1>
+				<div class="items mr-4">
+					<a href="/freelance/projects">Projects</a> 
+					<a href="/freelance/freelancers">Freelancers</a>
+				</div>
+				<div class="dropdown-left" style="float:left;">
+					<p class="dropbtn-left">Explore</p>
+					<div class="dropdown-content-left" style="left:0;">
 						<a href="/freelance/projects">Projects</a> 
 						<a href="/freelance/freelancers">Freelancers</a>
 					</div>
 				</div>
 			</div>
-			<div class="col p-0 m-0 ">
-				<span class="float-right"> 
+
+			<div class="col p-0 right-menu">
+				<div class="float-right">
 					<c:if test="${isClient eq true }">
 						<a href="/freelance/projects/new"><button class="post-project">+ Project</button></a>
-						
-					<div class="dropdown" style="float:right;">
-						<div class="dropbtn">
-							<span class="user-info"> 
-								${user.firstname } ${user.lastname }
-								<img src="/images/user_pic.svg" alt="user" />
-							</span>
+						<div class="dropdown-right" style="float:right;">
+							<div class="dropbtn-right">
+								<span class="user-info">
+									${user.firstname } ${user.lastname }
+									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+								</span>
+							</div>
+							<div class="dropdown-content-right shadow-sm">
+								<a href="/freelance/projects/new" id="post-project-menu">New Project</a>
+								<a href="/client/profile/${user.id}">Profile</a>
+								<a href="/freelance/myprojects">My Projects</a>
+								<a href="/freelance/favorites">Favorites</a>
+								<a href="/logout">Logout</a>
+							</div>
 						</div>
-						<div class="dropdown-content shadow-sm">
-							<a href="/client/profile/${user.id}">Profile</a>
-							<a href="/freelance/myprojects">My Projects</a>
-							<a href="/freelance/favorites">Favorites</a>
-							<a href="/logout">Logout</a>
+					</c:if>
+
+					<c:if test="${isClient eq false }">
+						<div class="dropdown-right" style="float:right;">
+							<div class="dropbtn-right">
+								<span class="user-info">
+									${user.firstname } ${user.lastname }
+									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+								</span>
+							</div>
+							<div class="dropdown-content-right shadow-sm">
+								<a href="/freelancer/profile/${user.id}">Profile</a>
+								<a href="/freelance/myprojects">My Projects</a>
+								<a href="/freelance/favorites">Favorites</a>
+								<a href="/logout">Logout</a>
+							</div>
 						</div>
-					</div>
-				</c:if>	
-				<c:if test="${isClient eq false }">						
-					<div class="dropdown" style="float:right;">
-						<div class="dropbtn">
-							<span class="user-info"> 
-								${user.firstname } ${user.lastname }
-								<img src="/images/user_pic.svg" alt="user" />
-							</span>
-						</div>
-						<div class="dropdown-content shadow-sm">
-							<a href="/freelancer/profile/${user.id}">Profile</a>
-							<a href="/freelance/myprojects">My Projects</a>
-							<a href="/freelance/favorites">Favorites</a>
-							<a href="/logout">Logout</a>
-						</div>
-					</div>
-				</c:if>			
-				</span>
+					</c:if>	
 				</div>
-				
 			</div>
+		</div>
 	</div>
 
 	<div class="dashboard-container">
