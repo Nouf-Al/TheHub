@@ -182,7 +182,7 @@
 						<hr>
 						<div class="row p-0 m-0">
 							<div class="col-12 p-2">
-								<form:form action="/freelance/projects/${client.id }/review/client" method="post" modelAttribute="newReview">
+								<form:form action="/freelance/projects/${freelancer.id }/review/freelancer" method="post" modelAttribute="newReview">
 									<c:choose>
 										<c:when test="${isClient eq false }">
 										<div class="row">
@@ -218,8 +218,8 @@
 												<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
 												<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
 											</select>
-											<input type="hidden" name="reviewedClient" value="${client.id }" />
-											<input type="hidden" name="freelancerReviewer" value="${user.id }" />
+											<input type="hidden" name="reviewedFreelancer" value="${freelancer.id }" />
+											<input type="hidden" name="clientReviewer" value="${user.id }" />
 											<input type="submit" value="Send Your Review" class="btn btn-dark btn-block mt-3" />
 										</c:otherwise>
 									</c:choose>
@@ -231,7 +231,7 @@
 						<hr>
 						<div class="row p-0 m-0">
 							<div class="col-12 p-2">
-								<c:forEach items="${client.reviewsOnFreelancers }" var="rev">
+								<c:forEach items="${reviews }" var="rev">
 									<div class="col-sm-12 p-2">
 										<div class="card">
 											<div class="card-body">

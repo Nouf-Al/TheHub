@@ -131,12 +131,12 @@
 													<c:if test="${ isFreelancer eq true}">
 															<c:choose>
 																<c:when test="${project.isContain(user.id) }">
-																${project.freelancers_like.size() }
+																${project.freelancers_like.size() + project.clients_like.size()}
 																	<a href="/freelance/projects/${project.id }/unlike/projects">
 																	<img src="/images/icons/like.png" alt="like" /></a>
 																</c:when>
 																<c:otherwise>
-																${project.freelancers_like.size()}
+																${project.freelancers_like.size() + project.clients_like.size()}
 																	<a href="/freelance/projects/${project.id}/like">
 																	<img src="/images/icons/unlike.png" alt="unlike" /></a>
 																</c:otherwise>
@@ -148,6 +148,21 @@
 																</c:when>
 																<c:otherwise>
 																	<a href="/freelance/projects/${project.id }/offer" class="btn btn-dark">Send Offer</a>
+																</c:otherwise>
+															</c:choose>
+															
+														</c:if>
+														<c:if test="${ isClient eq true}">
+															<c:choose>
+																<c:when test="${project.isClientContain(user.id) }">
+																${project.freelancers_like.size() + project.clients_like.size() }
+																	<a href="/freelance/projects/${project.id }/client/unlike/projects">
+																	<img src="/images/icons/like.png" alt="like" /></a>
+																</c:when>
+																<c:otherwise>
+																${project.freelancers_like.size() + project.clients_like.size()}
+																	<a href="/freelance/projects/${project.id}/client/like">
+																	<img src="/images/icons/unlike.png" alt="unlike" /></a>
 																</c:otherwise>
 															</c:choose>
 															

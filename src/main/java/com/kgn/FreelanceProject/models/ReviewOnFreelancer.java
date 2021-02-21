@@ -1,6 +1,8 @@
 package com.kgn.FreelanceProject.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.Marshaller.Listener;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 @Entity
 @Table(name = "reviewsOnFreelancers")
@@ -100,6 +102,8 @@ public class ReviewOnFreelancer {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	
 	
 }
 

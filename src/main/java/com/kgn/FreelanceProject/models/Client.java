@@ -73,7 +73,9 @@ public class Client {
 	@OneToMany(mappedBy = "reviewedClient", fetch = FetchType.LAZY)
 	private List<ReviewOnClient> reviewsOnClient;
 
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "clients_likes", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	private List<Project> projects_likes;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
 	private List<Freelancer> reviewedFreelancers;

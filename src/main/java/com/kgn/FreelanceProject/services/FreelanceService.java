@@ -106,6 +106,15 @@ public class FreelanceService {
 		p.getFreelancers_like().remove(u);
 		projectRepo.save(p);
 	}
+	public void clientLike(Client u, Project p) {
+		p.getClients_like().add(u);
+		projectRepo.save(p);
+	}
+
+	public void clientUnlike(Client u, Project p) {
+		p.getClients_like().remove(u);
+		projectRepo.save(p);
+	}
 
 	public void offer(Freelancer u, Project p) {
 		p.getFreelancers_offer().add(u);
@@ -234,8 +243,10 @@ public class FreelanceService {
 	public ReviewOnFreelancer reviewFreelancer(ReviewOnFreelancer newO) {
 		newO.setId(null);
 		ReviewOnFreelancer review = reviewOnFreelancerRepo.save(newO);
-		Freelancer freelancer = review.getReviewedFreelancer();
-		freelancer.getReviewsOnFreelancer().add(review);
+		// Freelancer freelancer = review.getReviewedFreelancer();
+		// freelancer.getReviewsOnFreelancer().add(review);
+		////
+		// freelancerRepo.save(freelancer);
 		return review;
 	}
 
@@ -279,5 +290,14 @@ public class FreelanceService {
 		String hashed = BCrypt.hashpw(editClient.getPassword(), BCrypt.gensalt());
 		editClient.setPassword(hashed);
 		return clientRepo.save(editClient);
+	}
+
+	public List<ReviewOnFreelancer> returnFreelancerReviews(Long id) {
+		ArrayList<ReviewOnFreelancer> theProperReviews = new  ArrayList<ReviewOnFreelancer>();
+		for (ReviewOnFreelancer rev  :   reviewOnFreelancerRepo.findAll()) {
+				if(rev.getReviewedFreelancer().getId() ==  id){
+					theProperReviews.add(rev);}
+			}
+		return (List<ReviewOnFreelancer>) theProperReviews;
 	}
 }
