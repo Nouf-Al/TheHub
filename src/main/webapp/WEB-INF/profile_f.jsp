@@ -259,7 +259,7 @@
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title">
-													<a href="/freelancer/profile/${rev.freelancerReviewer.id}">${rev.freelancerReviewer.firstname} ${rev.freelancerReviewer.lastname}</a>
+													<a href="/freelancer/profile/${rev.clientReviewer.id}">${rev.clientReviewer.firstname} ${rev.clientReviewer.lastname}</a>
 													<span class="h6 float-right"><fmt:formatDate value="${rev.createdAt }" type="date" pattern="MMMM dd, yyyy" /></span>
 												</h5>
 												<c:choose>
