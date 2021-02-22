@@ -254,7 +254,7 @@
 						<hr>
 						<div class="row p-0 m-0">
 							<div class="col-12 p-2">
-								<c:forEach items="${reviews }" var="rev">
+								<c:forEach items="${freelancer.reviewsOnFreelancer }" var="rev">
 									<div class="col-sm-12 p-2">
 										<div class="card">
 											<div class="card-body">

@@ -563,7 +563,7 @@ public class HomeController {
 			model.addAttribute("isClient", true);
 		}
 		
-		model.addAttribute("reviews", freelanceSer.returnFreelancerReviews(freelancer.getId()) );
+		// model.addAttribute("reviews", freelanceSer.returnFreelancerReviews(freelancer.getId()) );
 		model.addAttribute("freelancer", freelancer);
 
 		return "profile_f.jsp";
