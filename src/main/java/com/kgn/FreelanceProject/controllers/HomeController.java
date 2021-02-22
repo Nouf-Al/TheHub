@@ -30,6 +30,7 @@ import com.kgn.FreelanceProject.models.ReviewOnFreelancer;
 import com.kgn.FreelanceProject.services.FreelanceService;
 import com.kgn.FreelanceProject.services.UserService;
 
+
 @Controller
 public class HomeController {
 	private final UserService userSer;
