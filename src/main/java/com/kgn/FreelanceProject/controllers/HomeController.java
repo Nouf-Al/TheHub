@@ -659,8 +659,6 @@ public class HomeController {
 
 	}
 
-	
-
 	@PostMapping("/freelance/projects/{idx}/review/freelancer")
 	public String reviewf(@Valid @ModelAttribute("newReview") ReviewOnFreelancer newReview, BindingResult result,
 			@PathVariable Long idx, HttpSession session, Model model) {
