@@ -253,6 +253,18 @@ public class FreelanceService {
 		client.getReviewsOnClient().add(review);
 		return review;
 	}
+	public double findAvgRating(Long id) {
+		ArrayList<ReviewOnFreelancer> reviews = (ArrayList<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
+		ArrayList<ReviewOnFreelancer> reviewById = new ArrayList<ReviewOnFreelancer>();
+		double total=0;
+		for(ReviewOnFreelancer r : reviews){
+			if(r.getReviewedFreelancer().getId() == id){
+				reviewById.add(r);
+				total+=r.getRating();
+			}
+		}
+		return total / reviewById.size();
+	}
 
 	public ArrayList<ReviewOnFreelancer> getAllReviewsOnFreelancers() {
 		return (ArrayList<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
