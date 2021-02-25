@@ -265,4 +265,9 @@ public class Project {
 		this.comments = comments;
 	}
 	
+	public long calculateDaysLeft(Date offerEndDate) {
+		Date today = new Date();
+		long difference = (today.getTime()-offerEndDate.getTime())/86400000; //86400000 is the number of milliseconds
+		return Math.abs(difference);
+	}
 }

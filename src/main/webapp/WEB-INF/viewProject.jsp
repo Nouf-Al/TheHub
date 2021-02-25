@@ -126,15 +126,16 @@
 								<div class="row p-0 m-0 mt-5 py-2">
 									<div class="col-sm-4 text-center">
 										<h3>${project.price } SR</h3>
-										<p id="p">Estimated Budget</p>
+										<p id="p">Estimated Budget (SR)</p>
 									</div>
 									<div class="col-sm-4 border border-dark text-center border-top-0 border-bottom-0">
 										<h3>${project.duration }</h3>
-										<p id="p">Duration</p>
+										<p id="p">Duration (Day)</p>
 									</div>
 									<div class="col-sm-4 text-center">
-										<h3><fmt:formatDate value="${project.offerEnd }" type="date" pattern="MMMM dd, yyyy" /></h3>
-										<p id="p">Offer End Date</p>
+										<!-- <h3><fmt:formatDate value="${project.offerEnd }" type="date" pattern="MMMM dd, yyyy" /></h3> -->
+										<h3>${project.calculateDaysLeft(project.offerEnd)}</h3>
+										<p id="p">Submission End (Day)</p>
 									</div>
 								</div>
 							</div>

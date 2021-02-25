@@ -142,7 +142,7 @@
 											<div class="row">
 												<div class="col-3">
 													<p>Deadline</p>
-													<p>3 days left</p>
+													<p>${project.calculateDaysLeft(project.offerEnd)} days left</p>
 												</div>
 
 												<div class="col-3">
@@ -154,7 +154,7 @@
 													<c:if test="${ isFreelancer eq true}">
 															<c:choose>
 																<c:when test="${project.isContain(user.id) }">
-																${project.freelancers_like.size() + project.clients_like.size()}
+																	${project.freelancers_like.size() + project.clients_like.size()}
 																	<a href="/freelance/projects/${project.id }/unlike/projects">
 																	<img src="/images/icons/like.png" alt="like" /></a>
 																</c:when>

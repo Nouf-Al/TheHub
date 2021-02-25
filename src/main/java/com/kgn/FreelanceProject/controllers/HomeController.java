@@ -195,6 +195,8 @@ public class HomeController {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
 			}
+			Date today = new Date();
+			System.out.println(today);
 			return "projects.jsp";
 		}
 	}
