@@ -1,5 +1,6 @@
 package com.kgn.FreelanceProject.controllers;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -563,10 +564,8 @@ public class HomeController {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
-		
-		// model.addAttribute("reviews", freelanceSer.returnFreelancerReviews(freelancer.getId()) );
 		model.addAttribute("freelancer", freelancer);
-
+		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findAvgRating(id)));
 		return "profile_f.jsp";
 	}
 

@@ -1,6 +1,4 @@
 @charset "ISO-8859-1";
-.row{
-}
 
 .user-profile-pic {
     /* width: 30%; */
@@ -10,11 +8,11 @@
 
 img.location {
     width: 4%;
-    height: 91%;
+    height: 72%;
 }
 
 .left-section{
-  	margin-right: 20px;
+    margin-right: 20px;
   }
 
 .right-section img{
@@ -37,44 +35,19 @@ img.location {
   }
   
   .left-section{
-  	margin-right: 0;
+    margin-right: 0;
   }
+  .center{
+    text-align: center;
+  }
+
+  img.location {
+    width: 5%;
+    height: 72%;
 }
-/*.c-info img{
-	width:100px;
-	height:100px;
+
 }
-.location{
-		width:20px;
-	height:20px;
-	margin-left:10px;
+
+.rating{
+  width: 16px;
 }
-.bio{
-	height:45px
-}
-.edit {
-  background: #1A488E;
-  color: white;
-  font-weight: bold;
-  padding: 1rem 1.5rem;
-  border-radius: 2rem;
-  outline: none;
-  border: none;
-  margin: 0 18px 0 0px;
-  font-size: 11px;
-}
-.checked {
-  color: orange;
-}
-.flag{
-	width:20px;
-	height:20px;
-	
-}
-.money{
-	width:20px;
-	height:20px;
-}
-.c-work{
-	    max-width: 83.333333%
-}*/

@@ -81,46 +81,177 @@
 	
 	
 	<div class="dashboard-container">
-		<div class="row my-4 mx-0 p-5 rounded shadow-sm border">
+		<!-- <div class="row my-4 mx-0 p-5 rounded shadow-sm border">
 			<div class="col-sm-3 p-0 d-flex justify-content-center">
 				<img class="user-profile-pic m-3" src="/images/icons/user.png" alt="profile" />
 			</div>
 			<div class="col-sm-2 p-0">
-			 	<div class="row mx-0">
-			 		<div class="col-sm p-0">
-			 			<div class="h3 text-center">${freelancer.firstname } ${freelancer.lastname }</div>
-			 		</div>
-			 	</div>
-			 	<div class="row mx-0">
-			 		<div class="col-sm p-0 py-2 h-50 text-center ">
-				 		<div class="h2 m-0">*****</div>
-				 		<div class="h5 m-0">Rating</div>
-			 		</div>
-			 	</div>
+				<div class="row mx-0 p-4">
+					<div class="col-sm p-0">
+						<div class="h3 text-center">${freelancer.firstname } ${freelancer.lastname }</div>
+					</div>
+				</div>
+				<div class="row mx-0 p-4">
+					<div class="col-sm p-0 text-center ">
+						<div class="m-0 mb-3">
+							<c:choose>
+								<c:when test="${rating == 1 }">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 2 }">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 3 }">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 4 }">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star (1).png">
+								</c:when>
+								<c:otherwise>
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="h5 m-0">Rating</div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="col-sm p-0">
-			 	<div class="row mx-0">
-			 		<div class="col-sm p-0 d-flex user-loc">
-				 		<img class="location" alt="location" src="/images/icons/location.png">
+				<div class="row mx-0 p-4">
+					<div class="col-sm p-0 d-flex user-loc">
+						<img class="location" alt="location" src="/images/icons/location.png">
 						<div class="h4">${freelancer.city}</div>
-			 		</div>
-			 	</div>
-			 	
-			 	<div class="row mx-0">
-			 		<div class="col-4 p-0 text-center ">
-			 			<div class="h2">4</div>
-			 			<div class="h5">Completed</div>
-			 		</div>
-			 		<div class="col-4 p-0 text-center ">
-			 			<div class="h2">2</div>
-			 			<div class="h5">Open</div>
-			 		</div>
-			 		<div class="col-4 p-0 text-center ">
-			 			<div class="h2">8</div>
-			 			<div class="h5">In Progress</div>
-			 		</div>
-			 	</div>
+					</div>
+				</div>
+				
+				<div class="row mx-0 p-4">
+					<div class="col-4 p-0 text-center ">
+						<div class="h2">4</div>
+						<div class="h5">Completed</div>
+					</div>
+					<div class="col-4 p-0 text-center ">
+						<div class="h2">2</div>
+						<div class="h5">Open</div>
+					</div>
+					<div class="col-4 p-0 text-center ">
+						<div class="h2">8</div>
+						<div class="h5">In Progress</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-1 p-0 text-center">
+				<div class="row mx-0">
+					<div class="col-sm p-0 py-2 h-50 text-center ">
+						<c:if test="${isClient eq false && freelancer.id eq user.id }">
+							<a href="/client/profile/${client.id}/edit" class="btn btn-success px-4">Edit</a>
+						</c:if>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<div class="row my-4 mx-0 p-5 rounded shadow-sm border">
+			<div class="col-sm-3 p-0 d-flex justify-content-center">
+				<img class="user-profile-pic m-3" src="/images/icons/user.png" alt="profile" />
+			</div>
+			<div class="col-sm p-0">
+				<div class="row m-0 p-0">
+					<div class="col-sm-3 pb-3">
+						<div class="h3 center">${freelancer.firstname } ${freelancer.lastname }</div>
+					</div>
+					<div class="col-sm pb-3 d-flex user-loc">
+						<img class="location" alt="location" src="/images/icons/location.png">
+						<div class="h4">${freelancer.city}</div>
+					</div>
+				</div>
+				
+				<div class="row m-0 p-0">
+					<div class="col-sm py-3">
+						<div class="h5 my-3 center">${freelancer.bio}</div>
+					</div>
+				</div>
+				
+				
+				<div class="row m-0 p-0">
+					<div class="col-sm-4 py-3 text-center">
+						<div class="m-0 mb-3">
+							<c:choose>
+								<c:when test="${rating == 1 }">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 2 }">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 3 }">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 4 }">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star (1).png">
+								</c:when>
+								<c:otherwise>
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="location" alt="location" src="/images/icons/star.png">
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="h5 m-0 text-center">Rating</div>
+					</div>
+					<div class="col-sm d-flex py-3">
+						<div class="col-4 p-0 text-center ">
+							<div class="h2">4</div>
+							<div class="h5">Completed</div>
+						</div>
+						<div class="col-4 p-0 text-center ">
+							<div class="h2">2</div>
+							<div class="h5">Open</div>
+						</div>
+						<div class="col-4 p-0 text-center ">
+							<div class="h2">8</div>
+							<div class="h5">In Progress</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="col-sm-1 p-0 text-center">
