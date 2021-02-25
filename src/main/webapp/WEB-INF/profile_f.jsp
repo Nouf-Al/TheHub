@@ -127,7 +127,7 @@
 				<div class="row mx-0">
 					<div class="col-sm p-0 py-2 h-50 text-center ">
 						<c:if test="${isClient eq false && freelancer.id eq user.id }">
-							<a href="/client/profile/${client.id}/edit" class="btn btn-success px-4">Edit</a>
+							<a href="/freelancer/profile/${freelancer.id}/edit" class="btn btn-success px-4">Edit</a>
 						</c:if>
 					</div>
 				</div>

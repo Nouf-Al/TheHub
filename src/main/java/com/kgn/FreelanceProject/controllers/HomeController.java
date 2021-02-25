@@ -570,11 +570,9 @@ public class HomeController {
 		return "profile_f.jsp";
 	}
 
-	@RequestMapping("/freelancer/profile/{id}/edit")
-	public String fEditPage(@PathVariable Long id, HttpSession session, Model model) {
-		Freelancer freelancer = userSer.findFreelancerById(id);
-		model.addAttribute("freelancer", freelancer);
-		model.addAttribute("editFreelancer", new Freelancer());
+	@RequestMapping("/freelancer/profile/{idx}/edit")
+	public String fEditPage(@PathVariable Long idx, HttpSession session, Model model) {
+		Freelancer freelancer = userSer.findFreelancerById(idx);
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
 		model.addAttribute("user_id", session.getAttribute("user_id"));
@@ -586,6 +584,8 @@ public class HomeController {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
+		model.addAttribute("freelancer", freelancer);
+		model.addAttribute("editFreelancer", new Freelancer());
 		return "edit_f.jsp";
 	}
 
@@ -658,6 +658,8 @@ public class HomeController {
 		return "redirect:/client/profile/" + id;
 
 	}
+
+	
 
 	@PostMapping("/freelance/projects/{idx}/review/freelancer")
 	public String reviewf(@Valid @ModelAttribute("newReview") ReviewOnFreelancer newReview, BindingResult result,

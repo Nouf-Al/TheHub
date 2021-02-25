@@ -243,10 +243,6 @@ public class FreelanceService {
 	public ReviewOnFreelancer reviewFreelancer(ReviewOnFreelancer newO) {
 		newO.setId(null);
 		ReviewOnFreelancer review = reviewOnFreelancerRepo.save(newO);
-		// Freelancer freelancer = review.getReviewedFreelancer();
-		// freelancer.getReviewsOnFreelancer().add(review);
-		////
-		// freelancerRepo.save(freelancer);
 		return review;
 	}
 

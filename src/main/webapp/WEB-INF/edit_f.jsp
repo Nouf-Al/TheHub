@@ -86,7 +86,7 @@
 				<c:out value="${freelancer.lastname }"></c:out>
 			</h4>
 			<form:form
-				action="http://localhost:8080/freelancer/profile/${freelancer.id}/update"
+				action="/freelancer/profile/${freelancer.id}/update"
 				method="post" modelAttribute="editFreelancer">
 				<input type="hidden" name="_method" value="put">
 				<div class="row my-4">
