@@ -289,6 +289,12 @@
 							<p class="h5">City</p>
 							<p class="h5">:  ${freelancer.city }</p>
 						</div>
+						<div class="personal-info d-flex mb-2">
+							<p class="h5">Skills</p>
+							<p class="h5">: <c:forEach items="${freelancer.skills }" var="skill">
+								<span class="badge badge-secondary">${skill.title}</span>
+							</c:forEach> </p>
+						</div>
 					</div>
 				</div>
 			</c:if>

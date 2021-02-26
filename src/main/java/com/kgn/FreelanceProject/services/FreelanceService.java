@@ -51,8 +51,8 @@ public class FreelanceService {
 	private ClientRepository clientRepo;
 	@Autowired
 	private AnswerRepository answerRepo;
-	
-//	project model
+
+	// project model
 	public Project createProject(Project p) {
 		return projectRepo.save(p);
 	}
@@ -89,8 +89,8 @@ public class FreelanceService {
 	public List<Project> filterMyProjectsByCategory(Long clientId, Long categoryId) {
 		List<Project> projects = projectRepo.findByClientId(clientId);
 		List<Project> projectsFilterd = new ArrayList<Project>();
-		for (Project project : projects){
-			if(project.getCategory().getId() == categoryId){
+		for (Project project : projects) {
+			if (project.getCategory().getId() == categoryId) {
 				projectsFilterd.add(project);
 			}
 		}
@@ -106,6 +106,7 @@ public class FreelanceService {
 		p.getFreelancers_like().remove(u);
 		projectRepo.save(p);
 	}
+
 	public void clientLike(Client u, Project p) {
 		p.getClients_like().add(u);
 		projectRepo.save(p);
@@ -136,7 +137,7 @@ public class FreelanceService {
 		projectRepo.save(p);
 	}
 
-//	freelancer model
+	// freelancer model
 	public Freelancer updateFreelancer(Freelancer user) {
 		return freelancerRepo.save(user);
 	}
@@ -155,10 +156,11 @@ public class FreelanceService {
 		newFreelancer.setSkills(skills);
 		String hashed = BCrypt.hashpw(newFreelancer.getPassword(), BCrypt.gensalt());
 		newFreelancer.setPassword(hashed);
-		return freelancerRepo.save(newFreelancer);
+		return updateFreelancer(newFreelancer);
+		// return freelancerRepo.save(newFreelancer);
 	}
 
-//	question model
+	// question model
 	public Question createQuestion(Question q) {
 		q.setId(null);
 		return questionRepo.save(q);
@@ -172,7 +174,7 @@ public class FreelanceService {
 		questionRepo.deleteById(id);
 	}
 
-//	answer model
+	// answer model
 	public Answer createAnswer(Answer a) {
 		a.setId(null);
 		return answerRepo.save(a);
@@ -186,7 +188,7 @@ public class FreelanceService {
 		answerRepo.deleteById(id);
 	}
 
-//	comment model
+	// comment model
 	public Comment leaveAComment(Comment newO) {
 		newO.setId(null);
 		return commentRepo.save(newO);
@@ -210,7 +212,7 @@ public class FreelanceService {
 		return properComments;
 	}
 
-// category model
+	// category model
 	public Category createCategory(Category newO) {
 		newO.setId(null);
 		return categoryRepo.save(newO);
@@ -225,7 +227,7 @@ public class FreelanceService {
 		return getter.get();
 	}
 
-//	skill model
+	// skill model
 	public void addSkill(Freelancer freelancer, Long id) {
 		Optional<Skill> theSkill = skillRepo.findById(id);
 		Skill updatedS = theSkill.get();
@@ -239,7 +241,7 @@ public class FreelanceService {
 		return updatedF.returnTheNoExistingSkill(allSkills);
 	}
 
-//	review model
+	// review model
 	public ReviewOnFreelancer reviewFreelancer(ReviewOnFreelancer newO) {
 		newO.setId(null);
 		ReviewOnFreelancer review = reviewOnFreelancerRepo.save(newO);
@@ -253,17 +255,26 @@ public class FreelanceService {
 		client.getReviewsOnClient().add(review);
 		return review;
 	}
+
 	public double findAvgRating(Long id) {
+		// List<ReviewOnFreelancer> reviews =  (List<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
 		ArrayList<ReviewOnFreelancer> reviews = (ArrayList<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
-		ArrayList<ReviewOnFreelancer> reviewById = new ArrayList<ReviewOnFreelancer>();
-		double total=0;
-		for(ReviewOnFreelancer r : reviews){
-			if(r.getReviewedFreelancer().getId() == id){
-				reviewById.add(r);
-				total+=r.getRating();
+		// ArrayList<ReviewOnFreelancer> reviewById = new ArrayList<ReviewOnFreelancer>();
+		// List<ReviewOnFreelancer> reviewById = new List<ReviewOnFreelancer>();
+		double total = 0;
+		double count=0;
+		for (ReviewOnFreelancer r : reviews) {
+			if (r.getReviewedFreelancer().getId() == id) {
+				count++;
+				// reviewById.add(r);
+				total += r.getRating();
 			}
 		}
-		return total / reviewById.size();
+		// double avg = total / reviewById.size();
+		// if (avg == null) {
+		// 	return 0;
+		// }
+		return total / count;
 	}
 
 	public ArrayList<ReviewOnFreelancer> getAllReviewsOnFreelancers() {
@@ -301,11 +312,12 @@ public class FreelanceService {
 	}
 
 	public List<ReviewOnFreelancer> returnFreelancerReviews(Long id) {
-		ArrayList<ReviewOnFreelancer> theProperReviews = new  ArrayList<ReviewOnFreelancer>();
-		for (ReviewOnFreelancer rev  :   reviewOnFreelancerRepo.findAll()) {
-				if(rev.getReviewedFreelancer().getId() ==  id){
-					theProperReviews.add(rev);}
+		ArrayList<ReviewOnFreelancer> theProperReviews = new ArrayList<ReviewOnFreelancer>();
+		for (ReviewOnFreelancer rev : reviewOnFreelancerRepo.findAll()) {
+			if (rev.getReviewedFreelancer().getId() == id) {
+				theProperReviews.add(rev);
 			}
+		}
 		return (List<ReviewOnFreelancer>) theProperReviews;
 	}
 }

@@ -55,7 +55,7 @@ public class Freelancer {
 	@NotEmpty(message = "Country is required.")
 	private String country;
 
-//	@NotEmpty(message = "Password is required!")
+	@NotEmpty(message = "Password is required!")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
 
@@ -91,11 +91,6 @@ public class Freelancer {
 
 	@OneToMany(mappedBy = "reviewedFreelancer", fetch = FetchType.LAZY)
 	private List<ReviewOnFreelancer> reviewsOnFreelancer;
-
-//	@OneToMany(mappedBy = "freelancerReviewer", fetch = FetchType.LAZY)
-//	private List<ReviewOnClient> reviewsOfFreelancer;
-//	@ManyToMany(mappedBy = "freelancerReviewer", fetch = FetchType.LAZY)
-//	private List<Client> clientReviewers;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
 	private List<Client> clientReviewers;

@@ -562,7 +562,9 @@ public class HomeController {
 			model.addAttribute("isClient", true);
 		}
 		model.addAttribute("freelancer", freelancer);
+		// model.addAttribute("rating",2);
 		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findAvgRating(id)));
+		// System.out.println(freelanceSer.findAvgRating(id));
 		return "profile_f.jsp";
 	}
 
