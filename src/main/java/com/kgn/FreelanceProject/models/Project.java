@@ -272,7 +272,7 @@ public class Project {
 		Date today = new Date();
 		Timestamp timestamp = new Timestamp(today.getTime());
 		long difference = (this.getOfferEnd().getTime()-timestamp.getTime())/86400000; //86400000 is the number of milliseconds
-		System.out.println(timestamp);
+		// System.out.println(timestamp);
 		if(difference<0){
 			return 0;
 		}
