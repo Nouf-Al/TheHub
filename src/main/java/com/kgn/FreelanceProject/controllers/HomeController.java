@@ -180,9 +180,6 @@ public class HomeController {
 		if (userSer.findClientById((Long) session.getAttribute("user_id")) == null && (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null)) {
 			return "redirect:/";
 		} 
-		// else if (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null) {
-		// 	return "redirect:/";
-		// }
 		else {
 			model.addAttribute("projects", freelanceSer.getAllProjects());
 			model.addAttribute("categories", freelanceSer.getAllCategories());
@@ -195,8 +192,6 @@ public class HomeController {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
 			}
-			Date today = new Date();
-			System.out.println(today);
 			return "projects.jsp";
 		}
 	}
@@ -609,11 +604,9 @@ public class HomeController {
 	@RequestMapping("/client/profile/{id}")
 	public String cprofile(@PathVariable Long id, HttpSession session, Model model) {
 		Client client = userSer.findClientById(id);
-
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
 		model.addAttribute("user_id", session.getAttribute("user_id"));
-
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isFreelancer", true);

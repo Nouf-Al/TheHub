@@ -142,7 +142,7 @@
 											<div class="row">
 												<div class="col-3">
 													<p>Deadline</p>
-													<p>${project.calculateDaysLeft(project.offerEnd)} days left</p>
+													<p>${project.calculateDaysLeft()} days left</p>
 												</div>
 
 												<div class="col-3">

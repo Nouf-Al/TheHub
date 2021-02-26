@@ -133,9 +133,9 @@
 										<p id="p">Duration (Day)</p>
 									</div>
 									<div class="col-sm-4 text-center">
-										<!-- <h3><fmt:formatDate value="${project.offerEnd }" type="date" pattern="MMMM dd, yyyy" /></h3> -->
-										<h3>${project.calculateDaysLeft(project.offerEnd)}</h3>
-										<p id="p">Submission End (Day)</p>
+										<h3><fmt:formatDate value="${project.offerEnd }" type="date" pattern="MMMM dd, yyyy" /></h3>
+										<!-- <h3>${project.calculateDaysLeft()}</h3> -->
+										<p id="p">Offer End Date</p>
 									</div>
 								</div>
 							</div>

@@ -1,4 +1,6 @@
 package com.kgn.FreelanceProject.models;
+
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -89,6 +91,7 @@ public class Project {
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
 	private List<Comment> comments;
+	
 	public Project() {
 	}
 
@@ -265,9 +268,24 @@ public class Project {
 		this.comments = comments;
 	}
 	
-	public long calculateDaysLeft(Date offerEndDate) {
+	public long calculateDaysLeft() {
 		Date today = new Date();
-		long difference = (today.getTime()-offerEndDate.getTime())/86400000; //86400000 is the number of milliseconds
-		return Math.abs(difference);
+		Timestamp timestamp = new Timestamp(today.getTime());
+		long difference = (this.getOfferEnd().getTime()-timestamp.getTime())/86400000; //86400000 is the number of milliseconds
+		System.out.println(timestamp);
+		if(difference<0){
+			return 0;
+		}
+		return difference;
+		// return Math.abs(difference);
 	}
+
+	// public int calculatePostedBefore() {
+	// 	Date today = new Date();
+	// 	Timestamp timestamp = new Timestamp(today.getTime());
+	// 	int difference = (timestamp.getHours()-this.getCreatedAt().getHours()) % 24 ; //86400000 is the number of milliseconds
+	// 	System.out.println(this.getCreatedAt().getHours());
+	// 	return difference;
+	// 	// return Math.abs(difference);
+	// }
 }
