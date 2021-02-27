@@ -259,7 +259,8 @@ public class FreelanceService {
 			}
 		}
 		if( count != 0){
-			return total / count;
+			// return total / count;
+			return 0;
 		} else{
 			return 0;
 		}
