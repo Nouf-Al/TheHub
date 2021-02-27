@@ -362,7 +362,7 @@
 									<c:forEach items="${project.freelancersOffers}" var="freelancer">
 										<div class="row p-0 m-0">
 											<div class="col p-0">
-												<a href="http://localhost:8080/freelancer/profile/${freelancer.id}"><p>${freelancer.firstname } ${freelancer.lastname }</p></a>
+												<a href="/freelancer/profile/${freelancer.id}"><p>${freelancer.firstname } ${freelancer.lastname }</p></a>
 											</div>
 											<div class="col p-0 text-right">
 												<c:choose>

@@ -80,7 +80,7 @@
 	<div class="continer m-5 p-5">
 	<div class="col-sm-8 offset-2 ">
 	<h4 class="">Edit  <c:out value="${client.firstname }"></c:out> <c:out value="${client.lastname }"></c:out> </h4>
-	<form:form action="http://localhost:8080/client/profile/${client.id}/update" method="post" modelAttribute="editClient">
+	<form:form action="/client/profile/${client.id}/update" method="post" modelAttribute="editClient">
 	<input type="hidden" name="_method" value="put">
 				<div class="row my-4">
 					<div class="col-sm-6">
