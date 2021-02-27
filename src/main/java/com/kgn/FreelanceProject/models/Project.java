@@ -3,7 +3,6 @@ package com.kgn.FreelanceProject.models;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +21,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -55,6 +54,7 @@ public class Project {
 	@Min(value = 1, message = "Price must be more than 0.")
 	private double price;
 	
+	@Value("${status.name:Open}")
 	private String status;
 
 	@Column(updatable = false)
@@ -85,11 +85,7 @@ public class Project {
 	private List<Client> clients_like;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		name = "offers", 
-		joinColumns = @JoinColumn(name = "freelancer_id"), 
-		inverseJoinColumns = @JoinColumn(name = "project_id")
-	)
+	@JoinTable(name = "offers", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Freelancer> freelancersOffers;
 
 	@OneToMany(mappedBy="project", fetch= FetchType.LAZY)
@@ -263,16 +259,6 @@ public class Project {
 		}
 		return false;
 	}
-	
-	// public int count(Long p_id) {
-	// 	int count = 0 ;
-	// 	for (Freelancer u : freelancers_offer) {
-	// 		if(getId() == p_id) {
-	// 			count++;
-	// 		}
-	// 	}
-	// 	return count;
-	// }
 
 	public List<Comment> getComments() {
 		return comments;
@@ -302,4 +288,5 @@ public class Project {
 	// 	return difference;
 	// 	// return Math.abs(difference);
 	// }
+
 }

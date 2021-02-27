@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form action="/api/freelance/category/create" method="post"
+	<form:form action="/freelance/category/create" method="post"
 		modelAttribute="newCategory">
 		<div class="form-group">
 			<label>title:</label>

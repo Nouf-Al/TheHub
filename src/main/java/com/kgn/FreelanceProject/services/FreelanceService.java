@@ -65,6 +65,7 @@ public class FreelanceService {
 		Optional<Project> getter = projectRepo.findById(id);
 		return getter.get();
 	}
+
 	public Freelancer getOneFreelancer(Long id) {
 		Optional<Freelancer> getter = freelancerRepo.findById(id);
 		return getter.get();
@@ -138,6 +139,7 @@ public class FreelanceService {
 
 	public void accept(Freelancer u, Project p) {
 		p.setFreelancer(u);
+		p.setStatus("In progress");
 		projectRepo.save(p);
 	}
 
@@ -145,6 +147,11 @@ public class FreelanceService {
 		p.setFreelancer(null);
 		projectRepo.save(p);
 	}
+
+	// public int isStatus(String status) {
+	// 	List<Project> inProgressProjects = projectRepo.findByStatus(status);
+	// 	return inProgressProjects.size();
+	// }
 
 	// freelancer model
 	public Freelancer updateFreelancer(Freelancer user) {

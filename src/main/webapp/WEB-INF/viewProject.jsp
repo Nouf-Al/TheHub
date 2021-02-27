@@ -103,17 +103,10 @@
 									<div class="col d-flex p-0 sub-info">
 										<c:choose>
 											<c:when test="${project.freelancer ne null }">
-												<button class="btn btn-outline-danger">Close</button>
+												<button class="btn btn-outline-primary">${project.status}</button>
 											</c:when>
 											<c:otherwise>
-												<c:choose>
-													<c:when test="${isClose eq true }">
-														<button class="btn btn-outline-danger">Close</button>
-													</c:when>
-													<c:otherwise>
-														<button class="btn btn-outline-success">Open</button>
-													</c:otherwise>
-												</c:choose>
+												<button class="btn btn-outline-success">Open</button>
 											</c:otherwise>
 										</c:choose>
 									

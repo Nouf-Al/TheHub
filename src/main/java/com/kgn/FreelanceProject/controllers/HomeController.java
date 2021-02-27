@@ -274,26 +274,10 @@ public class HomeController {
 		} else {
 			model.getAttribute("isClose");
 		}
+		// model.addAttribute("inProgressCount", freelanceSer.isStatus("In progress"));
+
 		return "viewProject.jsp";
 	}
-
-//	@RequestMapping("/freelance/projects/{id}/edit")
-//	public String editProjectPage(@PathVariable("id") Long id, @ModelAttribute("editProject") Project editProject, HttpSession session, Model model) {
-//		if (session.getAttribute("user_id") == null) {
-//			return "redirect:/";
-//		}
-//		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
-//		model.addAttribute("project", freelanceSer.getOneProject(id));
-//		model.addAttribute("user", u);		
-//		Map<Long,String> category = new LinkedHashMap<Long,String>();
-//		List<Category> c = freelanceSer.getAllCategories();
-//		for(int i=0; i<c.size();i++) {
-//			category.put(c.get(i).getId(), c.get(i).getTitle());
-//		}
-//	    model.addAttribute("categoriesList", category);
-//		model.addAttribute("isClient", true);
-//		return "editProject.jsp";
-//	}
 	
 	@RequestMapping("/freelance/projects/{id}/edit")
 	public String editProjectPage(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
@@ -422,20 +406,19 @@ public class HomeController {
 		return "redirect:/freelance/projects/"+pId;
 	}
 	
-//  not needed
-//    @RequestMapping("/api/freelance/category/new")
-//	public String newCat(@ModelAttribute("newCategory") Category newCategory, Model model) {
-//		return "category.jsp";
-//	}
-//    
-//    @RequestMapping(value="/api/freelance/category/create",method=RequestMethod.POST)
-//	public String category(@Valid @ModelAttribute("newCategory") Category newCategory, BindingResult result) {
-//		if(result.hasErrors()) {
-//			return "category.jsp";
-//		}
-//		freelanceSer.createCategory(newCategory);
-//		return "redirect:/api/freelance/category/new";
-//	}
+	@RequestMapping("/freelance/category/new")
+	public String newCat(@ModelAttribute("newCategory") Category newCategory, Model model) {
+		return "category.jsp";
+	}
+
+	@RequestMapping(value="/freelance/category/create",method=RequestMethod.POST)
+	public String category(@Valid @ModelAttribute("newCategory") Category newCategory, BindingResult result) {
+		if(result.hasErrors()) {
+			return "category.jsp";
+		}
+		freelanceSer.createCategory(newCategory);
+		return "redirect:/freelance/category/new";
+	}
 
 //    like and unlike
 	@RequestMapping(value = "/freelance/projects/{id}/like")
