@@ -86,6 +86,7 @@ public class Freelancer {
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> projects_likes;
 	
+	
 	@OneToMany(mappedBy="freelancer", fetch = FetchType.LAZY)
     private List<Question> questions;
 

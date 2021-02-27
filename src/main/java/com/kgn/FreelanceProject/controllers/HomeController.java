@@ -559,7 +559,7 @@ public class HomeController {
 		}
 		model.addAttribute("freelancer", freelancer);
 //		model.addAttribute("rating",0);
-		 model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findFreelancerAvgRating(id)));
+		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findFreelancerAvgRating(id)));
 		// System.out.println(freelanceSer.findFreelancerAvgRating(id));
 		return "profile_f.jsp";
 	}
