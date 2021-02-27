@@ -11,6 +11,7 @@
 <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/style/style.css" />
 <link rel="stylesheet" href="/style/menu.css" />
+<link rel="stylesheet" href="/style/chat/chatRoom.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -75,22 +76,27 @@
 
 
 	<div class="dashboard-container">
-		<div class="row p-0 m-0">
-			<div class="col p-0 rounded border shadow-sm">
-				<div class="card-body">
-					<c:forEach items="${comments }" var="c">
+		<div class="row p-0 m-0 rounded border shadow-sm p-4 chat-box">
+			<div class="col p-0">
+				
+				<div class="row p-0 m-0">
+					<div class="col p-0">
+						<c:forEach items="${comments }" var="c">
 						<c:choose>
 							<c:when test="${c.writerType =='client'}">
-								<p class="text-right">${c.client.firstname} says: ${c.text }</p>
+								<p class="text-left client">${c.client.firstname}: ${c.text }</p>
 							</c:when>
 							<c:otherwise>
-								<p class="text-left">${c.freelancer.firstname} says: ${c.text }</p>
+								<p class="text-right freelancer">${c.freelancer.firstname}: ${c.text }</p>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
+					</div>
 				</div>
-				<div class="card-body">
-					<form:form action="/freelance/projects/${project.id}/chating/create" method="post" modelAttribute="newComment">
+				<hr/>
+				<div class="row m-0 p-0">
+					<div class="col p-0">
+						<form:form action="/freelance/projects/${project.id}/chating/create" method="post" modelAttribute="newComment">
 						<div class="form-group">
 							<label>Write A Message: </label>
 							<form:textarea path="text" class="form-control" />
@@ -111,6 +117,7 @@
 						<input type="hidden" name="project" value="${project.id}" />
 						<input type="submit" value="Send message" class="btn btn-dark" />
 					</form:form>
+					</div>
 				</div>
 			</div>
 		</div>

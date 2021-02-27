@@ -81,7 +81,7 @@
 	
 	
 	<div class="dashboard-container">
-		<div class="row my-4 mx-0 p-5 rounded shadow-sm border">
+		<div class="row my-4 mx-0 p-5 rounded shadow-sm border info">
 			<div class="col-sm-3 p-0 d-flex justify-content-center">
 				<img class="user-profile-pic m-3" src="/images/icons/user.png" alt="profile" />
 			</div>

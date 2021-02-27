@@ -275,7 +275,7 @@ public class HomeController {
 			model.getAttribute("isClose");
 		}
 		// model.addAttribute("inProgressCount", freelanceSer.isStatus("In progress"));
-
+		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(freelanceSer.getOneProject(id).getClient().getId())));
 		return "viewProject.jsp";
 	}
 	

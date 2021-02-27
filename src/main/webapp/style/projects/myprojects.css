@@ -1,5 +1,6 @@
 .section{
-    background-color: #58acf70d;
+    /* background-color: #58acf70d; */
+    background: #e3e4e42b;
     padding: 19px 23px;
 }
 
@@ -42,10 +43,10 @@
 .right-col p{
     font-size: 13.5px;
 }
-
+/* 
 .section:hover {
     background:#58acf74b;
-}
+} */
 
 @media screen and (max-width: 576px) {
     .left-col{

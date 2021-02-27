@@ -90,6 +90,14 @@
 
 .left-col{
   margin-right: 20px;
+  
+}
+
+.categories-container{
+  background: #e3e4e42b;
+}
+.card{
+  background: #e3e4e42b;
 }
 
 @media screen and (max-width: 576px) {

@@ -1,0 +1,25 @@
+.chat-box{
+    background: #e3e4e42b;
+}
+.client{
+    width: fit-content;
+    background-color: #bbdefb;
+    padding: 6px 19px;
+    border-radius: 50px;
+}
+
+.freelancer{
+    float: right;
+    width: fit-content;
+    background-color: #26333e;
+    padding: 6px 19px;
+    color: white;
+    border-radius: 50px;
+}
+
+
+@media screen and (max-width: 576px) {
+    p{
+        font-size: 14px;
+    }
+  }

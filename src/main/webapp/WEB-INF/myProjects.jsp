@@ -121,7 +121,7 @@
 
                                 <div class="row m-0 p-0 mt-3">
                                     <div class="col-sm m-0 p-0">
-                                        <p>Submitted offers: ${project.freelancers_offer.size()}</p>
+                                        <p>Submitted offers: ${project.freelancersOffers.size()}</p>
                                         <p>Posted on: <fmt:formatDate value="${project.createdAt }" type="date" pattern="MMMM dd, yyyy" /></p>
                                         <p>Duration: ${project.duration} day</p>
                                     </div>

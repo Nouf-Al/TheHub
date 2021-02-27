@@ -147,7 +147,7 @@
 
 												<div class="col-3">
 													<p>Offers</p>
-													<p>${project.freelancersOffers.size()}/30</p>
+													<p>${project.freelancersOffers.size()}</p>
 												</div>
 												<div class="col-6">
 													<span class="float-right col3"> 

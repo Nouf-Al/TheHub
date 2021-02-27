@@ -90,7 +90,7 @@
 			</div>
 
 			<div class="row p-0 m-0 mb-5 shadow-sm border rounded">
-				<div class="col-12 m-0 p-4">
+				<div class="col-12 m-0 p-4 project">
 					<div class="project-info">
 						<div class="row p-0 m-0">
 							<div class="col-sm-9 p-0 left-col">
@@ -401,7 +401,50 @@
 									<a href="/client/profile/${project.client.id}"> 
 										<p>${project.client.firstname } ${project.client.lastname }</p>
 									</a>
-									<p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+									<c:choose>
+										<c:when test="${rating == 1 }">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+										</c:when>
+										<c:when test="${rating == 2 }">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+										</c:when>
+										<c:when test="${rating == 3 }">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+										</c:when>
+										<c:when test="${rating == 4 }">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+										</c:when>
+										<c:when test="${rating == 5}">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+											<img id="rating" alt="rating" src="/images/icons/star.png">
+										</c:when>
+										<c:otherwise>
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+											<img id="rating" alt="rating" src="/images/icons/star (1).png">
+										</c:otherwise>
+									</c:choose>
 									<span>
 										<h4>2</h4>
 										<h5 class="mb-4">Completed Projects</h5>
