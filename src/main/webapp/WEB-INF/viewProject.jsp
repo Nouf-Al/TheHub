@@ -205,12 +205,13 @@
 											<h4 class="font-weight-bold">Answer Questions</h4>
 											<hr>
 											<h5>You can answer the freelancer's questions, your answer will appear to all freelancers and clients and their questions will be available also.</h5>
-											
+											<c:if test="${questions.size() == 0 }">
+											<h5>No Questions Yet!</h5>
 											<form:form action="/freelance/projects/${project.id}/create/answer" method="post" modelAttribute="newAnswer">
 												<div class="row p-0 m-0">
 													<div class="col-sm-12 p-0">
 														<form:label path="question">Question by:</form:label>
-														<select name="question" class="form-control mb-3">
+														<select disabled="true" name="question" class="form-control mb-3">
 															<c:forEach items="${ questions}" var="question">
 																<c:if test="${project.id eq question.project.id }">
 																	<option value="${ question.id}">${ question.freelancer.firstname} ${ question.freelancer.lastname}</option>
@@ -222,13 +223,39 @@
 												<div class="row p-0 m-0">
 													<div class="col-sm-12 p-0">
 														<div class="form-group">
-															<form:textarea path="text" class="form-control" />
+															<form:textarea  disabled="true" path="text" class="form-control" />
 															<form:errors path="text" class="text-danger" />
 														</div>
 													</div>
 												</div>
 													<input type="submit" style="font-size: 13px;" value="Answer the question" class="btn btn-dark btn-block" disabled="true" /> 
 											</form:form>
+											</c:if>
+											<c:if test="${questions.size() != 0 }">
+											<form:form action="/freelance/projects/${project.id}/create/answer" method="post" modelAttribute="newAnswer">
+												<div class="row p-0 m-0">
+													<div class="col-sm-12 p-0">
+														<form:label path="question">Question by:</form:label>
+														<select  name="question" class="form-control mb-3">
+															<c:forEach items="${ questions}" var="question">
+																<c:if test="${project.id eq question.project.id }">
+																	<option value="${ question.id}">${ question.freelancer.firstname} ${ question.freelancer.lastname}</option>
+																</c:if>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+												<div class="row p-0 m-0">
+													<div class="col-sm-12 p-0">
+														<div class="form-group">
+															<form:textarea  path="text" class="form-control" />
+															<form:errors path="text" class="text-danger" />
+														</div>
+													</div>
+												</div>
+													<input type="submit" style="font-size: 13px;" value="Answer the question" class="btn btn-dark btn-block"  /> 
+											</form:form>
+											</c:if>
 										
 										
 									</div>
