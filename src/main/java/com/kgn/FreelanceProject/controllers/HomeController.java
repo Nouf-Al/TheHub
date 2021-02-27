@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.kgn.FreelanceProject.models.Answer;
 import com.kgn.FreelanceProject.models.Category;
 import com.kgn.FreelanceProject.models.Client;
@@ -30,8 +29,6 @@ import com.kgn.FreelanceProject.models.ReviewOnClient;
 import com.kgn.FreelanceProject.models.ReviewOnFreelancer;
 import com.kgn.FreelanceProject.services.FreelanceService;
 import com.kgn.FreelanceProject.services.UserService;
-
-
 @Controller
 public class HomeController {
 	private final UserService userSer;
@@ -524,10 +521,9 @@ public class HomeController {
 		return "redirect:/freelance/projects/" + id;
 	}
 
-//  	accept and reject offers
+//  accept and reject offers
 	@RequestMapping(value = "/freelance/projects/{pId}/offer/accept/{fId}")
-	public String accept(@PathVariable(value = "pId") Long pId, @PathVariable(value = "fId") Long fId,
-			HttpSession session, Model model) {
+	public String accept(@PathVariable(value = "pId") Long pId, @PathVariable(value = "fId") Long fId, HttpSession session, Model model) {
 		Freelancer u = userSer.findFreelancerById(fId);
 		Project p = freelanceSer.getOneProject(pId);
 		freelanceSer.accept(u, p);
@@ -547,13 +543,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/freelancer/profile/{id}")
-	public String fprofile(@PathVariable Long id, HttpSession session, Model model) {
+	public String freelancerProfile(@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(id);
 		model.addAttribute("newReview", new ReviewOnFreelancer());
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
 		model.addAttribute("user_id", session.getAttribute("user_id"));
-
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isFreelancer", true);
@@ -562,14 +557,13 @@ public class HomeController {
 			model.addAttribute("isClient", true);
 		}
 		model.addAttribute("freelancer", freelancer);
-		// model.addAttribute("rating",2);
-		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findAvgRating(id)));
-		// System.out.println(freelanceSer.findAvgRating(id));
+		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findFreelancerAvgRating(id)));
+		// System.out.println(freelanceSer.findFreelancerAvgRating(id));
 		return "profile_f.jsp";
 	}
 
 	@RequestMapping("/freelancer/profile/{idx}/edit")
-	public String fEditPage(@PathVariable Long idx, HttpSession session, Model model) {
+	public String freelancerEditPage(@PathVariable Long idx, HttpSession session, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(idx);
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
@@ -588,7 +582,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/freelancer/profile/{id}/update")
-	public String fEdit(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer, BindingResult result,
+	public String freelancerEdit(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer, BindingResult result,
 			@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(id);
 		model.addAttribute("freelancer", freelancer);
@@ -598,13 +592,13 @@ public class HomeController {
 			System.out.println(result);
 			return "edit_f.jsp";
 		}
-		freelanceSer.editFreeLancer(editFreelancer);
+		freelanceSer.editFreelancer(editFreelancer);
 		return "redirect:/freelancer/profile/" + id;
 
 	}
 
 	@RequestMapping("/client/profile/{id}")
-	public String cprofile(@PathVariable Long id, HttpSession session, Model model) {
+	public String clientProfile(@PathVariable Long id, HttpSession session, Model model) {
 		Client client = userSer.findClientById(id);
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
@@ -618,6 +612,8 @@ public class HomeController {
 		}
 		model.addAttribute("newReview", new ReviewOnClient());
 		model.addAttribute("client", client);
+		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(id)));
+		System.out.println(freelanceSer.findClientAvgRating(id));
 		return "profile_c.jsp";
 	}
 
@@ -655,18 +651,18 @@ public class HomeController {
 
 	}
 
-	@PostMapping("/freelance/projects/{idx}/review/freelancer")
+	@PostMapping("/freelancer/profile/{freelancerId}/review/create")
 	public String reviewf(@Valid @ModelAttribute("newReview") ReviewOnFreelancer newReview, BindingResult result,
-			@PathVariable Long idx, HttpSession session, Model model) {
+			@PathVariable Long freelancerId, HttpSession session, Model model) {
 		freelanceSer.reviewFreelancer(newReview);
-		return "redirect:/freelancer/profile/" + idx;
+		return "redirect:/freelancer/profile/" + freelancerId;
 	}
 
-	@PostMapping("/freelance/projects/{idx}/review/client")
+	@PostMapping("/client/profile/{clientId}/review/create")
 	public String reviewc(@Valid @ModelAttribute("newReview") ReviewOnClient newReview, BindingResult result,
-			@PathVariable Long idx, HttpSession session, Model model) {
+			@PathVariable Long clientId, HttpSession session, Model model) {
 		freelanceSer.reviewClient(newReview);
-		return "redirect:/client/profile/" + idx;
+		return "redirect:/client/profile/" + clientId;
 	}
 
 	@RequestMapping("/freelance/projects/{id}/chating")

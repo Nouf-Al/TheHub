@@ -1,4 +1,5 @@
 package com.kgn.FreelanceProject.models;
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -25,9 +27,19 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotEmpty(message = "Qustion is required.")
 	@Size(min = 5, message = "Qustion must be me more than 5 characters.")
 	private String text;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="project_id")
+    private Project project;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="freelancer_id")
+    private Freelancer freelancer;
+
+	@OneToOne(mappedBy="question", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Answer answer;
 
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -35,17 +47,6 @@ public class Question {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private Project project;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "freelancer_id")
-	private Freelancer freelancer;
-	
-	@OneToOne(mappedBy="question", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private Answer answer;
 	
 	public Question() {
 	}

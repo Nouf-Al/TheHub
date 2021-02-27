@@ -21,7 +21,7 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min = 5, message = "comment must be atleast 5 characters ")
+	@Size(min = 1, message = "You have to write something")
 	private String text;
 	
 	private String writerType;

@@ -70,20 +70,16 @@ public class Client {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
-	@OneToMany(mappedBy = "reviewedClient", fetch = FetchType.LAZY)
-	private List<ReviewOnClient> reviewsOnClient;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "client_likes", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> projects_likes;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
-	private List<Freelancer> reviewedFreelancers;
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	private List<ReviewOnFreelancer> reviewsOnFreelancer;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "reviewsOnClients", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
-	private List<Freelancer> freelancerReviewers;
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	private List<ReviewOnClient> reviewsOnClient;
 
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Comment> comments;
@@ -198,22 +194,6 @@ public class Client {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<Freelancer> getReviewedFreelancers() {
-		return reviewedFreelancers;
-	}
-
-	public void setReviewedFreelancers(List<Freelancer> reviewedFreelancers) {
-		this.reviewedFreelancers = reviewedFreelancers;
-	}
-
-	public List<Freelancer> getFreelancerReviewers() {
-		return freelancerReviewers;
-	}
-
-	public void setFreelancerReviewers(List<Freelancer> freelancerReviewers) {
-		this.freelancerReviewers = freelancerReviewers;
-	}
-
 	public List<Comment> getComments() {
 		return comments;
 	}
@@ -236,6 +216,14 @@ public class Client {
 
 	public void setReviewsOnClient(List<ReviewOnClient> reviewsOnClient) {
 		this.reviewsOnClient = reviewsOnClient;
+	}
+
+	public List<ReviewOnFreelancer> getReviewsOnFreelancer() {
+		return reviewsOnFreelancer;
+	}
+
+	public void setReviewsOnFreelancer(List<ReviewOnFreelancer> reviewsOnFreelancer) {
+		this.reviewsOnFreelancer = reviewsOnFreelancer;
 	}
 	
 	@PrePersist

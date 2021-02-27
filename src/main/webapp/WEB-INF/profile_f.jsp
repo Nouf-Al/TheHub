@@ -117,7 +117,7 @@
 									<img class="rating" alt="rating" src="/images/icons/star (1).png">
 								</c:when>
 								<c:when test="${rating == 4 }">
-									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="rating" alt="location" src="/images/icons/star.png">
 									<img class="location" alt="location" src="/images/icons/star.png">
 									<img class="location" alt="location" src="/images/icons/star.png">
 									<img class="location" alt="location" src="/images/icons/star.png">
@@ -176,6 +176,7 @@
 			<div class="col-sm-3 p-0 d-flex justify-content-center">
 				<img class="user-profile-pic m-3" src="/images/icons/user.png" alt="profile" />
 			</div>
+			
 			<div class="col-sm p-0">
 				<div class="row m-0 p-0">
 					<div class="col-sm-3 pb-3">
@@ -189,7 +190,7 @@
 				
 				<div class="row m-0 p-0">
 					<div class="col-sm py-3">
-						<div class="h5 my-3 center">${freelancer.bio}</div>
+						<div class="h5 center">${freelancer.bio}</div>
 					</div>
 				</div>
 				
@@ -220,18 +221,25 @@
 									<img class="rating" alt="rating" src="/images/icons/star (1).png">
 								</c:when>
 								<c:when test="${rating == 4 }">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+								</c:when>
+								<c:when test="${rating == 5}">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star.png">
 								</c:when>
 								<c:otherwise>
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
-									<img class="location" alt="location" src="/images/icons/star.png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
+									<img class="rating" alt="rating" src="/images/icons/star (1).png">
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -315,7 +323,7 @@
 												<a href="/freelance/projects/${project.id }" class="btn btn-outline-success">Open</a>
 												<c:if test="${isClient eq true && user.id eq project.client.id }">
 													<img src="/images/icons/like.png" alt="like" class="ml-4 mr-2"/> <p class="m-0">${project.freelancers_like.size() }</p>
-													<p class="m-0 ml-4">${project.freelancers_offer.size() }/30</p>
+													<p class="m-0 ml-4">${project.freelancersOffers.size() }/30</p>
 												</c:if>
 											</div>
 											<c:if test="${isClient eq true && project.freelancer.id ne null && project.client.id == user.id}">
@@ -342,7 +350,7 @@
 						<hr>
 						<div class="row p-0 m-0">
 							<div class="col-12 p-2">
-								<form:form action="/freelance/projects/${freelancer.id }/review/freelancer" method="post" modelAttribute="newReview">
+								<form:form action="/freelancer/profile/${freelancer.id}/review/create" method="post" modelAttribute="newReview">
 									<c:choose>
 										<c:when test="${isClient eq false }">
 										<div class="row">
@@ -378,8 +386,8 @@
 												<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
 												<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
 											</select>
-											<input type="hidden" name="reviewedFreelancer" value="${freelancer.id }" />
-											<input type="hidden" name="clientReviewer" value="${user.id }" />
+											<input type="hidden" name="freelancer" value="${freelancer.id }" />
+											<input type="hidden" name="client" value="${user.id }" />
 											<input type="submit" value="Send Your Review" class="btn btn-dark btn-block mt-3" />
 										</c:otherwise>
 									</c:choose>
@@ -387,36 +395,36 @@
 							</div>
 						</div>
 						
-						<div class="h4 mt-5">Reviews (${freelancer.clientReviewers.size()})</div>
+						<div class="h4 mt-5">Reviews (${freelancer.reviewsOnFreelancer.size()})</div>
 						<hr>
 						<div class="row p-0 m-0">
 							<div class="col-12 p-2">
-								<c:forEach items="${freelancer.reviewsOnFreelancer }" var="rev">
+								<c:forEach items="${freelancer.reviewsOnFreelancer }" var="review">
 									<div class="col-sm-12 p-2">
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title">
-													<a href="/freelancer/profile/${rev.clientReviewer.id}">${rev.clientReviewer.firstname} ${rev.clientReviewer.lastname}</a>
-													<span class="h6 float-right"><fmt:formatDate value="${rev.createdAt }" type="date" pattern="MMMM dd, yyyy" /></span>
+													<a href="/freelancer/profile/${review.client.id}">${review.client.firstname} ${rev.client.lastname}</a>
+													<span class="h6 float-right"><fmt:formatDate value="${review.createdAt }" type="date" pattern="MMMM dd, yyyy" /></span>
 												</h5>
 												<c:choose>
-													<c:when test="${rev.rating == 1 }">
+													<c:when test="${review.rating == 1 }">
 														<h5>&#9733;&#9734;&#9734;&#9734;&#9734;</h5>
 													</c:when>
-													<c:when test="${rev.rating == 2 }">
+													<c:when test="${review.rating == 2 }">
 														<h5>&#9733;&#9733;&#9734;&#9734;&#9734;</h5>
 													</c:when>
-													<c:when test="${rev.rating == 3 }">
+													<c:when test="${review.rating == 3 }">
 														<h5>&#9733;&#9733;&#9733;&#9734;&#9734;</h5>
 													</c:when>
-													<c:when test="${rev.rating == 4 }">
+													<c:when test="${review.rating == 4 }">
 														<h5>&#9733;&#9733;&#9733;&#9733;&#9734;</h5>
 													</c:when>
 													<c:otherwise>
 														<h5>&#9733;&#9733;&#9733;&#9733;&#9733;</h5>
 													</c:otherwise>
 												</c:choose>
-												<p class="card-text">${rev.text }</p>
+												<p class="card-text">${review.text }</p>
 											</div>
 										</div>
 									</div>

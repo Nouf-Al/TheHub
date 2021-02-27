@@ -82,18 +82,20 @@ public class Project {
 	private List<Client> clients_like;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "offers", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
-	private List<Freelancer> freelancers_offer;
+	@JoinTable(
+		name = "offers", 
+		joinColumns = @JoinColumn(name = "freelancer_id"), 
+		inverseJoinColumns = @JoinColumn(name = "project_id")
+	)
+	private List<Freelancer> freelancersOffers;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "questions", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
-	private List<Freelancer> freelancers_questions;
+	@OneToMany(mappedBy="project", fetch= FetchType.LAZY)
+    private List<Question> questions;
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
 	private List<Comment> comments;
 	
-	public Project() {
-	}
+	public Project() {}
 
 	public Long getId() {
 		return id;
@@ -198,20 +200,20 @@ public class Project {
 		this.clients_like = clients_like;
 	}
 
-	public List<Freelancer> getFreelancers_offer() {
-		return freelancers_offer;
+	public List<Freelancer> getFreelancersOffers() {
+		return freelancersOffers;
 	}
 
-	public void setFreelancers_offer(List<Freelancer> freelancers_offer) {
-		this.freelancers_offer = freelancers_offer;
+	public void setFreelancersOffers(List<Freelancer> freelancersOffer) {
+		this.freelancersOffers = freelancersOffer;
 	}
 
-	public List<Freelancer> getFreelancers_questions() {
-		return freelancers_questions;
+	public List<Question> getQuestions() {
+		return questions;
 	}
 
-	public void setFreelancers_questions(List<Freelancer> freelancers_questions) {
-		this.freelancers_questions = freelancers_questions;
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	@PrePersist
@@ -232,6 +234,7 @@ public class Project {
 		}
 		return false;
 	}
+
 	public Boolean isClientContain(Long id) {
 		for (Client u : clients_like) {
 			if(u.getId() == id) {
@@ -242,7 +245,7 @@ public class Project {
 	}
 	
 	public Boolean isOffer(Long id) {
-		for (Freelancer u : freelancers_offer) {
+		for (Freelancer u : freelancersOffers) {
 			if(u.getId() == id) {
 				return true;
 			}
@@ -250,15 +253,15 @@ public class Project {
 		return false;
 	}
 	
-	public int count(Long p_id) {
-		int count = 0 ;
-		for (Freelancer u : freelancers_offer) {
-			if(getId() == p_id) {
-				count++;
-			}
-		}
-		return count;
-	}
+	// public int count(Long p_id) {
+	// 	int count = 0 ;
+	// 	for (Freelancer u : freelancers_offer) {
+	// 		if(getId() == p_id) {
+	// 			count++;
+	// 		}
+	// 	}
+	// 	return count;
+	// }
 
 	public List<Comment> getComments() {
 		return comments;

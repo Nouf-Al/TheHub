@@ -55,12 +55,10 @@ public class Freelancer {
 	@NotEmpty(message = "Country is required.")
 	private String country;
 
-	@NotEmpty(message = "Password is required!")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
 
 	@Transient
-//	@NotEmpty(message = "Confirm Password is required!")
 	@Size(min = 8, message = "Confirm password must be at least 8 characters.")
 	private String confirm;
 
@@ -77,36 +75,36 @@ public class Freelancer {
 	private List<Project> projects;
 
 	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "offers", 
+        joinColumns = @JoinColumn(name = "freelancer_id"), 
+        inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projectOffers;
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> projects_likes;
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "offers", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-	private List<Project> projects_offers;
 	
-	// is it a many to many relationship?
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "questions", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-	private List<Project> projects_questions;
+	@OneToMany(mappedBy="freelancer", fetch = FetchType.LAZY)
+    private List<Question> questions;
 
-	@OneToMany(mappedBy = "reviewedFreelancer", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "freelancer", fetch = FetchType.LAZY)
 	private List<ReviewOnFreelancer> reviewsOnFreelancer;
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "reviewsOnFreelancers", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
-	private List<Client> clientReviewers;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "reviewsOnClients", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
-	private List<Client> reviewedClients;
-
+	@OneToMany(mappedBy = "freelancer", fetch = FetchType.LAZY)
+	private List<ReviewOnClient> reviewsOnClient;
+	
 	@OneToMany(mappedBy = "freelancer", fetch = FetchType.LAZY)
 	private List<Comment> comments;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "freelancers_skills", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
 	private List<Skill> skills;
+	
 	@Transient
 	private String skillString;
+
 	public Freelancer() {
 	}
 
@@ -134,20 +132,20 @@ public class Freelancer {
 		this.projects_likes = projects_likes;
 	}
 
-	public List<Project> getProjects_offers() {
-		return projects_offers;
+	public List<Project> getProjectOffers() {
+		return projectOffers;
 	}
 
-	public void setProjects_offers(List<Project> projects_offers) {
-		this.projects_offers = projects_offers;
+	public void setProjectOffers(List<Project> projectOffers) {
+		this.projectOffers = projectOffers;
 	}
 
-	public List<Project> getProjects_questions() {
-		return projects_questions;
+	public List<Question> getQuestions() {
+		return questions;
 	}
 
-	public void setProjects_questions(List<Project> projects_questions) {
-		this.projects_questions = projects_questions;
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	public List<Comment> getComments() {
@@ -293,7 +291,7 @@ public class Freelancer {
 				theProperSkills.add(skill0);
 			}
 		}
-		return (List<Skill>) theProperSkills;
+		return theProperSkills;
 	}
 
 	public List<ReviewOnFreelancer> getReviewsOnFreelancer() {
@@ -304,20 +302,12 @@ public class Freelancer {
 		this.reviewsOnFreelancer = reviewsOnFreelancer;
 	}
 
-	public List<Client> getClientReviewers() {
-		return clientReviewers;
+	public List<ReviewOnClient> getReviewsOnClient() {
+		return reviewsOnClient;
 	}
 
-	public void setClientReviewers(List<Client> clientReviewers) {
-		this.clientReviewers = clientReviewers;
-	}
-
-	public List<Client> getReviewedClients() {
-		return reviewedClients;
-	}
-
-	public void setReviewedClients(List<Client> reviewedClients) {
-		this.reviewedClients = reviewedClients;
+	public void setReviewsOnClient(List<ReviewOnClient> reviewsOnClient) {
+		this.reviewsOnClient = reviewsOnClient;
 	}
 
 	@PrePersist

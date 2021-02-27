@@ -318,7 +318,7 @@
 									<p>Offers Count</p>
 								</div>
 								<div class="col-2 p-0">
-									<p>${project.count(project.id) }</p>
+									<p>${project.freelancersOffers.size()}</p>
 								</div>
 							</div>
 							<div class="row p-0 m-0">
@@ -338,7 +338,7 @@
 								<div class="col p-4 mb-4 border rounded shadow-sm offers">
 									<h5 class="font-weight-bold">Offers</h5>
 									<hr />
-									<c:forEach items="${project.freelancers_offer}" var="freelancer">
+									<c:forEach items="${project.freelancersOffers}" var="freelancer">
 										<div class="row p-0 m-0">
 											<div class="col p-0">
 												<a href="http://localhost:8080/freelancer/profile/${freelancer.id}"><p>${freelancer.firstname } ${freelancer.lastname }</p></a>

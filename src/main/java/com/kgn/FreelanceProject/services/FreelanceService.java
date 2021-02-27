@@ -118,12 +118,12 @@ public class FreelanceService {
 	}
 
 	public void offer(Freelancer u, Project p) {
-		p.getFreelancers_offer().add(u);
+		p.getFreelancersOffers().add(u);
 		projectRepo.save(p);
 	}
 
 	public void withdraw(Freelancer u, Project p) {
-		p.getFreelancers_offer().remove(u);
+		p.getFreelancersOffers().remove(u);
 		projectRepo.save(p);
 	}
 
@@ -146,7 +146,7 @@ public class FreelanceService {
 		return (ArrayList<Freelancer>) freelancerRepo.findAll();
 	}
 
-	public Freelancer editFreeLancer(Freelancer newFreelancer) {
+	public Freelancer editFreelancer(Freelancer newFreelancer) {
 		String[] skill = newFreelancer.getSkillString().split(",");
 		List<Skill> skills = new ArrayList<Skill>();
 		for (String title : skill) {
@@ -248,33 +248,46 @@ public class FreelanceService {
 		return review;
 	}
 
+	public double findFreelancerAvgRating(Long id) {
+		ArrayList<ReviewOnFreelancer> reviews = (ArrayList<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
+		double total = 0;
+		double count=0;
+		for (ReviewOnFreelancer r : reviews) {
+			if (r.getFreelancer().getId() == id) {
+				count++;
+				total += r.getRating();
+			}
+		}
+		if( count != 0){
+			return total / count;
+		} else{
+			return 0;
+		}
+	}
+
 	public ReviewOnClient reviewClient(ReviewOnClient newO) {
 		newO.setId(null);
 		ReviewOnClient review = reviewOnClientRepo.save(newO);
-		Client client = review.getReviewedClient();
+		Client client = review.getClient();
 		client.getReviewsOnClient().add(review);
 		return review;
 	}
 
-	public double findAvgRating(Long id) {
-		// List<ReviewOnFreelancer> reviews =  (List<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
-		ArrayList<ReviewOnFreelancer> reviews = (ArrayList<ReviewOnFreelancer>) reviewOnFreelancerRepo.findAll();
-		// ArrayList<ReviewOnFreelancer> reviewById = new ArrayList<ReviewOnFreelancer>();
-		// List<ReviewOnFreelancer> reviewById = new List<ReviewOnFreelancer>();
+	public double findClientAvgRating(Long id) {
+		ArrayList<ReviewOnClient> reviews = (ArrayList<ReviewOnClient>) reviewOnClientRepo.findAll();
 		double total = 0;
 		double count=0;
-		for (ReviewOnFreelancer r : reviews) {
-			if (r.getReviewedFreelancer().getId() == id) {
+		for (ReviewOnClient r : reviews) {
+			if (r.getClient().getId() == id) {
 				count++;
-				// reviewById.add(r);
 				total += r.getRating();
 			}
 		}
-		// double avg = total / reviewById.size();
-		// if (avg == null) {
-		// 	return 0;
-		// }
-		return total / count;
+		if( count != 0){
+			return total / count;
+		} else{
+			return 0;
+		}
 	}
 
 	public ArrayList<ReviewOnFreelancer> getAllReviewsOnFreelancers() {
@@ -311,13 +324,13 @@ public class FreelanceService {
 		return clientRepo.save(editClient);
 	}
 
-	public List<ReviewOnFreelancer> returnFreelancerReviews(Long id) {
-		ArrayList<ReviewOnFreelancer> theProperReviews = new ArrayList<ReviewOnFreelancer>();
-		for (ReviewOnFreelancer rev : reviewOnFreelancerRepo.findAll()) {
-			if (rev.getReviewedFreelancer().getId() == id) {
-				theProperReviews.add(rev);
-			}
-		}
-		return (List<ReviewOnFreelancer>) theProperReviews;
-	}
+	// public List<ReviewOnFreelancer> returnFreelancerReviews(Long id) {
+	// 	ArrayList<ReviewOnFreelancer> theProperReviews = new ArrayList<ReviewOnFreelancer>();
+	// 	for (ReviewOnFreelancer rev : reviewOnFreelancerRepo.findAll()) {
+	// 		if (rev.getFreelancer().getId() == id) {
+	// 			theProperReviews.add(rev);
+	// 		}
+	// 	}
+	// 	return (List<ReviewOnFreelancer>) theProperReviews;
+	// }
 }

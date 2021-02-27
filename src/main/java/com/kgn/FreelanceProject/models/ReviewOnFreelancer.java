@@ -1,9 +1,5 @@
 package com.kgn.FreelanceProject.models;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,12 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import javax.xml.bind.Marshaller.Listener;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "reviewsOnFreelancers")
 public class ReviewOnFreelancer {
@@ -31,11 +25,11 @@ public class ReviewOnFreelancer {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id")
-	private Client clientReviewer;
+	private Client client;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "freelancer_id")
-	private Freelancer reviewedFreelancer;
+	private Freelancer freelancer;
 
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -44,8 +38,7 @@ public class ReviewOnFreelancer {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 
-	public ReviewOnFreelancer() {
-	}
+	public ReviewOnFreelancer() {}
 
 	public Long getId() {
 		return id;
@@ -71,20 +64,20 @@ public class ReviewOnFreelancer {
 		this.text = text;
 	}
 
-	public Client getClientReviewer() {
-		return clientReviewer;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setClientReviewer(Client clientReviewer) {
-		this.clientReviewer = clientReviewer;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
-	public Freelancer getReviewedFreelancer() {
-		return reviewedFreelancer;
+	public Freelancer getFreelancer() {
+		return freelancer;
 	}
 
-	public void setReviewedFreelancer(Freelancer reviewedFreelancer) {
-		this.reviewedFreelancer = reviewedFreelancer;
+	public void setFreelancer(Freelancer freelancer) {
+		this.freelancer = freelancer;
 	}
 
 	public Date getCreatedAt() {
@@ -103,7 +96,15 @@ public class ReviewOnFreelancer {
 		this.updatedAt = updatedAt;
 	}
 
-	
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date();
+	}
 	
 }
 
