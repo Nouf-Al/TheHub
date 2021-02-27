@@ -1,8 +1,6 @@
 package com.kgn.FreelanceProject.models;
-
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,9 +18,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "clients")
 public class Client {

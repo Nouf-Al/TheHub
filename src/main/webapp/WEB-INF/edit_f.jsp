@@ -85,32 +85,27 @@
 				<c:out value="${freelancer.firstname }"></c:out>
 				<c:out value="${freelancer.lastname }"></c:out>
 			</h4>
-			<form:form
-				action="/freelancer/profile/${freelancer.id}/update"
-				method="post" modelAttribute="editFreelancer">
+			<form:form action="/freelancer/profile/${freelancer.id}/update" method="post" modelAttribute="editFreelancer">
 				<input type="hidden" name="_method" value="put">
 				<div class="row my-4">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>First Name:</label>
-							<form:input path="firstname" class="form-control"
-								placeholder="${freelancer.firstname }" />
+							<form:input path="firstname" class="form-control" value="${freelancer.firstname }" />
 							<form:errors path="firstname" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Last Name:</label>
-							<form:input path="lastname" class="form-control"
-								placeholder="${freelancer.lastname }" />
+							<form:input path="lastname" class="form-control"  value="${freelancer.lastname }" />
 							<form:errors path="lastname" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Email:</label>
-							<form:input path="email" class="form-control"
-								value="${freelancer.email }" id="disabledTextInput" />
+							<form:input path="email" class="form-control" value="${freelancer.email }" />
 							<form:errors path="email" class="text-danger" />
 						</div>
 					</div>
@@ -161,14 +156,14 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Speciality:</label>
-							<form:input path="speciality" class="form-control" />
+							<form:input path="speciality"  value="${freelancer.speciality }" class="form-control" />
 
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Bio:</label>
-							<form:input path="bio" class="form-control" />
+							<form:input path="bio" value="${freelancer.bio }" class="form-control" />
 
 						</div>
 					</div>
@@ -185,7 +180,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>skill:</label>
-							<form:textarea class="form-control" path="skillString" />
+							<form:textarea class="form-control" path="skillString"/>
 							<small>please separate by , between skill </small>
 
 						</div>

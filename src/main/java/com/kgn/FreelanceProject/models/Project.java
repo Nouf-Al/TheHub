@@ -23,6 +23,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -53,6 +54,8 @@ public class Project {
 	@NotNull(message = "Price is required.")
 	@Min(value = 1, message = "Price must be more than 0.")
 	private double price;
+	
+	private String status;
 
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -143,6 +146,14 @@ public class Project {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Date getCreatedAt() {

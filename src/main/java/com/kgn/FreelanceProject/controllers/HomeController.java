@@ -322,6 +322,7 @@ public class HomeController {
 			return "editProject.jsp";
 		} else {
 			freelanceSer.updateProject(project);
+			
 			return "redirect:/freelance/projects/" + id;
 		}
 	}

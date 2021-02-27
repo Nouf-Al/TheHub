@@ -129,8 +129,8 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" name="client" value="${user.id }" />
-				<input type="submit" value="Create" class="btn btn-block" />
+				<input type="hidden" name="client" value="${user.id }"/>
+				<input type="submit" value="Create" class="btn btn-block"/>
 			</form:form>
 			<a href="/freelance/projects" class="btn btn-block btn-dark mt-2">Cancel</a>
 		</div>

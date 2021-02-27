@@ -86,21 +86,21 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>First Name:</label>
-							<form:input path="firstname" class="form-control" placeholder="${client.firstname }"/>
+							<form:input path="firstname" class="form-control" value="${client.firstname }" />
 							<form:errors path="firstname" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Last Name:</label>
-							<form:input path="lastname" class="form-control" placeholder="${client.lastname }" />
+							<form:input path="lastname" class="form-control" value="${client.lastname }" />
 							<form:errors path="lastname" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Email:</label>
-							<form:input path="email" class="form-control" value="${client.email }" id="disabledTextInput" />
+							<form:input path="email" class="form-control" value="${client.email }" />
 							<form:errors path="email" class="text-danger" />
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Bio:</label>
-							<form:input path="bio" class="form-control"  />
+							<form:input path="bio" value="${client.bio }" class="form-control"  />
 							
 						</div>
 					</div>
@@ -160,9 +160,9 @@
 					<label>Photo:</label>
 						<div class="custom-file">
 						<label>Photo:</label>
-    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-    </div>
+						<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+						</div>
 					</div>
 					
 				</div>
