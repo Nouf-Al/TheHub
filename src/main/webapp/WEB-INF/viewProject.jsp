@@ -144,7 +144,7 @@
 									<c:when test="${isFreelancer eq false }">
 										<c:if test="${project.client.id eq user.id }">
 											<a href="/freelance/projects/${project.id }/edit" class="btn btn-primary btn-block py-3">Edit</a> 
-											<a class="btn btn-outline-danger text-danger my-3 btn-block py-3">Delete</a>
+											<a  href="/freelance/projects/${project.id }/delete" class="btn btn-outline-danger text-danger my-3 btn-block py-3">Delete</a>
 										</c:if>
 									</c:when>
 									<c:otherwise>
