@@ -584,8 +584,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/freelancer/profile/{id}/update")
-	public String freelancerEdit(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer, BindingResult result,
-			@PathVariable Long id, HttpSession session, Model model) {
+	public String freelancerEdit(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer,@PathVariable("id") Long id, BindingResult result, HttpSession session, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(id);
 		model.addAttribute("freelancer", freelancer);
 		System.out.println("here");
@@ -594,7 +593,7 @@ public class HomeController {
 			System.out.println(result);
 			return "edit_f.jsp";
 		}
-		freelanceSer.editFreelancer(editFreelancer);
+		freelanceSer.editFreelancer(editFreelancer,id);
 		return "redirect:/freelancer/profile/" + id;
 
 	}
@@ -648,7 +647,7 @@ public class HomeController {
 			model.addAttribute("client", client);
 			return "edit_c.jsp";
 		}
-		freelanceSer.EditClient(editClient);
+		freelanceSer.EditClient(editClient,id);
 		return "redirect:/client/profile/" + id;
 
 	}

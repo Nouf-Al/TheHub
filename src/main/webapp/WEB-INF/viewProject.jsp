@@ -205,7 +205,7 @@
 											<h4 class="font-weight-bold">Answer Questions</h4>
 											<hr>
 											<h5>You can answer the freelancer's questions, your answer will appear to all freelancers and clients and their questions will be available also.</h5>
-
+											
 											<form:form action="/freelance/projects/${project.id}/create/answer" method="post" modelAttribute="newAnswer">
 												<div class="row p-0 m-0">
 													<div class="col-sm-12 p-0">
@@ -227,8 +227,9 @@
 														</div>
 													</div>
 												</div>
-												<input type="submit" style="font-size: 13px;" value="Answer the question" class="btn btn-dark btn-block" />
+													<input type="submit" style="font-size: 13px;" value="Answer the question" class="btn btn-dark btn-block" disabled="true" /> 
 											</form:form>
+										
 										
 									</div>
 								</div>

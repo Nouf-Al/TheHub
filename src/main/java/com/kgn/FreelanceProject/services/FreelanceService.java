@@ -65,6 +65,15 @@ public class FreelanceService {
 		Optional<Project> getter = projectRepo.findById(id);
 		return getter.get();
 	}
+	public Freelancer getOneFreelancer(Long id) {
+		Optional<Freelancer> getter = freelancerRepo.findById(id);
+		return getter.get();
+	}
+
+	public Client getOneClient(Long id) {
+		Optional<Client> getter = clientRepo.findById(id);
+		return getter.get();
+	}
 
 	public Project updateProject(Project toEdit) {
 		return projectRepo.save(toEdit);
@@ -146,18 +155,28 @@ public class FreelanceService {
 		return (ArrayList<Freelancer>) freelancerRepo.findAll();
 	}
 
-	public Freelancer editFreelancer(Freelancer newFreelancer) {
+	public Freelancer editFreelancer(Freelancer newFreelancer,Long id) {
+		Freelancer theFreelancer = getOneFreelancer(id);
 		String[] skill = newFreelancer.getSkillString().split(",");
 		List<Skill> skills = new ArrayList<Skill>();
 		for (String title : skill) {
 			Skill skil = findOrCreate(title);
 			skills.add(skil);
 		}
-		newFreelancer.setSkills(skills);
 		String hashed = BCrypt.hashpw(newFreelancer.getPassword(), BCrypt.gensalt());
-		newFreelancer.setPassword(hashed);
-		return updateFreelancer(newFreelancer);
-		// return freelancerRepo.save(newFreelancer);
+		theFreelancer.setFirstname(newFreelancer.getFirstname());
+		theFreelancer.setLastname(newFreelancer.getLastname());
+		theFreelancer.setEmail(newFreelancer.getEmail());
+		theFreelancer.setPassword(hashed);
+		theFreelancer.setCountry(newFreelancer.getCountry());
+		theFreelancer.setCity(newFreelancer.getCity());
+		theFreelancer.setGender(newFreelancer.getGender());
+		theFreelancer.setSpeciality(newFreelancer.getSpeciality());
+		theFreelancer.setBio(newFreelancer.getBio());
+		theFreelancer.setPhotos(newFreelancer.getPhotos());
+		theFreelancer.setSkills(skills);
+
+		return updateFreelancer(theFreelancer);
 	}
 
 	// question model
@@ -318,10 +337,20 @@ public class FreelanceService {
 		}
 	}
 
-	public Client EditClient(Client editClient) {
+	public Client EditClient(Client editClient,Long id) {
+		Client theClient = getOneClient(id);
 		String hashed = BCrypt.hashpw(editClient.getPassword(), BCrypt.gensalt());
-		editClient.setPassword(hashed);
-		return clientRepo.save(editClient);
+
+		theClient.setFirstname(editClient.getFirstname());
+		theClient.setLastname(editClient.getLastname());
+		theClient.setEmail(editClient.getEmail());
+		theClient.setPassword(hashed);
+		theClient.setCountry(editClient.getCountry());
+		theClient.setCity(editClient.getCity());
+		theClient.setGender(editClient.getGender());
+		theClient.setBio(editClient.getBio());
+		theClient.setPhoto(editClient.getPhoto());
+		return clientRepo.save(theClient);
 	}
 
 	// public List<ReviewOnFreelancer> returnFreelancerReviews(Long id) {
