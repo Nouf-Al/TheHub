@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${client.firstname } ${client.lastname }</title>
 <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
@@ -155,17 +156,21 @@
 						<div class="h5 m-0 text-center">Rating</div>
 					</div>
 					<div class="col-sm d-flex py-3">
-						<div class="col-4 p-0 text-center ">
-							<div class="h2">4</div>
+						<div class="col-3 p-0 text-center ">
+							<div class="h2">${client.isStatus(2)}</div>
 							<div class="h5">Completed</div>
 						</div>
-						<div class="col-4 p-0 text-center ">
-							<div class="h2">2</div>
+						<div class="col-3 p-0 text-center ">
+							<div class="h2">${client.isStatus(1)}</div>
+							<div class="h5">Active</div>
+						</div>
+						<div class="col-3 p-0 text-center ">
+							<div class="h2">${client.isStatus(0)}</div>
 							<div class="h5">Open</div>
 						</div>
-						<div class="col-4 p-0 text-center ">
-							<div class="h2">8</div>
-							<div class="h5">In Progress</div>
+						<div class="col-3 p-0 text-center ">
+							<div class="h2">${client.projects.size()}</div>
+							<div class="h5">All Projects</div>
 						</div>
 					</div>
 				</div>
@@ -228,7 +233,14 @@
 											</h5>
 											<p class="card-text"></p>
 											<div class="footer">
-												<a href="/freelance/projects/${project.id }" class="btn btn-outline-success">Open</a>
+												<c:choose>
+													<c:when test="${project.freelancer ne null }">
+														<button class="btn btn-outline-primary">${project.status}</button>
+													</c:when>
+													<c:otherwise>
+														<button class="btn btn-outline-success">Open</button>
+													</c:otherwise>
+												</c:choose>
 												<c:if test="${isClient eq true && user.id eq project.client.id }">
 													<img src="/images/icons/like.png" alt="like" class="ml-4 mr-2"/> <p class="m-0">${project.freelancers_like.size() }</p>
 													<p class="m-0 ml-4">${project.freelancersOffers.size() }/30</p>
@@ -236,7 +248,16 @@
 											</div>
 											<c:if test="${isClient eq true && project.freelancer.id ne null && project.client.id == user.id}">
 												<div class="float-right">
-													<a href="/freelance/projects/${project.id }/chating" class="btn btn-primary">Chat with the freelancer</a>
+													<c:choose>
+														<c:when test="${project.status == 'Complete'}">
+															<!-- <a href="/freelance/projects/${project.id }/chating" class="btn btn-primary disabled">Chat with the freelancer</a>
+															<a href="/freelance/${client.id}/${project.id }/Complete" class="btn btn-warning disabled">Complete</a> -->
+														</c:when>
+														<c:otherwise>
+															<a href="/freelance/projects/${project.id }/chating" class="btn btn-primary">Chat with the freelancer</a>
+															<a href="/freelance/${client.id}/${project.id }/Complete" class="btn btn-warning">Complete</a>
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</c:if>
 											<c:if test="${isClient eq false && project.freelancer.id == user.id}">

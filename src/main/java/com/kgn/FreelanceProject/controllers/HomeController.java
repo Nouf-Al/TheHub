@@ -1,12 +1,9 @@
 package com.kgn.FreelanceProject.controllers;
-
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -258,7 +255,6 @@ public class HomeController {
 		model.addAttribute("answers", freelanceSer.getAllAnswers());
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
-		model.addAttribute("isClose", false);
 		model.addAttribute("user_id", session.getAttribute("user_id"));
 
 		if (session.getAttribute("user_type").equals("freelancer")) {
@@ -268,13 +264,16 @@ public class HomeController {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
+		// Date date = new Date();
+		// if (date.compareTo(freelanceSer.getOneProject(id).getOfferEnd()) > 0) {
+		// 	freelanceSer.changeStatus(freelanceSer.getOneProject(id));
+		// }
 		Date date = new Date();
 		if (date.compareTo(freelanceSer.getOneProject(id).getOfferEnd()) > 0) {
 			model.addAttribute("isClose", true);
 		} else {
 			model.getAttribute("isClose");
 		}
-		// model.addAttribute("inProgressCount", freelanceSer.isStatus("In progress"));
 		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(freelanceSer.getOneProject(id).getClient().getId())));
 		return "viewProject.jsp";
 	}
@@ -511,7 +510,7 @@ public class HomeController {
 		Freelancer u = userSer.findFreelancerById(fId);
 		Project p = freelanceSer.getOneProject(pId);
 		freelanceSer.accept(u, p);
-		model.addAttribute("project", p);
+		freelanceSer.changeStatus("Active", p);
 		return "redirect:/freelance/projects/" + pId;
 	}
 
@@ -522,8 +521,15 @@ public class HomeController {
 		Project p = freelanceSer.getOneProject(pId);
 		freelanceSer.reject(p);
 		freelanceSer.withdraw(u, p);
-		model.addAttribute("project", p);
+		freelanceSer.changeStatus(null, p);
 		return "redirect:/freelance/projects/" + pId;
+	}
+
+	@RequestMapping(value = "/freelance/{cId}/{pId}/{status}")
+	public String completeProject(@PathVariable Long cId, @PathVariable Long pId, @PathVariable String status) {
+		Project p = freelanceSer.getOneProject(pId);
+		freelanceSer.changeStatus(status,p);
+		return "redirect:/client/profile/"+p.getClient().getId();
 	}
 
 	@RequestMapping("/freelancer/profile/{id}")

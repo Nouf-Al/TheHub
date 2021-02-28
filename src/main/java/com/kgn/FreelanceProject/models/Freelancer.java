@@ -321,4 +321,26 @@ public class Freelancer {
 		this.updatedAt = new Date();
 	}
 
+	public int isStatus(int status) {
+		int countComplete =0;
+		int countActive =0;
+		int countOpen =0;
+		for (Project p : projects) {
+			if(p.getStatus() == null) {
+				countOpen++;
+			}else if(p.getStatus().equals("Complete")){
+				countComplete++;
+			}else{
+				countActive++;
+			}
+		}
+		if(status == 0){
+			return countOpen;
+		}else if (status==1){
+			return countActive;
+		}else{
+			return countComplete;
+		}
+	}
+
 }

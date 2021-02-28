@@ -139,19 +139,20 @@ public class FreelanceService {
 
 	public void accept(Freelancer u, Project p) {
 		p.setFreelancer(u);
-		p.setStatus("In progress");
+		p.setStatus("Close");
 		projectRepo.save(p);
 	}
 
 	public void reject(Project p) {
 		p.setFreelancer(null);
+		p.setStatus(null);
 		projectRepo.save(p);
 	}
 
-	// public int isStatus(String status) {
-	// 	List<Project> inProgressProjects = projectRepo.findByStatus(status);
-	// 	return inProgressProjects.size();
-	// }
+	public void changeStatus(String status, Project p) {
+		p.setStatus(status);
+		projectRepo.save(p);
+	}
 
 	// freelancer model
 	public Freelancer updateFreelancer(Freelancer user) {

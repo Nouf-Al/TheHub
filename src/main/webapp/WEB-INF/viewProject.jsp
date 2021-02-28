@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${project.title }</title>
 <link rel="stylesheet"
 	href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
@@ -93,7 +94,7 @@
 				<div class="col-12 m-0 p-4 project">
 					<div class="project-info">
 						<div class="row p-0 m-0">
-							<div class="col-sm-9 p-0 left-col">
+							<div class="col-sm p-0 left-col">
 								<div class="row m-0 p-0">
 									<div class="col-sm p-0">
 										<h3>${project.title }</h3>
@@ -101,12 +102,28 @@
 								</div>
 								<div class="row m-0 p-0 mt-2">
 									<div class="col d-flex p-0 sub-info">
+										<!-- <c:choose>
+											<c:when test="${project.freelancer ne null }">
+												<button class="btn btn-outline-danger">${project.status}</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-outline-success">Open</button>
+											</c:otherwise>
+										</c:choose> -->
+
 										<c:choose>
 											<c:when test="${project.freelancer ne null }">
 												<button class="btn btn-outline-primary">${project.status}</button>
 											</c:when>
 											<c:otherwise>
-												<button class="btn btn-outline-success">Open</button>
+												<c:choose>
+													<c:when test="${isClose eq true }">
+														<button class="btn btn-outline-danger">Close</button>
+													</c:when>
+													<c:otherwise>
+														<button class="btn btn-outline-success">Open</button>
+													</c:otherwise>
+												</c:choose>
 											</c:otherwise>
 										</c:choose>
 									
@@ -132,15 +149,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm px-5 right-col">
-								<c:choose>
-									<c:when test="${isFreelancer eq false }">
-										<c:if test="${project.client.id eq user.id }">
+							<c:choose>
+								<c:when test="${isFreelancer eq false }">
+									<c:if test="${project.client.id eq user.id }">
+										<div class="col-sm-3 px-5 right-col">	
 											<a href="/freelance/projects/${project.id }/edit" class="btn btn-primary btn-block py-3">Edit</a> 
 											<a  href="/freelance/projects/${project.id }/delete" class="btn btn-outline-danger text-danger my-3 btn-block py-3">Delete</a>
-										</c:if>
-									</c:when>
-									<c:otherwise>
+										</div>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<div class="col-sm-3 px-5 right-col">
 										<c:choose>
 											<c:when test="${project.isOffer(user.id) }">
 												<a href="/freelance/projects/${project.id }/withdrawFromViewProject" class="btn btn-dark btn-block py-3">Cancel Offer</a>
@@ -156,7 +175,6 @@
 												</c:choose>
 											</c:otherwise>
 										</c:choose>
-
 										<c:choose>
 											<c:when test="${project.isContain(user.id) }">
 												<a href="/freelance/projects/${project.id }/unlikeFromViewProject" class="btn btn-outline-danger text-danger my-3 btn-block py-3">Unlike</a>
@@ -165,9 +183,10 @@
 												<a href="/freelance/projects/${project.id }/likeFromViewProject" class="btn btn-outline-danger text-danger my-3 btn-block py-3">Like</a>
 											</c:otherwise>
 										</c:choose>
-									</c:otherwise>
-								</c:choose>
-							</div>
+									</div>
+								</c:otherwise>
+									
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -446,12 +465,12 @@
 										</c:otherwise>
 									</c:choose>
 									<span>
-										<h4>2</h4>
+										<h4>${project.client.isStatus(2)}</h4>
 										<h5 class="mb-4">Completed Projects</h5>
-										<h4>2</h4>
-										<h5 class="mb-4">Opened Projects</h5>
-										<h4>2</h4>
-										<h5 class="mb-4">In Progress Projects</h5>
+										<h4>${project.client.isStatus(1)}</h4>
+										<h5 class="mb-4">Active Projects</h5>
+										<h4>${project.client.isStatus(0)}</h4>
+										<h5 class="mb-4">Open Projects</h5>
 									</span>
 								</div>
 							</div>
