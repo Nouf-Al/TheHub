@@ -64,7 +64,7 @@
    <section class="section-1">
       <div class="row p-0 m-0">
          <div class="col-sm-6 title">
-            <h1>Explore the marketplace</h1>
+            <h1>Explore by category</h1>
             <p>Find the right freelancer to begin working on your project within minutes.</p>
          </div>
          <div class="col-sm-3 item gray" data-aos="slide-up">
