@@ -1,30 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects</title>
-<link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
-<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/style/style.css" />
-<link rel="stylesheet" href="/style/projects/projects.css" />
-<link rel="stylesheet" href="/style/menu.css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Projects</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/style/style.css" />
+	<link rel="stylesheet" href="/style/projects/projects.css" />
+	<link rel="stylesheet" href="/style/menu.css" />
 </head>
 <body>
 
-	<div class="nav-container ">
-		<div class="row p-0 menu-row">
+	<div class="nav-container">
+		<div class="row menu-row">
 			<div class="col p-0 left-menu">
-				<h1 id="logo"><a href="/">Freelance</a></h1>
-				<div class="items mr-4">
-					<a href="/freelance/projects">Projects</a> 
+				<h1><a href="/">The Hub</a></h1>
+				<div class="items">
+					<a class="active-page" href="/freelance/projects">Projects</a> 
 					<a href="/freelance/freelancers">Freelancers</a>
 				</div>
 				<div class="dropdown-left" style="float:left;">
@@ -39,12 +37,15 @@
 			<div class="col p-0 right-menu">
 				<div class="float-right">
 					<c:if test="${isClient eq true }">
-						<a href="/freelance/projects/new"><button class="post-project">+ Project</button></a>
-						<div class="dropdown-right" style="float:right;">
+						
+						<div class="dropdown-right">
 							<div class="dropbtn-right">
 								<span class="user-info">
-									${user.firstname } ${user.lastname }
+									<span>Hello, </span>${user.firstname }
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+									</svg>
 								</span>
 							</div>
 							<div class="dropdown-content-right shadow-sm">
@@ -55,14 +56,18 @@
 								<a href="/logout">Logout</a>
 							</div>
 						</div>
+						<a href="/freelance/projects/new"><button class="post-project">+ New Project</button></a>
 					</c:if>
 
 					<c:if test="${isClient eq false }">
 						<div class="dropdown-right" style="float:right;">
 							<div class="dropbtn-right">
 								<span class="user-info">
-									${user.firstname } ${user.lastname }
+									<span>Hello, </span>${user.firstname }
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+									</svg>
 								</span>
 							</div>
 							<div class="dropdown-content-right shadow-sm">
@@ -78,17 +83,17 @@
 		</div>
 	</div>
 
-	<div class="dashboard-container">
+	<div class="dashboard-container shadow-sm">
 		<div class="projects-container">
 			<div class="row p-0 m-0">
 				
 				<div class="left-col col-sm-3 px-0">
-					<div class="categories-container shadow-sm p-4">
+					<div class="categories-container shadow-sm">
 						<h3>Categories</h3>
 						<hr />
 						<c:forEach items="${categories }" var="category">
 							<div class="span">
-								<a class="p-3 mb-3 w-100 shadow-sm" href="/freelance/projects/category/${category.id}"><p class="p-0 m-0">${category.title }</p></a>
+								<a class="p-3 mb-3 w-100" href="/freelance/projects/category/${category.id}"><p class="p-0 m-0">${category.title }</p></a>
 							</div>
 						</c:forEach>
 					</div>
@@ -115,8 +120,8 @@
 					<div class="row m-0">
 						<div class="col-12 p-0">
 							<c:forEach items="${projects }" var="project">
-							<div class="project shadow-sm mt-4">
-								<div class="card">
+							<div class="project mt-4">
+								<div class="card shadow-sm">
 									<div class="header">
 										<div class="row">
 											<div class="col">
@@ -152,29 +157,29 @@
 												</div>
 												<div class="col-6">
 													<span class="float-right col3"> 
-													<c:if test="${ isFreelancer eq true}">
-															<c:choose>
-																<c:when test="${project.isContain(user.id) }">
+														<c:if test="${ isFreelancer eq true}">
+																<c:choose>
+																	<c:when test="${project.isContain(user.id) }">
+																		${project.freelancers_like.size() + project.clients_like.size()}
+																		<a href="/freelance/projects/${project.id }/unlike/projects">
+																		<img src="/images/icons/like.png" alt="like" /></a>
+																	</c:when>
+																	<c:otherwise>
 																	${project.freelancers_like.size() + project.clients_like.size()}
-																	<a href="/freelance/projects/${project.id }/unlike/projects">
-																	<img src="/images/icons/like.png" alt="like" /></a>
-																</c:when>
-																<c:otherwise>
-																${project.freelancers_like.size() + project.clients_like.size()}
-																	<a href="/freelance/projects/${project.id}/like">
-																	<img src="/images/icons/unlike.png" alt="unlike" /></a>
-																</c:otherwise>
-															</c:choose>
-															
-															<c:choose>
-																<c:when test="${project.isOffer(user.id) }">
-																	<a href="/freelance/projects/${project.id }/withdraw" class="btn btn-dark">Cancel Offer</a>
-																</c:when>
-																<c:otherwise>
-																	<a href="/freelance/projects/${project.id }/offer" class="btn btn-dark">Send Offer</a>
-																</c:otherwise>
-															</c:choose>
-															
+																		<a href="/freelance/projects/${project.id}/like">
+																		<img src="/images/icons/unlike.png" alt="unlike" /></a>
+																	</c:otherwise>
+																</c:choose>
+																
+																<c:choose>
+																	<c:when test="${project.isOffer(user.id) }">
+																		<a href="/freelance/projects/${project.id }/withdraw" class="btn btn-dark">Cancel Offer</a>
+																	</c:when>
+																	<c:otherwise>
+																		<a href="/freelance/projects/${project.id }/offer" class="btn btn-dark">Send Offer</a>
+																	</c:otherwise>
+																</c:choose>
+																
 														</c:if>
 														<c:if test="${ isClient eq true}">
 															<c:choose>
@@ -189,7 +194,6 @@
 																	<img src="/images/icons/unlike.png" alt="unlike" /></a>
 																</c:otherwise>
 															</c:choose>
-															
 														</c:if>
 													</span>
 												</div>

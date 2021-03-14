@@ -19,13 +19,13 @@
 <link rel="stylesheet" href="/style/menu.css" />
 </head>
 <body>
-	<div class="nav-container ">
-		<div class="row p-0 menu-row">
+	<div class="nav-container">
+		<div class="row menu-row">
 			<div class="col p-0 left-menu">
-				<h1 id="logo"><a href="/">Freelance</a></h1>
-				<div class="items mr-4">
+				<h1><a href="/">The Hub</a></h1>
+				<div class="items">
 					<a href="/freelance/projects">Projects</a> 
-					<a href="/freelance/freelancers">Freelancers</a>
+					<a class="active-page" href="/freelance/freelancers">Freelancers</a>
 				</div>
 				<div class="dropdown-left" style="float:left;">
 					<p class="dropbtn-left">Explore</p>
@@ -39,12 +39,15 @@
 			<div class="col p-0 right-menu">
 				<div class="float-right">
 					<c:if test="${isClient eq true }">
-						<a href="/freelance/projects/new"><button class="post-project">+ Project</button></a>
-						<div class="dropdown-right" style="float:right;">
+						
+						<div class="dropdown-right">
 							<div class="dropbtn-right">
 								<span class="user-info">
-									${user.firstname } ${user.lastname }
+									<span>Hello, </span>${user.firstname }
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+									</svg>
 								</span>
 							</div>
 							<div class="dropdown-content-right shadow-sm">
@@ -55,14 +58,18 @@
 								<a href="/logout">Logout</a>
 							</div>
 						</div>
+						<a href="/freelance/projects/new"><button class="post-project">+ New Project</button></a>
 					</c:if>
 
 					<c:if test="${isClient eq false }">
 						<div class="dropdown-right" style="float:right;">
 							<div class="dropbtn-right">
 								<span class="user-info">
-									${user.firstname } ${user.lastname }
+									<span>Hello, </span>${user.firstname }
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+									</svg>
 								</span>
 							</div>
 							<div class="dropdown-content-right shadow-sm">

@@ -11,7 +11,7 @@ html {
 
 body {
   color: black;
-  background-color: white;
+  /* background-color: #f4f6f84d; */
   font-family: eina01,sans-serif;
 }
 
@@ -50,15 +50,18 @@ text-decoration: none;
 }
 
 a:hover{
-	
-    text-decoration: none;
-
+  text-decoration: none;
 } 
 
 .dashboard-container {
-  width: 93%;
+  /* width: 93%;
   margin: 0 auto;
-  padding: 28px 0;
+  padding: 50px 0; */
+  width: 95%;
+  margin: 14px auto;
+  padding: 43px;
+  background: #f9fafb;
+  border-radius: 30px;
 }
 
 ::-webkit-scrollbar {
