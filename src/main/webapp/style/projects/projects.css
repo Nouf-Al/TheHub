@@ -6,6 +6,12 @@
   border: none;
 }
 
+.projects-container .search-container input[type=submit] {
+  width: 100%;
+  background: #ffd642;
+  color: black;
+}
+
 .projects-container .project .card {
   padding: 20px;
   border: none;
@@ -53,7 +59,9 @@
 .projects-container .categories-container h3 {
   font-size: 15px;
   font-weight: bold;
-  padding: 0 0 6px 0;
+  margin: 0;
+  cursor: pointer;
+  /* padding: 0 0 6px 0; */
 }
 
 .projects-container .categories-container p {
@@ -62,7 +70,9 @@
 }
 
 .projects-container .categories-container a:hover {
-  background: rgba(128, 128, 128, 0.075);
+  background: #f9fafb;
+  border-radius: 15px;
+  color: #1a49ba;
 }
 
 .projects-container .categories-container .span {
@@ -98,4 +108,23 @@
   .projects-container .project .card p {
     font-size: 12px;
   }
+}
+
+/*up*/
+.projects-container .categories-container h3::after {
+  font-family:Fontawesome;
+
+  content:'\f077'; 
+    float:right;
+    font-weight:300;
+}
+
+.projects-container .categories-container h3.collapsed:after {
+  font-family:Fontawesome;
+
+  content:'\f078';
+}
+
+#demo {
+  margin: 17px 0 0 0;
 }
