@@ -1,19 +1,17 @@
-@charset "ISO-8859-1";
-
 .user-profile-pic {
-    /* width: 30%; */
-    border-radius: 50%;
-    border: 0.2px solid;
+  width: 50%;
+  border-radius: 50%;
+  border: 0.2px solid;
 }
 
 img.location {
-    width: 4%;
-    height: 72%;
+  width: 4%;
+  height: 72%;
 }
 
 .left-section{
-    margin-right: 20px;
-  }
+  margin-right: 20px;
+}
 
 .right-section img{
 	width: 18px;
@@ -21,12 +19,42 @@ img.location {
 }
 
 .right-section .footer{
-    display: -webkit-inline-box;
+  display: -webkit-inline-box;
 }
 
 .right-section .footer p{
-    font-size: 14px;
-    line-height: 2;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.box {
+  border-radius: 10px;
+  background: white;
+}
+
+.form-btn {
+  font-size: 13px;
+  font-weight: 700;
+  border: 0.1px solid black;
+  color: black;
+  background: none;
+  transition: all 0.5s;
+}
+
+.form-btn:hover {
+  font-size: 13px;
+  font-weight: 700;
+  border: 0.1px solid #1a49ba;
+  color: white;
+  background: #1a49ba;
+}
+
+.bg{
+  background-image: linear-gradient(to right bottom, #345ec3, #2e59c1, #2854bf, #214ebc, #1a49ba) !important;
+}
+
+.bg-1{
+  background: #d6d6d66b !important;
 }
 @media screen and (max-width: 576px) {
   .user-loc {
@@ -44,8 +72,7 @@ img.location {
   img.location {
     width: 5%;
     height: 72%;
-}
-
+  }
 }
 
 .rating{
@@ -53,5 +80,25 @@ img.location {
 }
 
 .info{
-  background: #e3e4e42b;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.fa-star:before {
+  content: "\f005";
+  color: #ffd642;
+  font-size: 14px;
+}
+
+.box-title{
+  background: #d6d6d66b;
+  padding: 12px 19px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  margin: 0;
+}
+
+.box-content{
+  padding: 19px;
 }

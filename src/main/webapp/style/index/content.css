@@ -429,12 +429,12 @@
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   -webkit-transform: scale(0.98);
-          transform: scale(0.98);
+  transform: scale(0.98);
   will-change: transform;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   cursor: -webkit-grab;
   cursor: grab;
 }
@@ -443,7 +443,7 @@
   cursor: grabbing;
   cursor: -webkit-grabbing;
   -webkit-transform: scale(0.95);
-          transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .section-3 .item {

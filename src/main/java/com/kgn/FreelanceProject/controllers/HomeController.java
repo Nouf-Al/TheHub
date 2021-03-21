@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import net.bytebuddy.agent.builder.AgentBuilder.FallbackStrategy;
+
 import com.kgn.FreelanceProject.models.Answer;
 import com.kgn.FreelanceProject.models.Category;
 import com.kgn.FreelanceProject.models.Client;
@@ -160,9 +163,12 @@ public class HomeController {
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isFreelancer", true);
+				model.addAttribute("isClient", false);
+				System.out.println("freelancer");
 			} else {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
+				model.addAttribute("isFreelancer", false);
 			}
 			return "freelancers.jsp";
 

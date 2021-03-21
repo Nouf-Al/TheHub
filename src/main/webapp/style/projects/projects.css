@@ -113,15 +113,13 @@
 /*up*/
 .projects-container .categories-container h3::after {
   font-family:Fontawesome;
-
   content:'\f077'; 
-    float:right;
-    font-weight:300;
+  float:right;
+  font-weight:300;
 }
 
 .projects-container .categories-container h3.collapsed:after {
   font-family:Fontawesome;
-
   content:'\f078';
 }
 
