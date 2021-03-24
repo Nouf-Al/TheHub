@@ -132,7 +132,7 @@
 												</div>
 												<div class="col">
 													<p class="float-right time">
-														<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMMM dd, yyyy - h:m a" />
+														<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
 													</p>
 												</div>
 											</div>

@@ -1,0 +1,71 @@
+.left-side{
+    width: 64%;
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.left-side p {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 40px 0;
+}
+
+label{
+    font-size: 14px;
+}
+input, textarea, select{
+    width: 100%;
+    border: none;
+    height: 43px;
+    outline: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    padding: 5px 0px;
+    margin: 0 0 19px 0;
+    font-size: 14px;
+    -webkit-transition: none;
+    transition: none;
+}
+
+.form-btn {
+    font-size: 13px;
+    font-weight: 700;
+    border: 0.1px solid black;
+    color: black;
+    background: none;
+    transition: all 0.5s;
+    height: 36px;
+    padding: 8px 0;
+}
+
+.form-btn:hover {
+    font-size: 13px;
+    font-weight: 700;
+    border: 0.1px solid #1a49ba;
+    color: white;
+    background: #1a49ba;
+}
+
+.cancel-btn {
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.5s;
+    height: 36px;
+    padding: 8px 0;
+    background: #2f2e2e;
+    color: white;
+    border: none;
+}
+
+.cancel-btn:hover {
+    color: white;
+}
+
+
+@media screen and (max-width: 576px) {
+    .left-side{
+        width: 100%;
+    }
+}

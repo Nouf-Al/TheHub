@@ -23,7 +23,7 @@
 			<div class="col p-0 left-menu">
 				<h1><a href="/">The Hub</a></h1>
 				<div class="items">
-					<a class="active-page" href="/freelance/projects">Projects</a>
+					<a href="/freelance/projects">Projects</a>
 					<a href="/freelance/freelancers">Freelancers</a>
 				</div>
 				<div class="dropdown-left" style="float:left;">
@@ -238,7 +238,7 @@
 											<h5 class="card-title">
 												<a ref="/freelance/projects/${project.id }">${project.title}</a>
 												<span class="h6 float-right">
-													<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMMM dd, yyyy" />
+													<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMM dd, yyyy" />
 												</span>
 											</h5>
 											<p class="card-text"></p>

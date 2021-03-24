@@ -1,6 +1,6 @@
 .section{
     /* background-color: #58acf70d; */
-    background: #e3e4e42b;
+    background: #1a49ba14;
     padding: 19px 23px;
 }
 
@@ -16,8 +16,6 @@
 
 .left-col h3{
     font-size: 15px;
-    font-weight: bold;
-    padding: 0 0 6px 0;
 }
 
 .left-col p{
@@ -31,13 +29,12 @@
 
 .right-col{
     height: fit-content;
+    border-radius: 10px;
+    background: white;
 }
 
 .right-col h3{
     font-size: 15px;
-    font-weight: bold;
-    padding: 0 0 6px 0;
-
 }
 
 .right-col p{
@@ -47,6 +44,38 @@
 .section:hover {
     background:#58acf74b;
 } */
+
+a.form-btn {
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 10px;
+    color: white;
+    border: 0.1px solid #1a49ba;
+    padding: 11px 0;
+    background: #1a49ba;
+    transition: all 0.5s;
+}
+
+a.form-btn:hover {
+    color: white;
+}
+
+.box{
+    background: white;
+    border-radius: 10px;
+}
+
+.box-title{
+    background: #d6d6d66b;
+    padding: 12px 19px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin: 0;
+}
+
+.box-content{
+    padding: 19px;
+}
 
 @media screen and (max-width: 576px) {
     .left-col{

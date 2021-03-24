@@ -1,37 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ page isErrorPage="true"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edit FreeLancer</title>
-<link rel="stylesheet"
-	href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
-<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/style/style.css" />
-<link rel="stylesheet" href="/style/profile/profile.css" />
-<link rel="stylesheet" href="/style/menu.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Edit Profile</title>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/style/style.css" />
+	<link rel="stylesheet" href="/style/projects/newProject.css" />
+	<link rel="stylesheet" href="/style/menu.css" />
 </head>
 <body>
-	<div class="nav-container ">
-		<div class="row p-0 menu-row">
+	<div class="nav-container">
+		<div class="row menu-row">
 			<div class="col p-0 left-menu">
-				<h1 id="logo"><a href="/">Freelance</a></h1>
-				<div class="items mr-4">
-					<a href="/freelance/projects">Projects</a> 
+				<h1><a href="/">The Hub</a></h1>
+				<div class="items">
+					<a href="/freelance/projects">Projects</a>
 					<a href="/freelance/freelancers">Freelancers</a>
 				</div>
 				<div class="dropdown-left" style="float:left;">
 					<p class="dropbtn-left">Explore</p>
 					<div class="dropdown-content-left" style="left:0;">
-						<a href="/freelance/projects">Projects</a> 
+						<a href="/freelance/projects">Projects</a>
 						<a href="/freelance/freelancers">Freelancers</a>
 					</div>
 				</div>
@@ -40,12 +36,14 @@
 			<div class="col p-0 right-menu">
 				<div class="float-right">
 					<c:if test="${isClient eq true }">
-						<a href="/freelance/projects/new"><button class="post-project">+ Project</button></a>
-						<div class="dropdown-right" style="float:right;">
+						<div class="dropdown-right">
 							<div class="dropbtn-right">
 								<span class="user-info">
-									${user.firstname } ${user.lastname }
+									<span>Hello, </span>${user.firstname }
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+									</svg>
 								</span>
 							</div>
 							<div class="dropdown-content-right shadow-sm">
@@ -56,14 +54,18 @@
 								<a href="/logout">Logout</a>
 							</div>
 						</div>
+						<a href="/freelance/projects/new"><button class="post-project">+ New Project</button></a>
 					</c:if>
 
 					<c:if test="${isClient eq false }">
 						<div class="dropdown-right" style="float:right;">
 							<div class="dropbtn-right">
 								<span class="user-info">
-									${user.firstname } ${user.lastname }
+									<span>Hello, </span>${user.firstname }
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+									</svg>
 								</span>
 							</div>
 							<div class="dropdown-content-right shadow-sm">
@@ -73,61 +75,57 @@
 								<a href="/logout">Logout</a>
 							</div>
 						</div>
-					</c:if>	
+					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<div class="continer m-5 p-5">
-		<div class="col-sm-8 offset-2 ">
-			<h4 class="">
-				Edit
-				<c:out value="${freelancer.firstname }"></c:out>
-				<c:out value="${freelancer.lastname }"></c:out>
-			</h4>
+	<div class="dashboard-container">
+		<div class="left-side m-auto shadow-sm">
+			<p>Edit ${freelancer.firstname } ${freelancer.lastname }</p>
 			<form:form action="/freelancer/profile/${freelancer.id}/update" method="post" modelAttribute="editFreelancer">
 				<input type="hidden" name="_method" value="put">
 				<div class="row my-4">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>First Name:</label>
-							<form:input path="firstname" class="form-control" value="${freelancer.firstname }" />
+							<form:input path="firstname" value="${freelancer.firstname }" />
 							<form:errors path="firstname" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Last Name:</label>
-							<form:input path="lastname" class="form-control"  value="${freelancer.lastname }" />
+							<form:input path="lastname" value="${freelancer.lastname }" />
 							<form:errors path="lastname" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Email:</label>
-							<form:input path="email" class="form-control" value="${freelancer.email }" />
+							<form:input path="email" value="${freelancer.email }" />
 							<form:errors path="email" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Password:</label>
-							<form:password path="password" class="form-control" />
+							<form:password path="password" />
 							<form:errors path="password" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Confirm Password:</label>
-							<form:password path="confirm" class="form-control" />
+							<form:password path="confirm" />
 							<form:errors path="confirm" class="text-danger" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<form:label path="">Country:</form:label>
-							<select name="country" class="form-control">
+							<select name="country">
 								<option value="ca">CA</option>
 								<option value="ny">NY</option>
 								<option value="sa">SA</option>
@@ -137,7 +135,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<form:label path="">City:</form:label>
-							<select name="city" class="form-control">
+							<select name="city">
 								<option value="ca">CA</option>
 								<option value="ny">NY</option>
 								<option value="sa">SA</option>
@@ -147,50 +145,44 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<form:label path="">Gender:</form:label>
-							<select name="gender" class="form-control">
+							<select name="gender">
 								<option value="male">Male</option>
 								<option value="female">Female</option>
-
 							</select>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Speciality:</label>
-							<form:input path="speciality"  value="${freelancer.speciality }" class="form-control" />
-
+							<form:input path="speciality" value="${freelancer.speciality }" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Bio:</label>
-							<form:input path="bio" value="${freelancer.bio }" class="form-control" />
-
+							<form:input path="bio" value="${freelancer.bio }" />
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<label>Photo:</label>
 						<div class="custom-file">
-							<label>Photo:</label> <input type="file"
-								class="custom-file-input" id="inputGroupFile01"
-								aria-describedby="inputGroupFileAddon01"> <label
-								class="custom-file-label" for="inputGroupFile01">Choose
-								file</label>
+							<label>Photo:</label> 
+							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> 
+							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
-							<label>skill:</label>
-							<form:textarea class="form-control" path="skillString"/>
-							<small>please separate by , between skill </small>
-
+							<label>skills:</label>
+							<form:textarea path="skillString" />
+							<h6 class="text-danger">please separate by , between skill </h6>
 						</div>
 					</div>
 				</div>
-				<input type="submit" value="Edit" class="btn col-sm-2 edit " />
+				<input type="submit" value="Update" class="btn btn-block form-btn" />
 			</form:form>
+			<a href="/freelancer/profile/${freelancer.id}" class="btn btn-block cancel-btn">Cancel</a>
 		</div>
 	</div>
-
 </body>
 </html>

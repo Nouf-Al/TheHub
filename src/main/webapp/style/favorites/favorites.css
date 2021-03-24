@@ -1,6 +1,6 @@
 .section{
     /* background-color: #58acf70d; */
-    background: #e3e4e42b;
+    background: #1a49ba14;
     padding: 19px 23px;
 }
 
@@ -16,8 +16,6 @@
 
 .left-col h3{
     font-size: 15px;
-    font-weight: bold;
-    padding: 0 0 6px 0;
 }
 
 .left-col p{
@@ -35,17 +33,32 @@
 
 .right-col h3{
     font-size: 15px;
-    font-weight: bold;
-    padding: 0 0 6px 0;
 }
 
 .right-col p{
-    font-size: 12px;
+    font-size: 13px;
 }
 
 /* .section:hover {
     background:#58acf74b;
 } */
+
+.box{
+    background: white;
+    border-radius: 10px;
+}
+
+.box-title{
+    background: #d6d6d66b;
+    padding: 12px 19px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin: 0;
+}
+
+.box-content{
+    padding: 19px;
+}
 
 @media screen and (max-width: 576px) {
     .left-col{

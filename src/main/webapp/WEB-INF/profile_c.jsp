@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="dashboard-container">
-		<div class="row my-4 mx-0 p-5 shadow-sm info">
+		<div class="row mb-4 mx-0 p-5 shadow-sm info">
 			<div class="col-sm-3 p-0 d-flex justify-content-center">
 				<img class="user-profile-pic m-3" src="/images/user_pic.svg" alt="profile" />
 			</div>
@@ -228,7 +228,7 @@
 											<h5 class="card-title">
 												<a href="/freelance/projects/${project.id }">${project.title }</a>
 												<span class="h6 float-right">
-													<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMMM dd, yyyy" />
+													<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMM dd, yyyy" />
 												</span>
 											</h5>
 											<p class="card-text"></p>
@@ -337,7 +337,7 @@
 										<h5 class="card-title box-title bg">
 											<a ref="/freelancer/profile/${review.freelancer.id}">${review.freelancer.firstname} ${review.freelancer.lastname}</a>
 											<span class="h6 float-right">
-												<fmt:formatDate value="${review.createdAt }" type="date" pattern="MMMM dd, yyyy" />
+												<fmt:formatDate value="${review.createdAt }" type="date" pattern="MMM dd, yyyy" />
 											</span>
 										</h5>
 										<div class="box-content bg-1">

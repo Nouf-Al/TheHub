@@ -293,7 +293,7 @@
 											<div class="question-header p-3 rounded-top">
 												<p class="h6">${question.freelancer.firstname } ${question.freelancer.lastname }</p>
 												<p class="h6">
-													<fmt:formatDate value="${question.createdAt }" type="date" pattern="MMMM dd, yyyy - h:m a" />
+													<fmt:formatDate value="${question.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
 												</p>
 											</div>
 											<div class="question-body p-3 rounded-bottom">
@@ -315,7 +315,7 @@
 													<div class="answer-header p-3 rounded-top">
 														<p class="h6">${project.client.firstname } ${project.client.lastname }</p>
 														<p class="h6">
-															<fmt:formatDate value="${answer.createdAt }" type="date" pattern="MMMM dd, yyyy - h:m a" />
+															<fmt:formatDate value="${answer.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
 														</p>
 													</div>
 													<div class="answer-body p-3 rounded-bottom">
