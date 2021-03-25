@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Freelancers</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Freelancers</title>
 	<link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
 	<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -82,32 +82,22 @@
 	</div>
 
 	<div class="dashboard-container">
-		<div class="projects-container">
-			<div class=" row p-0 m-0">
-				<div class=" col p-0 m-0">
-					<div class="freelancers">
-						<c:forEach items="${freelancers }" var="freelancer">
-							<div class="freelancer">
-								<div class="card">
-									<img src="/images/user_pic.svg" alt="freelance" />
-									<div class="header">
-										<p>${freelancer.firstname } ${freelancer.lastname }</p>
-									</div>
-									<div class="body">
-										<p>Projects : ${freelancer.projects.size()}</p>
-										<p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-										<p>Views: 33</p>
-									</div>
-									<div class="footer p-3">
-										<a href="/freelancer/profile/${freelancer.id}" class="btn btn-block btn-primary">View Profile</a>
-									</div>
-								</div>
+				<div class="boxes">
+
+					<c:forEach items="${freelancers }" var="freelancer">
+						<div class="box shadow-sm mx-3 my-3">
+							<img src="/images/user_pic.svg" alt="freelancer" />
+							<div class="header mt-4">
+								<h3>${freelancer.firstname } ${freelancer.lastname }</h3>
 							</div>
-						</c:forEach>
-					</div>
+							<div class="my-4">
+								<p class="m-0">Projects : ${freelancer.projects.size()}</p>
+								<p class="m-0">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+							</div>
+							<a href="/freelancer/profile/${freelancer.id}" class="btn btn-block form-btn">View Profile</a>
+						</div>
+				</c:forEach>
 				</div>
-			</div>
-		</div>
 	</div>
 </body>
 
