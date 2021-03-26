@@ -98,12 +98,8 @@
 
 			<div class="col-sm p-0">
 				<div class="row m-0 p-0">
-					<div class="col-sm-3 pb-3">
+					<div class="col-sm pb-3">
 						<div class="h3 center">${freelancer.firstname } ${freelancer.lastname }</div>
-					</div>
-					<div class="col-sm pb-3 d-flex user-loc">
-						<img class="location" alt="location" src="/images/icons/location.png">
-						<div class="h4">${freelancer.city}</div>
 					</div>
 				</div>
 
@@ -205,16 +201,6 @@
 								<p class="h5">Gender</p>
 								<p class="h5">: ${freelancer.gender }</p>
 							</div>
-	
-							<div class="personal-info d-flex mb-2">
-								<p class="h5">Nationality</p>
-								<p class="h5">: ${freelancer.country }</p>
-							</div>
-	
-							<div class="personal-info d-flex mb-2">
-								<p class="h5">City</p>
-								<p class="h5">: ${freelancer.city }</p>
-							</div>
 							<div class="personal-info d-flex mb-2">
 								<p class="h5">Skills</p>
 								<p class="h5">: <c:forEach items="${freelancer.skills }" var="skill">
@@ -236,7 +222,7 @@
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title">
-												<a ref="/freelance/projects/${project.id }">${project.title}</a>
+												<a href="/freelance/projects/${project.id }">${project.title}</a>
 												<span class="h6 float-right">
 													<fmt:formatDate value="${project.createdAt }" type="date" pattern="MMM dd, yyyy" />
 												</span>

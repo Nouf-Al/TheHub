@@ -188,4 +188,14 @@ p.dropbtn-left:hover{
   #post-project-menu{
     display: block;
   }
+  .dropbtn-right {
+    padding: 0;
+  }
+  .dropdown-content-right, .dropdown-content-left {
+    min-width: 150px;
+  }
+
+  p.dropbtn-left {
+    padding: 18px 23px;
+  }
 }

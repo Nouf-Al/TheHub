@@ -83,7 +83,7 @@
 
 	<div class="dashboard-container">
 		<div class=" row p-0 m-0">
-			<div class="left-col col-sm-3 p-0 box shadow-sm mb-4">
+			<!-- <div class="left-col col-sm-3 p-0 box shadow-sm mb-4">
 				<h3 class="box-title">My Favorite</h3>
 				<div class="box-content">
 					<a href="/">
@@ -93,10 +93,10 @@
 						<p class="p-3 mb-3 w-100 shadow-sm">Freelancers</p>
 					</a>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="right-col col-sm p-0 shadow-sm box">
-				<h3 class="box-title">Projects</h3>
+				<h3 class="box-title">Favorite Projects (${user.projects_likes.size()})</h3>
 				<div class="box-content">
 					<c:choose>
 						<c:when test="${isFreelancer eq true}">
@@ -108,7 +108,7 @@
 												<div class="row m-0 p-0 mb-3">
 													<div class="col p-0 m-0">
 														<a href="/freelance/projects/${project.id}">
-															<h4 class="float-left m-0 p-0">${project.title}</h4>
+															<h3 class="float-left m-0 p-0">${project.title}</h3>
 														</a>
 													</div>
 												</div>

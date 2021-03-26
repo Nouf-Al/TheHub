@@ -106,7 +106,14 @@
     padding-right: 0;
   }
   .projects-container .project .card p {
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .projects-container .project .card .footer .col3 img {
+    width: 22px;
+    margin: 0 5px 0 11px;
+  }
+  .projects-container .project .card h3 {
+    font-size: 14px;
   }
 }
 

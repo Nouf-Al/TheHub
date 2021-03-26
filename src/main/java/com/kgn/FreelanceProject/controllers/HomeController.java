@@ -345,14 +345,15 @@ public class HomeController {
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
-			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			Freelancer user = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
+			model.addAttribute("user", user);
 			model.addAttribute("isFreelancer", true);
+			model.addAttribute("projects", freelanceSer.findProjectsByFreelancerId(user.getId()));
 		} else {
 			Client user = userSer.findClientById((Long) session.getAttribute("user_id"));
 			model.addAttribute("user", user);
 			model.addAttribute("isClient", true);
-			model.addAttribute("projects", freelanceSer.findByClientId(user.getId()));
-
+			model.addAttribute("projects", freelanceSer.findProjectsByClientId(user.getId()));
 		}
 		return "myProjects.jsp";
 		
@@ -364,13 +365,15 @@ public class HomeController {
 		model.addAttribute("isFreelancer", false);
 		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
-			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			Freelancer user = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
+			model.addAttribute("user", user);
 			model.addAttribute("isFreelancer", true);
+			model.addAttribute("projects", freelanceSer.filterMyProjectsByCategory(user.getId(), id, "freelancer"));
 		} else {
 			Client user = userSer.findClientById((Long) session.getAttribute("user_id"));
 			model.addAttribute("user", user);
 			model.addAttribute("isClient", true);
-			model.addAttribute("projects", freelanceSer.filterMyProjectsByCategory(user.getId(), id));
+			model.addAttribute("projects", freelanceSer.filterMyProjectsByCategory(user.getId(), id, "client"));
 		}
 		return "myProjects.jsp";
 	}

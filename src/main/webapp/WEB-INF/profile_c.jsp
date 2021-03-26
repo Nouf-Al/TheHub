@@ -90,12 +90,8 @@
 
 			<div class="col-sm p-0">
 				<div class="row m-0 p-0">
-					<div class="col-sm-3 pb-3">
+					<div class="col-sm pb-3">
 						<div class="h3 center">${client.firstname } ${client.lastname }</div>
-					</div>
-					<div class="col-sm pb-3 d-flex user-loc">
-						<img class="location" alt="location" src="/images/icons/location.png">
-						<div class="h4">${client.city}</div>
 					</div>
 				</div>
 
@@ -201,16 +197,6 @@
 							<div class="personal-info d-flex mb-2">
 								<p class="h5">Gender</p>
 								<p class="h5">: ${client.gender }</p>
-							</div>
-	
-							<div class="personal-info d-flex mb-2">
-								<p class="h5">Nationality</p>
-								<p class="h5">: ${client.country }</p>
-							</div>
-	
-							<div class="personal-info d-flex mb-2">
-								<p class="h5">City</p>
-								<p class="h5">: ${client.city }</p>
 							</div>
 						</div>
 					</div>

@@ -13,6 +13,7 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
 	List<Project> findByTitleContaining(String search);
 	List<Project> findByCategoryId(Long id);
 	List<Project> findByClientId(Long id);
+	List<Project> findByfreelancerId(Long id);
 	List<Project> findByStatus(String status);
 	
 }

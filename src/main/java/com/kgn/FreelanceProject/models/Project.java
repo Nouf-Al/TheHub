@@ -289,4 +289,13 @@ public class Project {
 	// 	// return Math.abs(difference);
 	// }
 
+	public boolean isOfferEndDate(){
+		Date date = new Date();
+		if (date.compareTo(getOfferEnd()) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="/style/style.css" />
 	<link rel="stylesheet" href="/style/freelancers/freelancers.css" />
 	<link rel="stylesheet" href="/style/menu.css" />
+	<script src="https://kit.fontawesome.com/9e73ca32ae.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="nav-container">
@@ -82,23 +83,66 @@
 	</div>
 
 	<div class="dashboard-container">
-				<div class="boxes">
-
-					<c:forEach items="${freelancers }" var="freelancer">
-						<div class="box shadow-sm mx-3 my-3">
-							<img src="/images/user_pic.svg" alt="freelancer" />
-							<div class="header mt-4">
-								<h3>${freelancer.firstname } ${freelancer.lastname }</h3>
-							</div>
-							<div class="my-4">
-								<p class="m-0">Projects : ${freelancer.projects.size()}</p>
-								<p class="m-0">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-							</div>
-							<a href="/freelancer/profile/${freelancer.id}" class="btn btn-block form-btn">View Profile</a>
+		<div class="boxes">
+			<c:forEach items="${freelancers }" var="freelancer">
+				<div class="box shadow-sm mx-3 my-3">
+					<img src="/images/user_pic.svg" alt="freelancer" />
+					<div class="header mt-4">
+						<h3>${freelancer.firstname } ${freelancer.lastname }</h3>
+					</div>
+					<div class="my-4">
+						<p class="m-0">All projects : ${freelancer.projects.size()}</p>
+						<div class="rating my-2">
+							<c:choose>
+								<c:when test="${freelancer.avgRating() == 1 }">
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+								</c:when>
+								<c:when test="${freelancer.avgRating() == 2 }">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+								</c:when>
+								<c:when test="${freelancer.avgRating() == 3 }">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+								</c:when>
+								<c:when test="${freelancer.avgRating() == 4 }">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+								</c:when>
+								<c:when test="${freelancer.avgRating() == 5}">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+									<i class="far fa-star"></i>
+								</c:otherwise>
+							</c:choose>
 						</div>
-				</c:forEach>
+					</div>
+					<a href="/freelancer/profile/${freelancer.id}" class="btn btn-block form-btn">View Profile</a>
 				</div>
+			</c:forEach>
+		</div>
 	</div>
 </body>
-
 </html>

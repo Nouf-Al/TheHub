@@ -92,19 +92,34 @@ public class FreelanceService {
 		return projectRepo.findByCategoryId(id);
 	}
 
-	public List<Project> findByClientId(Long id) {
+	public List<Project> findProjectsByClientId(Long id) {
 		return projectRepo.findByClientId(id);
 	}
 
-	public List<Project> filterMyProjectsByCategory(Long clientId, Long categoryId) {
-		List<Project> projects = projectRepo.findByClientId(clientId);
-		List<Project> projectsFilterd = new ArrayList<Project>();
-		for (Project project : projects) {
-			if (project.getCategory().getId() == categoryId) {
-				projectsFilterd.add(project);
+	public List<Project> findProjectsByFreelancerId(Long id) {
+		return projectRepo.findByfreelancerId(id);
+	}
+
+	public List<Project> filterMyProjectsByCategory(Long clientId, Long categoryId, String user_type) {
+		if(user_type == "freelancer"){
+			List<Project> projects = projectRepo.findByfreelancerId(clientId);
+			List<Project> projectsFilterd = new ArrayList<Project>();
+			for (Project project : projects) {
+				if (project.getCategory().getId() == categoryId) {
+					projectsFilterd.add(project);
+				}
 			}
+			return projectsFilterd;
+		}else{
+			List<Project> projects = projectRepo.findByClientId(clientId);
+			List<Project> projectsFilterd = new ArrayList<Project>();
+			for (Project project : projects) {
+				if (project.getCategory().getId() == categoryId) {
+					projectsFilterd.add(project);
+				}
+			}
+			return projectsFilterd;
 		}
-		return projectsFilterd;
 	}
 
 	public void like(Freelancer u, Project p) {
@@ -176,8 +191,6 @@ public class FreelanceService {
 		theFreelancer.setLastname(newFreelancer.getLastname());
 		theFreelancer.setEmail(newFreelancer.getEmail());
 		theFreelancer.setPassword(hashed);
-		theFreelancer.setCountry(newFreelancer.getCountry());
-		theFreelancer.setCity(newFreelancer.getCity());
 		theFreelancer.setGender(newFreelancer.getGender());
 		theFreelancer.setSpeciality(newFreelancer.getSpeciality());
 		theFreelancer.setBio(newFreelancer.getBio());
@@ -353,8 +366,6 @@ public class FreelanceService {
 		theClient.setLastname(editClient.getLastname());
 		theClient.setEmail(editClient.getEmail());
 		theClient.setPassword(hashed);
-		theClient.setCountry(editClient.getCountry());
-		theClient.setCity(editClient.getCity());
 		theClient.setGender(editClient.getGender());
 		theClient.setBio(editClient.getBio());
 		theClient.setPhoto(editClient.getPhoto());

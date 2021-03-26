@@ -48,12 +48,6 @@ public class Freelancer {
 	private String photos;
 
 	private String bio;
-	
-	@NotEmpty(message = "City is required.")
-	private String city;
-
-	@NotEmpty(message = "Country is required.")
-	private String country;
 
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
@@ -75,11 +69,7 @@ public class Freelancer {
 	private List<Project> projects;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "offers", 
-        joinColumns = @JoinColumn(name = "freelancer_id"), 
-        inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
+    @JoinTable(name = "offers", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
     private List<Project> projectOffers;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -221,22 +211,6 @@ public class Freelancer {
 		this.bio = bio;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -343,4 +317,17 @@ public class Freelancer {
 		}
 	}
 
+	public double avgRating() {
+		double total = 0;
+		double count=0;
+		for (ReviewOnFreelancer u : reviewsOnFreelancer) {
+			count++;
+			total += u.getRating();
+		}
+		if( count != 0){
+			return total / count;
+		} else{
+			return 0;
+		}
+	}
 }

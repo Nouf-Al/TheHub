@@ -90,7 +90,7 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col p-0 box shadow-sm mb-4">
 						<h3 class="box-title">Status</h3>
 						<div class="box-content">
@@ -98,7 +98,7 @@
 							<p class="p-3 mb-3 w-100 shadow-sm">Closed</p>
 						</div>
 					</div>					
-				</div>
+				</div> -->
 
 				<div class="row">
 					<div class="col p-0 box shadow-sm mb-4">
@@ -129,7 +129,21 @@
 									</div>
 									<div class="col m-0 p-0">
 										<div class="float-right">
-											<div class="btn btn-outline-success">Open</div>
+											<c:choose>
+												<c:when test="${project.status eq null }">
+													<c:choose>
+														<c:when test="${project.isOfferEndDate() eq true}">
+															<div class="btn btn-outline-danger">Close</div>
+														</c:when>
+														<c:otherwise>
+															<div class="btn btn-outline-success">Open</div>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<div class="btn btn-outline-primary">${project.status}</div>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</div>

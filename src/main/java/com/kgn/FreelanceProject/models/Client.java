@@ -45,11 +45,6 @@ public class Client {
     private String photo;
 
 	private String bio;
-	@NotEmpty(message = "City is required.")
-	private String city;
-
-	@NotEmpty(message = "Country is required.")
-	private String country;
 
 //	@NotEmpty(message = "Password is required!")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
@@ -140,22 +135,6 @@ public class Client {
 
 	public void setBio(String bio) {
 		this.bio = bio;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public String getPassword() {
