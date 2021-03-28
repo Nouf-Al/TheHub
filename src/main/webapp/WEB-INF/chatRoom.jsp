@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,54 +83,102 @@
 	</div>
 
 	<div class="dashboard-container">
-		<div class="row p-0 m-0 rounded border shadow-sm p-4 chat-box">
-			<div class="col p-0">
-				<div class="row p-0 m-0">
-					<div class="col p-0">
-						<c:forEach items="${comments }" var="c">
-							<c:choose>
-								<c:when test="${c.writerType =='client'}">
-									<p class="text-left client">${c.client.firstname}: ${c.text }</p>
-								</c:when>
-								<c:otherwise>
-									<p class="text-right freelancer">${c.freelancer.firstname}: ${c.text }
-									</p>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</div>
-				</div>
-				<hr />
-				<div class="row m-0 p-0">
-					<div class="col p-0">
-						<form:form action="/freelance/projects/${project.id}/chating/create" method="post"
-							modelAttribute="newComment">
-							<div class="form-group">
-								<label>Write A Message: </label>
-								<form:textarea path="text" class="form-control" />
-								<form:errors path="text" class="text-danger" />
+		<div class="shadow-sm chat-box p-5">
+			<div class="row m-0 p-0">
+				<div class="col m-0 px-0 contact-box">
+					<c:choose>
+						<c:when test="${isClient eq true}">
+							<img src="/images/user_pic.svg" class="mr-5" id="contact-img" alt="user" />
+							<div class="contact-info">
+								<h3>${project.freelancer.firstname} ${project.freelancer.lastname}</h3>
+								<p>${project.title}</p>
 							</div>
-							<c:choose>
-								<c:when test="${isClient eq true}">
-									<input type="hidden" name="writerType" value="client" />
-									<input type="hidden" name="client" value="${user_id}" />
-									<input type="hidden" name="freelancer"
-										value="${project.freelancer.id}" />
-								</c:when>
-								<c:otherwise>
-									<input type="hidden" name="writerType" value="freelancer" />
-									<input type="hidden" name="freelancer" value="${user_id}" />
-									<input type="hidden" name="client" value="${project.client.id}" />
-								</c:otherwise>
-							</c:choose>
-							<input type="hidden" name="project" value="${project.id}" />
-							<input type="submit" value="Send message" class="btn btn-dark" />
-						</form:form>
-					</div>
+						</c:when>
+						<c:otherwise>
+							<img src="/images/user_pic.svg" class="mr-5" id="contact-img" alt="user" />
+							<div class="contact-info">
+								<h3>${project.client.firstname} ${project.client.lastname}</h3>
+								<p>${project.title}</p>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+
+			<div class="row m-0 p-0">
+				<div class="col m-0 messages-box">
+					<c:forEach items="${comments }" var="c">
+						<c:choose>
+							<c:when test="${isClient eq true}">
+								<c:choose>
+									<c:when test="${c.writerType =='client'}">
+										<div class="text-right">
+											<div class="right-container">
+												<p class="right">${c.text}</p>
+											</div>
+											<h6><fmt:formatDate value="${c.createdAt}" type="date" pattern="h:m a" /></h6>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="text-left">
+											<div class="left-container">
+												<p class="left">${c.text}</p>
+											</div>
+											<h6><fmt:formatDate value="${c.createdAt}" type="date" pattern="h:m a" /></h6>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+									<c:when test="${c.writerType =='freelancer'}">
+										<div class="text-right">
+											<div class="right-container">
+												<p class="right">${c.text}</p>
+											</div>
+											<h6><fmt:formatDate value="${c.createdAt}" type="date" pattern="h:m a" /></h6>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="text-left">
+											<div class="left-container">
+												<p class="left">${c.text}</p>
+											</div>
+											<h6><fmt:formatDate value="${c.createdAt}" type="date" pattern="h:m a" /></h6>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</div>
+			</div>
+
+			<div class="row m-0 p-0">
+				<div class="col px-0 form-box">
+					<form:form action="/freelance/projects/${project.id}/chating/create" method="post" modelAttribute="newComment">
+						<div class="form-group">
+							<form:textarea path="text" class="form-control" />
+							<form:errors path="text" class="text-danger" />
+						</div>
+						<c:choose>
+							<c:when test="${isClient eq true}">
+								<input type="hidden" name="writerType" value="client" />
+								<input type="hidden" name="client" value="${user_id}" />
+								<input type="hidden" name="freelancer" value="${project.freelancer.id}" />
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" name="writerType" value="freelancer" />
+								<input type="hidden" name="freelancer" value="${user_id}" />
+								<input type="hidden" name="client" value="${project.client.id}" />
+							</c:otherwise>
+						</c:choose>
+						<input type="hidden" name="project" value="${project.id}" />
+						<input type="submit" value="Send message" class="btn btn-block form-btn" />
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-
 </html>

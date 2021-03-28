@@ -344,7 +344,7 @@
 							<div class="box-content">
 								<div class="row p-0 m-0">
 									<div class="col p-0">
-										<p>Offers Count</p>
+										<p>Offers Sent</p>
 									</div>
 									<div class="col-2 p-0">
 										<p>${project.freelancersOffers.size()}</p>
@@ -352,10 +352,10 @@
 								</div>
 								<div class="row p-0 m-0">
 									<div class="col p-0">
-										<p>Users Views</p>
+										<p>Likes</p>
 									</div>
 									<div class="col-2 p-0">
-										<p>7</p>
+										<p>${project.freelancers_like.size()+project.clients_like.size()}</p>
 									</div>
 								</div>
 							</div>

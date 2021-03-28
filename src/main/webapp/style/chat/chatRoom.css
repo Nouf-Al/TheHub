@@ -1,25 +1,83 @@
 .chat-box{
-    background: #e3e4e42b;
+    background: white;
+    border-radius: 10px;
 }
-.client{
+
+.contact-box {
+    display: flex;
+    align-items: center;
+    padding: 0 0 26px 0;
+    border-bottom: 0.1px solid #00000033;
+}
+
+#contact-img {
+    width: 67px;
+}
+
+.contact-info {
+    padding: 21px 0 0 0;
+}
+
+.contact-info p {
+    font-size: 15px;
+    color: #a3a1a1;
+}
+
+.messages-box {
+    padding: 24px 0;
+}
+
+.left-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.left{
     width: fit-content;
     background-color: #bbdefb;
-    padding: 6px 19px;
-    border-radius: 50px;
+    padding: 10px 19px;
+    border-radius: 10px;
+    margin: 10px 0 3px 0;
 }
 
-.freelancer{
-    float: right;
+.right-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.right{
     width: fit-content;
     background-color: #26333e;
-    padding: 6px 19px;
+    padding: 10px 19px;
     color: white;
-    border-radius: 50px;
+    border-radius: 10px;
+    margin: 10px 0 3px 0;
 }
 
+.form-box{
+    border-top: 0.1px solid #00000033;
+    padding: 26px 0 0 0;
+}
+
+.form-btn {
+    font-size: 13px;
+    font-weight: 700;
+    border: 0.1px solid black;
+    color: black;
+    background: none;
+    transition: all 0.5s;
+}
+
+.form-btn:hover {
+    font-size: 13px;
+    font-weight: 700;
+    border: 0.1px solid #1a49ba;
+    color: white;
+    background: #1a49ba;
+}
 
 @media screen and (max-width: 576px) {
     p{
         font-size: 14px;
     }
-  }
+}
