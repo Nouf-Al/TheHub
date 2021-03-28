@@ -159,7 +159,14 @@
 														<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3 disabled">Send Offer</a>
 													</c:when>
 													<c:otherwise>
-														<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3">Send Offer</a>
+														<c:choose>
+															<c:when test="${isClose eq true}">
+																<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3 disabled">Send Offer</a>
+															</c:when>
+															<c:otherwise>
+																<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3">Send Offer</a>
+															</c:otherwise>
+														</c:choose>
 													</c:otherwise>
 												</c:choose>
 											</c:otherwise>

@@ -237,8 +237,7 @@
 												<div class="float-right">
 													<c:choose>
 														<c:when test="${project.status == 'Complete'}">
-															<!-- <a href="/freelance/projects/${project.id }/chating" class="btn btn-primary disabled">Chat with the freelancer</a>
-																<a href="/freelance/${client.id}/${project.id }/Complete" class="btn btn-warning disabled">Complete</a> -->
+															
 														</c:when>
 														<c:otherwise>
 															<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the freelancer</a>
@@ -249,7 +248,13 @@
 											</c:if>
 											<c:if test="${isClient eq false && project.freelancer.id == user.id}">
 												<div class="float-right">
-													<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the client</a>
+													<c:choose>
+														<c:when test="${project.status == 'Complete'}">
+														</c:when>
+														<c:otherwise>
+															<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the client</a>
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</c:if>
 										</div>

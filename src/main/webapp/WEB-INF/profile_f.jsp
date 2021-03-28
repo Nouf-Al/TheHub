@@ -231,7 +231,7 @@
 											<div class="footer">
 												<c:choose>
 													<c:when test="${project.freelancer ne null }">
-														<button class="btn btn-outline-danger">${project.status}</button>
+														<button class="btn btn-outline-primary">${project.status}</button>
 													</c:when>
 													<c:otherwise>
 														<button class="btn btn-outline-success">Open</button>
@@ -245,12 +245,25 @@
 											</div>
 											<c:if test="${isClient eq true && project.freelancer.id ne null && project.client.id == user.id}">
 												<div class="float-right">
-													<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the freelancer</a>
+													<c:choose>
+														<c:when test="${project.status == 'Complete'}">
+														</c:when>
+														<c:otherwise>
+															<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the freelancer</a>
+															<a href="/freelance/${client.id}/${project.id }/Complete" class="btn btn-warning">Complete</a>
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</c:if>
 											<c:if test="${isClient eq false && project.freelancer.id == user.id}">
 												<div class="float-right"> 
-													<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the client</a>
+													<c:choose>
+														<c:when test="${project.status == 'Complete'}">
+														</c:when>
+														<c:otherwise>
+															<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the client</a>
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</c:if>
 										</div>

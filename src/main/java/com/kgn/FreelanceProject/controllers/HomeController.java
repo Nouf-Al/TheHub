@@ -164,7 +164,6 @@ public class HomeController {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isFreelancer", true);
 				model.addAttribute("isClient", false);
-				System.out.println("freelancer");
 			} else {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
@@ -585,10 +584,8 @@ public class HomeController {
 	public String freelancerEdit(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer,@PathVariable("id") Long id, BindingResult result, HttpSession session, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(id);
 		model.addAttribute("freelancer", freelancer);
-		System.out.println("here");
 		if (result.hasErrors()) {
 			model.addAttribute("freelancer", freelancer);
-			System.out.println(result);
 			return "edit_f.jsp";
 		}
 		freelanceSer.editFreelancer(editFreelancer,id);
@@ -612,7 +609,6 @@ public class HomeController {
 		model.addAttribute("newReview", new ReviewOnClient());
 		model.addAttribute("client", client);
 		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(id)));
-		System.out.println(freelanceSer.findClientAvgRating(id));
 		return "profile_c.jsp";
 	}
 
@@ -681,19 +677,16 @@ public class HomeController {
 		Project project = freelanceSer.getOneProject(id);
 		model.addAttribute("newComment", new Comment());
 		model.addAttribute("project", project);
-		System.out.println(project.getFreelancer().getId());
-		model.addAttribute("comments", freelanceSer.getProperComments(project.getFreelancer(), project.getClient()));
+		model.addAttribute("comments", freelanceSer.getProperComments(project.getId()));
 		return "chatRoom.jsp";
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/chating/create", method = RequestMethod.POST)
-	public String comment(@Valid @ModelAttribute("newComment") Comment newComment, BindingResult result,
-			@PathVariable Long id, HttpSession session, Model model) {
+	public String comment(@Valid @ModelAttribute("newComment") Comment newComment, BindingResult result, @PathVariable Long id, HttpSession session, Model model) {
 		Project project = freelanceSer.getOneProject(id);
 		if (result.hasErrors()) {
 			model.addAttribute("project", project);
-			model.addAttribute("comments",
-					freelanceSer.getProperComments(project.getFreelancer(), project.getClient()));
+			model.addAttribute("comments",freelanceSer.getProperComments(project.getId()));
 			return "chatRoom.jsp";
 		}
 		freelanceSer.leaveAComment(newComment);

@@ -238,17 +238,14 @@ public class FreelanceService {
 		return (ArrayList<Comment>) commentRepo.findAll();
 	}
 
-	public ArrayList<Comment> getProperComments(Freelancer fr, Client cl) {
-
+	public ArrayList<Comment> getProperComments(long pId) {
 		ArrayList<Comment> allComments = getAllComments();
 		ArrayList<Comment> properComments = new ArrayList<Comment>();
-
 		for (Comment comment : allComments) {
-			if (comment.getClient().equals(cl) && comment.getFreelancer().equals(fr)) {
+			if (comment.getProject().getId() == pId){
 				properComments.add(comment);
 			}
 		}
-
 		return properComments;
 	}
 
