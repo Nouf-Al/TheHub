@@ -1,7 +1,7 @@
 .user-profile-pic {
-  width: 50%;
+  width: 60%;
   border-radius: 50%;
-  border: 0.2px solid;
+  /* border: 0.2px solid; */
 }
 
 img.location {
@@ -56,24 +56,6 @@ img.location {
 .bg-1{
   background: #d6d6d66b !important;
 }
-@media screen and (max-width: 576px) {
-  .user-loc {
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .left-section{
-    margin-right: 0;
-  }
-  .center{
-    text-align: center;
-  }
-
-  img.location {
-    width: 5%;
-    height: 72%;
-  }
-}
 
 .rating{
   width: 16px;
@@ -101,4 +83,27 @@ img.location {
 
 .box-content{
   padding: 19px;
+}
+
+@media screen and (max-width: 576px) {
+  .user-profile-pic {
+    margin-bottom: 15px;
+  }
+
+  .user-loc {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .left-section{
+    margin-right: 0;
+  }
+  .center{
+    text-align: center;
+  }
+
+  img.location {
+    width: 5%;
+    height: 72%;
+  }
 }

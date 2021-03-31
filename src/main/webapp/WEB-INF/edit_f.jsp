@@ -124,26 +124,6 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<form:label path="">Country:</form:label>
-							<select name="country">
-								<option value="ca">CA</option>
-								<option value="ny">NY</option>
-								<option value="sa">SA</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<form:label path="">City:</form:label>
-							<select name="city">
-								<option value="ca">CA</option>
-								<option value="ny">NY</option>
-								<option value="sa">SA</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
 							<form:label path="">Gender:</form:label>
 							<select name="gender">
 								<option value="male">Male</option>

@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,17 +121,16 @@
 										<p><fmt:formatDate value="${project.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" /></p>
 									</div>
 								</div>
-
 								<div class="row p-0 m-0 mt-5 py-2">
-									<div class="col-sm-4 text-center">
+									<div class="col-sm-4 text-center p-3">
 										<h3>${project.price } SR</h3>
 										<p id="p">Estimated Budget (SR)</p>
 									</div>
-									<div class="col-sm-4 border border-dark text-center border-top-0 border-bottom-0">
+									<div class="col-sm-4 border border-dark text-center border-top-0 border-bottom-0 p-3">
 										<h3>${project.duration }</h3>
 										<p id="p">Duration (Day)</p>
 									</div>
-									<div class="col-sm-4 text-center">
+									<div class="col-sm-4 text-center p-3">
 										<h3> <fmt:formatDate value="${project.offerEnd }" type="date" pattern="MMM dd, yyyy" /> </h3>
 										<p id="p">Offer End Date</p>
 									</div>
@@ -198,42 +196,14 @@
 					<c:choose>
 						<c:when test="${isFreelancer eq false }">
 							<c:if test="${user.id eq project.client.id }">
-								<div class="row p-0 m-0">
-									<div class="col p-0 mb-4 box shadow-sm">
-										<h5 class="font-weight-bold box-title">Answer Questions</h5>
-										<div class="box-content">
-											<h5>You can answer the freelancer's questions, your answer
-												will appear to all freelancers and clients and their
-												questions will be available also.</h5>
-											<c:if test="${questions.size() == 0 }">
-												<h5>No Questions Yet!</h5>
-												<form:form action="/freelance/projects/${project.id}/create/answer" method="post" modelAttribute="newAnswer">
-													<div class="row p-0 m-0">
-														<div class="col-sm-12 p-0">
-															<form:label path="question">Question by:
-															</form:label>
-															<select disabled="true" name="question"
-																class="form-control mb-3">
-																<c:forEach items="${ questions}" var="question">
-																	<c:if test="${project.id eq question.project.id }">
-																		<option value="${ question.id}">${question.freelancer.firstname} ${question.freelancer.lastname}</option>
-																	</c:if>
-																</c:forEach>
-															</select>
-														</div>
-													</div>
-													<div class="row p-0 m-0">
-														<div class="col-sm-12 p-0">
-															<div class="form-group">
-																<form:textarea disabled="true" path="text" class="form-control" />
-																<form:errors path="text" class="text-danger" />
-															</div>
-														</div>
-													</div>
-													<input type="submit" value="Send your answer" class="btn btn-block form-btn" disabled="true" />
-												</form:form>
-											</c:if>
-											<c:if test="${questions.size() != 0 }">
+								<c:if test="${project.questions.size() ne 0 }">
+									<div class="row p-0 m-0">
+										<div class="col p-0 mb-4 box shadow-sm">
+											<h5 class="font-weight-bold box-title">Answer Questions</h5>
+											<div class="box-content">
+												<h5>You can answer the freelancer's questions, your answer
+													will appear to all freelancers and clients and their
+													questions will be available also.</h5>					
 												<form:form action="/freelance/projects/${project.id}/create/answer" method="post" modelAttribute="newAnswer">
 													<div class="row p-0 m-0">
 														<div class="col-sm-12 p-0">
@@ -241,7 +211,9 @@
 															<select name="question" class="form-control mb-3">
 																<c:forEach items="${ questions}" var="question">
 																	<c:if test="${project.id eq question.project.id }">
-																		<option value="${ question.id}">${question.freelancer.firstname} ${question.freelancer.lastname}</option>
+																		<c:if test="${question.answer.question.id eq null}">
+																			<option value="${ question.id}">${question.freelancer.firstname} ${question.freelancer.lastname}</option>
+																		</c:if>
 																	</c:if>
 																</c:forEach>
 															</select>
@@ -257,10 +229,10 @@
 													</div>
 													<input type="submit" value="Send your answer" class="btn btn-block form-btn" />
 												</form:form>
-											</c:if>
+											</div>
 										</div>
 									</div>
-								</div>
+								</c:if>
 							</c:if>
 						</c:when>
 						<c:otherwise>
@@ -289,60 +261,61 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-
-					<div class="row p-0 m-0">
-						<div class="col p-0 mb-4 box shadow-sm">
-							<h5 class="font-weight-bold box-title">All Questions</h5>
-							<div class="box-content">
-								<c:forEach items="${questions }" var="question">
-									<c:if test="${project.id eq question.project.id }">
-										<div class="questions">
-											<div class="question-header p-3 rounded-top">
-												<p class="h6">${question.freelancer.firstname } ${question.freelancer.lastname }</p>
-												<p class="h6">
-													<fmt:formatDate value="${question.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
-												</p>
-											</div>
-											<div class="question-body p-3 rounded-bottom">
-												<p style="font-size: 14px;">${question.text }</p>
-												<c:if test="${ isFreelancer eq true}">
-													<c:if test="${user.id eq question.freelancer.id }">
-														<div class="text-right">
-															<a class="btn btn-light" href="/freelance/projects/${project.id}/${question.id}/delete"><img style="width: 16px;" src="/images/icons/delete.png" alt="delete question"></a>
-														</div>
-													</c:if>
-												</c:if>
-											</div>
-										</div>
-									</c:if>
-									<c:forEach items="${answers }" var="answer">
-										<c:if test="${project.id eq answer.question.project.id }">
-											<c:if test="${answer.question.id eq question.id }">
-												<div class="answers mt-4 ml-5">
-													<div class="answer-header p-3 rounded-top">
-														<p class="h6">${project.client.firstname } ${project.client.lastname }</p>
-														<p class="h6">
-															<fmt:formatDate value="${answer.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
-														</p>
-													</div>
-													<div class="answer-body p-3 rounded-bottom">
-														<p style="font-size: 14px;">${answer.text }</p>
-														<c:if test="${ isFreelancer eq false}">
-															<c:if test="${user.id eq question.project.client.id }">
-																<div class="text-right">
-																	<a class="btn btn-light" href="/freelance/projects/${project.id}/${question.id}/${answer.id}/delete"><img style="width: 16px;" src="/images/icons/delete.png" alt="delete question"></a>
-																</div>
-															</c:if>
-														</c:if>
-													</div>
+					<c:if test="${project.questions.size() ne 0}">
+						<div class="row p-0 m-0">
+							<div class="col p-0 mb-4 box shadow-sm">
+								<h5 class="font-weight-bold box-title">All Questions</h5>
+								<div class="box-content">
+									<c:forEach items="${questions }" var="question">
+										<c:if test="${project.id eq question.project.id }">
+											<div class="questions mb-3">
+												<div class="question-header p-3 rounded-top">
+													<p class="h6">${question.freelancer.firstname } ${question.freelancer.lastname }</p>
+													<p class="h6">
+														<fmt:formatDate value="${question.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
+													</p>
 												</div>
-											</c:if>
+												<div class="question-body p-3 rounded-bottom">
+													<p style="font-size: 14px;">${question.text }</p>
+													<c:if test="${ isFreelancer eq true}">
+														<c:if test="${user.id eq question.freelancer.id }">
+															<div class="text-right">
+																<a class="btn btn-light" href="/freelance/projects/${project.id}/${question.id}/delete"><img style="width: 16px;" src="/images/icons/delete.png" alt="delete question"></a>
+															</div>
+														</c:if>
+													</c:if>
+												</div>
+											</div>
 										</c:if>
+										<c:forEach items="${answers }" var="answer">
+											<c:if test="${project.id eq answer.question.project.id }">
+												<c:if test="${answer.question.id eq question.id }">
+													<div class="answers mb-3 ml-5">
+														<div class="answer-header p-3 rounded-top">
+															<p class="h6">${project.client.firstname } ${project.client.lastname }</p>
+															<p class="h6">
+																<fmt:formatDate value="${answer.createdAt }" type="date" pattern="MMM dd, yyyy - h:m a" />
+															</p>
+														</div>
+														<div class="answer-body p-3 rounded-bottom">
+															<p style="font-size: 14px;">${answer.text }</p>
+															<c:if test="${ isFreelancer eq false}">
+																<c:if test="${user.id eq question.project.client.id }">
+																	<div class="text-right">
+																		<a class="btn btn-light" href="/freelance/projects/${project.id}/${question.id}/${answer.id}/delete"><img style="width: 16px;" src="/images/icons/delete.png" alt="delete question"></a>
+																	</div>
+																</c:if>
+															</c:if>
+														</div>
+													</div>
+												</c:if>
+											</c:if>
+										</c:forEach>
 									</c:forEach>
-								</c:forEach>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
 				<div class="col-sm-3 p-0">
 					<div class="row p-0 m-0">
@@ -385,13 +358,13 @@
 											<div class="col p-0 text-right">
 												<c:choose>
 													<c:when test="${project.freelancer.id eq null }">
-														<a href="/freelance/projects/${project.id }/offer/accept/${freelancer.id}" class="btn btn-success mr-1">Accept</a>
+														<a href="/freelance/projects/${project.id }/offer/accept/${freelancer.id}" class="btn btn-outline-success mr-1">Accept</a>
 														<a href="/freelance/projects/${project.id }/offer/reject/${freelancer.id}" class="btn btn-danger">Reject</a>
 													</c:when>
 													<c:otherwise>
 														<c:choose>
 															<c:when test="${project.freelancer.id eq freelancer.id }">
-																<a href="/freelance/projects/${project.id }/offer/accept/${freelancer.id}" class="btn btn-success mr-1 disabled">Accept</a>
+																<a href="/freelance/projects/${project.id }/offer/accept/${freelancer.id}" class="btn btn-success mr-1 disabled">Accepted</a>
 																<a href="/freelance/projects/${project.id }/offer/reject/${freelancer.id}" class="btn btn-danger">Reject</a>
 															</c:when>
 															<c:otherwise>

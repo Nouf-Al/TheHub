@@ -261,4 +261,8 @@
   .nav-container nav .left-nav a {
     /* display: none; */
   }
+
+  .nav-container nav .right-nav span a {
+    padding: 13px 11px;
+}
 }

@@ -551,6 +551,11 @@ footer p {
   .header .content-container nav .left-nav a {
     display: none;
   }
+
+  .header .content-container nav .right-nav span {
+    display: none;
+  }
+
   .header .content-container nav .right-nav span p {
     display: none;
   }

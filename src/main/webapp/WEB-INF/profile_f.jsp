@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +92,7 @@
 	<div class="dashboard-container">
 		<div class="row mb-4 mx-0 shadow-sm info">
 			<div class="col-sm-3 p-0 d-flex justify-content-center">
-				<img class="user-profile-pic m-3" src="/images/user_pic.svg" alt="profile" />
+				<img class="user-profile-pic" src="/images/user_pic.svg" alt="profile" />
 			</div>
 
 			<div class="col-sm p-0">
@@ -160,17 +159,13 @@
 						<div class="h5 m-0 text-center">Rating</div>
 					</div>
 					<div class="col-sm d-flex py-3">
-						<div class="col-4 p-0 text-center ">
+						<div class="col p-0 text-center ">
 							<div class="h2">${freelancer.isStatus(2)}</div>
 							<div class="h5">Completed</div>
 						</div>
-						<div class="col-4 p-0 text-center ">
+						<div class="col p-0 text-center ">
 							<div class="h2">${freelancer.isStatus(1)}</div>
 							<div class="h5">Active</div>
-						</div>
-						<div class="col-4 p-0 text-center ">
-							<div class="h2">${freelancer.projects.size()}</div>
-							<div class="h5">All Projects</div>
 						</div>
 					</div>
 				</div>
@@ -180,7 +175,7 @@
 				<div class="row mx-0">
 					<div class="col-sm p-0 py-2 h-50 text-center ">
 						<c:if test="${isClient eq false && freelancer.id eq user.id }">
-							<a href="/freelancer/profile/${freelancer.id}/edit" class="btn btn-success px-4">Edit</a>
+							<a href="/freelancer/profile/${freelancer.id}/edit" class="btn btn-success btn-block px-4">Edit</a>
 						</c:if>
 					</div>
 				</div>
@@ -203,7 +198,8 @@
 							</div>
 							<div class="personal-info d-flex mb-2">
 								<p class="h5">Skills</p>
-								<p class="h5">: <c:forEach items="${freelancer.skills }" var="skill">
+								<p class="h5">: 
+									<c:forEach items="${freelancer.skills }" var="skill">
 										<span class="badge badge-secondary">${skill.title}</span>
 									</c:forEach>
 								</p>
@@ -249,7 +245,7 @@
 														<c:when test="${project.status == 'Complete'}">
 														</c:when>
 														<c:otherwise>
-															<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the freelancer</a>
+															<a href="/freelance/projects/${project.id }/chating" class="btn btn-dark">Chat with the freelancer</a>
 															<a href="/freelance/${client.id}/${project.id }/Complete" class="btn btn-warning">Complete</a>
 														</c:otherwise>
 													</c:choose>
@@ -261,7 +257,7 @@
 														<c:when test="${project.status == 'Complete'}">
 														</c:when>
 														<c:otherwise>
-															<a href="/freelance/projects/${project.id }/chating" class="btn btn-outline-dark">Chat with the client</a>
+															<a href="/freelance/projects/${project.id }/chating" class="btn btn-dark">Chat with the client</a>
 														</c:otherwise>
 													</c:choose>
 												</div>
@@ -274,57 +270,37 @@
 					</div>
 				</div>
 
-				<div class="row m-0 mb-4 shadow-sm box">
-					<div class="col p-0">
-						<div class="h4 box-title">Clients reviews</div>
-						<div class="row m-0 box-content">
-							<div class="col-12 p-2">
-								<form:form action="/freelancer/profile/${freelancer.id}/review/create" method="post" modelAttribute="newReview">
-									<c:choose>
-										<c:when test="${isClient eq false }">
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="form-group">
-														<form:textarea path="text" class="form-control" readonly="true" />
-														<form:errors path="text" class="text-danger" />
-													</div>
+				<c:if test="${ isClient eq true}">
+					<div class="row m-0 mb-4 shadow-sm box">
+						<div class="col p-0">
+							<div class="h4 box-title">Clients reviews</div>
+							<div class="row m-0 box-content">
+								<div class="col-12 p-2">
+									<form:form action="/freelancer/profile/${freelancer.id}/review/create" method="post" modelAttribute="newReview">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<form:textarea path="text" class="form-control" />
+													<form:errors path="text" class="text-danger" />
 												</div>
 											</div>
-											<select class="form-control" name="rating" readonly="true">
-												<option value="1">&#9733;&#9734;&#9734;&#9734;&#9734;</option>
-												<option value="2">&#9733;&#9733;&#9734;&#9734;&#9734;</option>
-												<option value="3">&#9733;&#9733;&#9733;&#9734;&#9734;</option>
-												<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
-												<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-											</select>
-											<input type="submit" value="Send Your Review" class="btn form-btn btn-block mt-3" disabled="true" />
-										</c:when>
-										<c:otherwise>
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="form-group">
-														<form:textarea path="text" class="form-control" />
-														<form:errors path="text" class="text-danger" />
-													</div>
-												</div>
-											</div>
-											<select class="form-control" name="rating">
-												<option value="1">&#9733;&#9734;&#9734;&#9734;&#9734;</option>
-												<option value="2">&#9733;&#9733;&#9734;&#9734;&#9734;</option>
-												<option value="3">&#9733;&#9733;&#9733;&#9734;&#9734;</option>
-												<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
-												<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-											</select>
-											<input type="hidden" name="freelancer" value="${freelancer.id }" />
-											<input type="hidden" name="client" value="${user.id }" />
-											<input type="submit" value="Send Your Review" class="btn btn-block form-btn mt-3" />
-										</c:otherwise>
-									</c:choose>
-								</form:form>
+										</div>
+										<select class="form-control" name="rating">
+											<option value="1">&#9733;&#9734;&#9734;&#9734;&#9734;</option>
+											<option value="2">&#9733;&#9733;&#9734;&#9734;&#9734;</option>
+											<option value="3">&#9733;&#9733;&#9733;&#9734;&#9734;</option>
+											<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
+											<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+										</select>
+										<input type="hidden" name="freelancer" value="${freelancer.id }" />
+										<input type="hidden" name="client" value="${user.id }" />
+										<input type="submit" value="Send Your Review" class="btn btn-block form-btn mt-3" />
+									</form:form>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 
 				<div class="row m-0 shadow-sm box">
 					<div class="col p-0">
@@ -334,8 +310,8 @@
 								<c:forEach items="${freelancer.reviewsOnFreelancer }" var="review">
 									<div class="col-sm-12 p-2">
 										<h5 class="card-title box-title bg">
-											<a href="/freelancer/profile/${review.client.id}">${review.client.firstname} ${review.client.lastname}</a>
-											<span class="h6 float-right">
+											<a href="/client/profile/${review.client.id}" class="text-light">${review.client.firstname} ${review.client.lastname}</a>
+											<span class="h6 float-right text-light">
 												<fmt:formatDate value="${review.createdAt }" type="date" pattern="MMM dd, yyyy" />
 											</span>
 										</h5>
