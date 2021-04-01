@@ -99,7 +99,7 @@
 				<h3 class="box-title">Favorite Projects (${user.projects_likes.size()})</h3>
 				<div class="box-content">
 					<c:choose>
-						<c:when test="${isFreelancer eq true}">
+						<c:when test="${isClient eq false}">
 							<c:forEach items="${user.projects_likes}" var="project">
 								<div class="row m-0 p-0">
 									<div class="col-sm mx-2 mb-3 section rounded">

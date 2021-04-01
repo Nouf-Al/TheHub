@@ -159,7 +159,7 @@
 													</div>
 													<div class="col-6">
 														<span class="float-right col3">
-															<c:if test="${ isFreelancer eq true}">
+															<c:if test="${ isClient eq false}">
 																<c:choose>
 																	<c:when test="${project.isContain(user.id) }"> 
 																		${project.freelancers_like.size() + project.clients_like.size()}
@@ -177,10 +177,27 @@
 
 																<c:choose>
 																	<c:when test="${project.isOffer(user.id) }">
-																		<a href="/freelance/projects/${project.id }/withdraw" class="btn btn-danger">Cancel Offer</a>
+																		<c:if test="${project.freelancer.id eq user.id}">
+																			<button class="btn btn-outline-danger disabled">Cancel Offer</button>
+																		</c:if>
+																		<c:if test="${project.freelancer.id ne user.id}">
+																			<a href="/freelance/projects/${project.id }/withdraw" class="btn btn-outline-danger">Cancel Offer</a>
+																		</c:if>
 																	</c:when>
 																	<c:otherwise>
-																		<a href="/freelance/projects/${project.id }/offer" class="btn btn-outline-success">Send Offer</a>
+																		<c:choose>
+																			<c:when test="${ project.isOfferEndDate() eq false}">
+																				<c:if test="${project.freelancer.id ne null}">
+																					<button class="btn btn-outline-success disabled">Send Offer</button>
+																				</c:if>
+																				<c:if test="${project.freelancer.id eq null}">
+																					<a href="/freelance/projects/${project.id }/offer" class="btn btn-outline-success">Send Offer</a>
+																				</c:if>
+																			</c:when>
+																			<c:otherwise>
+																				<button class="btn btn-outline-danger disabled">Close</button>
+																			</c:otherwise>
+																		</c:choose>
 																	</c:otherwise>
 																</c:choose>
 															</c:if>

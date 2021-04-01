@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "reviewsOnFreelancers")
@@ -20,7 +22,8 @@ public class ReviewOnFreelancer {
 	private Long id;
 
 	private int rating;
-
+	
+	@Size(min = 5, message = "Text must be me more than 5 characters.")
 	private String text;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -108,7 +108,7 @@
 											</c:when>
 											<c:otherwise>
 												<c:choose>
-													<c:when test="${isClose eq true }">
+													<c:when test="${project.isOfferEndDate() eq true }">
 														<button class="btn btn-outline-danger">Close</button>
 													</c:when>
 													<c:otherwise>
@@ -137,7 +137,7 @@
 								</div>
 							</div>
 							<c:choose>
-								<c:when test="${isFreelancer eq false }">
+								<c:when test="${isClient eq true }">
 									<c:if test="${project.client.id eq user.id }">
 										<div class="col-sm-3 px-5 right-col">
 											<a href="/freelance/projects/${project.id }/edit" class="btn btn-outline-success btn-block py-3">Edit</a>
@@ -147,19 +147,33 @@
 								</c:when>
 								<c:otherwise>
 									<div class="col-sm-3 px-5 right-col">
-										<c:choose>
+										<!-- <c:choose>
 											<c:when test="${project.isOffer(user.id) }">
 												<a href="/freelance/projects/${project.id }/withdrawFromViewProject" class="btn btn-outline-danger btn-block py-3">Cancel Offer</a>
 											</c:when>
 											<c:otherwise>
+												<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3">Send Offer</a>
+											</c:otherwise>
+										</c:choose> -->
+
+										<c:choose>
+											<c:when test="${project.isOffer(user.id) }">
+												<c:if test="${project.freelancer.id eq user.id}">
+													<a href="/freelance/projects/${project.id }/withdrawFromViewProject" class="btn btn-outline-danger btn-block py-3 disabled">Cancel Offer</a>
+												</c:if>
+												<c:if test="${project.freelancer.id ne user.id}">
+													<a href="/freelance/projects/${project.id }/withdrawFromViewProject" class="btn btn-outline-danger btn-block py-3">Cancel Offer</a>
+												</c:if>
+											</c:when>
+											<c:otherwise>
 												<c:choose>
 													<c:when test="${project.freelancer.id ne null }">
-														<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3 disabled">Send Offer</a>
+														<button class="btn btn-outline-success btn-block py-3 disabled">Send Offer</button>
 													</c:when>
 													<c:otherwise>
 														<c:choose>
-															<c:when test="${isClose eq true}">
-																<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3 disabled">Send Offer</a>
+															<c:when test="${project.isOfferEndDate() eq true}">
+																<button class="btn btn-outline-secondary btn-block py-3 disabled">Send Offer</button>
 															</c:when>
 															<c:otherwise>
 																<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3">Send Offer</a>
@@ -194,7 +208,7 @@
 						</div>
 					</div>
 					<c:choose>
-						<c:when test="${isFreelancer eq false }">
+						<c:when test="${isClient eq true }">
 							<c:if test="${user.id eq project.client.id }">
 								<c:if test="${project.questions.size() ne 0 }">
 									<div class="row p-0 m-0">
@@ -206,9 +220,9 @@
 													questions will be available also.</h5>					
 												<form:form action="/freelance/projects/${project.id}/create/answer" method="post" modelAttribute="newAnswer">
 													<div class="row p-0 m-0">
-														<div class="col-sm-12 p-0">
+														<div class="col-sm-12 p-0 mb-3">
 															<form:label path="question">Question by: </form:label>
-															<select name="question" class="form-control mb-3">
+															<select name="question" class="form-control">
 																<c:forEach items="${ questions}" var="question">
 																	<c:if test="${project.id eq question.project.id }">
 																		<c:if test="${question.answer.question.id eq null}">
@@ -217,6 +231,7 @@
 																	</c:if>
 																</c:forEach>
 															</select>
+															<form:errors path="question" class="text-danger" />
 														</div>
 													</div>
 													<div class="row p-0 m-0">
@@ -253,7 +268,7 @@
 												</div>
 											</div>
 											<input type="hidden" name="project" value="${project.id }" />
-											<input type="hidden" name="freelancer" value="${user_id }" />
+											<input type="hidden" name="freelancer" value="${user.id }" />
 											<input type="submit" value="Ask the client" class="btn btn-block form-btn" />
 										</form:form>
 									</div>
@@ -277,7 +292,7 @@
 												</div>
 												<div class="question-body p-3 rounded-bottom">
 													<p style="font-size: 14px;">${question.text }</p>
-													<c:if test="${ isFreelancer eq true}">
+													<c:if test="${ isClient eq false}">
 														<c:if test="${user.id eq question.freelancer.id }">
 															<div class="text-right">
 																<a class="btn btn-light" href="/freelance/projects/${project.id}/${question.id}/delete"><img style="width: 16px;" src="/images/icons/delete.png" alt="delete question"></a>
@@ -299,7 +314,7 @@
 														</div>
 														<div class="answer-body p-3 rounded-bottom">
 															<p style="font-size: 14px;">${answer.text }</p>
-															<c:if test="${ isFreelancer eq false}">
+															<c:if test="${ isClient eq true}">
 																<c:if test="${user.id eq question.project.client.id }">
 																	<div class="text-right">
 																		<a class="btn btn-light" href="/freelance/projects/${project.id}/${question.id}/${answer.id}/delete"><img style="width: 16px;" src="/images/icons/delete.png" alt="delete question"></a>
@@ -342,7 +357,7 @@
 						</div>
 					</div>
 
-					<c:if test="${ isFreelancer ne true}">
+					<c:if test="${ isClient eq true}">
 						<c:if test="${ project.client.id eq user.id}">
 							<div class="row p-0 m-0">
 								<div class="col p-4 mb-4 box shadow-sm offers">
@@ -364,12 +379,12 @@
 													<c:otherwise>
 														<c:choose>
 															<c:when test="${project.freelancer.id eq freelancer.id }">
-																<a href="/freelance/projects/${project.id }/offer/accept/${freelancer.id}" class="btn btn-success mr-1 disabled">Accepted</a>
+																<button class="btn btn-success mr-1 disabled">Accepted</button>
 																<a href="/freelance/projects/${project.id }/offer/reject/${freelancer.id}" class="btn btn-danger">Reject</a>
 															</c:when>
 															<c:otherwise>
-																<a href="/freelance/projects/${project.id }/offer/accept/${freelancer.id}" class="btn btn-success mr-1 disabled">Accept</a>
-																<a href="/freelance/projects/${project.id }/offer/reject/${freelancer.id}" class="btn btn-danger disabled">Reject</a>
+																<button class="btn btn-success mr-1 disabled">Accept</button>
+																<button class="btn btn-danger disabled">Reject</button>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>
@@ -393,35 +408,35 @@
 											<p>${project.client.firstname } ${project.client.lastname }</p>
 										</a>
 										<c:choose>
-											<c:when test="${rating == 1 }">
+											<c:when test="${project.client.calculateAvgRating() == 1 }">
 												<i class="fas fa-star"></i>
 												<i class="far fa-star"></i>
 												<i class="far fa-star"></i>
 												<i class="far fa-star"></i>
 												<i class="far fa-star"></i>
 											</c:when>
-											<c:when test="${rating == 2 }">
+											<c:when test="${project.client.calculateAvgRating() == 2 }">
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="far fa-star"></i>
 												<i class="far fa-star"></i>
 												<i class="far fa-star"></i>
 											</c:when>
-											<c:when test="${rating == 3 }">
+											<c:when test="${project.client.calculateAvgRating() == 3 }">
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="far fa-star"></i>
 												<i class="far fa-star"></i>
 											</c:when>
-											<c:when test="${rating == 4 }">
+											<c:when test="${project.client.calculateAvgRating() == 4 }">
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="far fa-star"></i>
 											</c:when>
-											<c:when test="${rating == 5}">
+											<c:when test="${project.client.calculateAvgRating() == 5}">
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>
 												<i class="fas fa-star"></i>

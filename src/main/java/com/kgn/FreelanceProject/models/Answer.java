@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
@@ -20,7 +22,6 @@ public class Answer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotEmpty(message = "Answer is required.")
 	@Size(min = 5, message = "Answer must be me more than 5 characters.")
 	private String text;
 
@@ -31,6 +32,7 @@ public class Answer {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
+	@NotNull(message = "There is no questions to answer.")
 	@OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="question_id")
     private Question question;

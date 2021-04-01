@@ -23,7 +23,7 @@ input, textarea, select{
     border-bottom: 1px solid;
     border-radius: 0;
     padding: 5px 0px;
-    margin: 0 0 19px 0;
+    /* margin: 0 0 19px 0; */
     font-size: 14px;
     -webkit-transition: none;
     transition: none;

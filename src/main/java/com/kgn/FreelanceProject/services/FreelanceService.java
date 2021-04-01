@@ -196,7 +196,6 @@ public class FreelanceService {
 		theFreelancer.setBio(newFreelancer.getBio());
 		theFreelancer.setPhotos(newFreelancer.getPhotos());
 		theFreelancer.setSkills(skills);
-
 		return updateFreelancer(theFreelancer);
 	}
 
@@ -206,8 +205,8 @@ public class FreelanceService {
 		return questionRepo.save(q);
 	}
 
-	public ArrayList<Question> getAllQuestions() {
-		return (ArrayList<Question>) questionRepo.findAll();
+	public ArrayList<Question> getAllQuestions(Long id) {
+		return (ArrayList<Question>) questionRepo.findByProjectId(id);
 	}
 
 	public void deleteQuestion(Long id) {
@@ -238,7 +237,7 @@ public class FreelanceService {
 		return (ArrayList<Comment>) commentRepo.findAll();
 	}
 
-	public ArrayList<Comment> getProperComments(long pId) {
+	public ArrayList<Comment> getRelatedComments(long pId) {
 		ArrayList<Comment> allComments = getAllComments();
 		ArrayList<Comment> properComments = new ArrayList<Comment>();
 		for (Comment comment : allComments) {
@@ -355,10 +354,9 @@ public class FreelanceService {
 		}
 	}
 
-	public Client EditClient(Client editClient,Long id) {
+	public Client editClient(Client editClient,Long id) {
 		Client theClient = getOneClient(id);
 		String hashed = BCrypt.hashpw(editClient.getPassword(), BCrypt.gensalt());
-
 		theClient.setFirstname(editClient.getFirstname());
 		theClient.setLastname(editClient.getLastname());
 		theClient.setEmail(editClient.getEmail());

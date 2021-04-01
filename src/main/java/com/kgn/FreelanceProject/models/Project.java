@@ -291,7 +291,7 @@ public class Project {
 
 	public boolean isOfferEndDate(){
 		Date date = new Date();
-		if (date.compareTo(getOfferEnd()) > 0) {
+		if (date.compareTo(this.getOfferEnd()) > 0) {
 			return true;
 		} else {
 			return false;

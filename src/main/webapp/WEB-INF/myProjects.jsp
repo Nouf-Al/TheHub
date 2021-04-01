@@ -84,21 +84,13 @@
 	<div class="dashboard-container">
 		<div class=" row p-0 m-0">
 			<div class="left-col col-sm-3">
-				<div class="row">
-					<div class="col p-0 m-0 mb-4">
-						<a href="/freelance/projects/new" class="btn btn-block form-btn p-3">+ New Project</a>
-					</div>
-				</div>
-
-				<!-- <div class="row">
-					<div class="col p-0 box shadow-sm mb-4">
-						<h3 class="box-title">Status</h3>
-						<div class="box-content">
-							<p class="p-3 mb-3 w-100 shadow-sm">Open</p>
-							<p class="p-3 mb-3 w-100 shadow-sm">Closed</p>
+				<c:if test="${isClient eq true}">
+					<div class="row">
+						<div class="col p-0 m-0 mb-4">
+							<a href="/freelance/projects/new" class="btn btn-block form-btn p-3">+ New Project</a>
 						</div>
-					</div>					
-				</div> -->
+					</div>
+				</c:if>
 
 				<div class="row">
 					<div class="col p-0 box shadow-sm mb-4">

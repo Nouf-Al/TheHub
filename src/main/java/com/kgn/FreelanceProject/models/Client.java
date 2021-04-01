@@ -240,4 +240,18 @@ public class Client {
 			return countComplete;
 		}
 	}
+
+	public double calculateAvgRating() {
+		double total = 0;
+		double count=0;
+		for (ReviewOnClient u : reviewsOnClient) {
+			count++;
+			total += u.getRating();
+		}
+		if( count != 0){
+			return Math.floor(total / count);
+		} else{
+			return 0;
+		}
+	}
 }

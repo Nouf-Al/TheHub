@@ -1,5 +1,6 @@
 package com.kgn.FreelanceProject.models;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,10 +50,12 @@ public class Freelancer {
 
 	private String bio;
 
+	//	@NotEmpty(message = "Password is required!")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
-
+	
 	@Transient
+//	@NotEmpty(message = "Confirm Password is required!")
 	@Size(min = 8, message = "Confirm password must be at least 8 characters.")
 	private String confirm;
 
@@ -317,7 +320,7 @@ public class Freelancer {
 		}
 	}
 
-	public double avgRating() {
+	public double calculateAvgRating() {
 		double total = 0;
 		double count=0;
 		for (ReviewOnFreelancer u : reviewsOnFreelancer) {
@@ -325,7 +328,7 @@ public class Freelancer {
 			total += u.getRating();
 		}
 		if( count != 0){
-			return total / count;
+			return Math.floor(total / count);
 		} else{
 			return 0;
 		}

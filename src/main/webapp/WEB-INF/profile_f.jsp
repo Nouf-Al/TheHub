@@ -112,35 +112,35 @@
 					<div class="col-sm-4 py-3 text-center">
 						<div class="m-0 mb-3">
 							<c:choose>
-								<c:when test="${rating == 1 }">
+								<c:when test="${freelancer.calculateAvgRating() == 1 }">
 									<i class="fas fa-star"></i>
 									<i class="far fa-star"></i>
 									<i class="far fa-star"></i>
 									<i class="far fa-star"></i>
 									<i class="far fa-star"></i>
 								</c:when>
-								<c:when test="${rating == 2 }">
+								<c:when test="${freelancer.calculateAvgRating() == 2 }">
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="far fa-star"></i>
 									<i class="far fa-star"></i>
 									<i class="far fa-star"></i>
 								</c:when>
-								<c:when test="${rating == 3 }">
+								<c:when test="${freelancer.calculateAvgRating() == 3 }">
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="far fa-star"></i>
 									<i class="far fa-star"></i>
 								</c:when>
-								<c:when test="${rating == 4 }">
+								<c:when test="${freelancer.calculateAvgRating() == 4 }">
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="far fa-star"></i>
 								</c:when>
-								<c:when test="${rating == 5}">
+								<c:when test="${freelancer.calculateAvgRating() == 5}">
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>
 									<i class="fas fa-star"></i>

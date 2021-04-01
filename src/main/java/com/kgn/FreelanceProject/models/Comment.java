@@ -40,10 +40,10 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "freelancer_id")
 	private Freelancer freelancer;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")
 	private Project project;
-	//Where is the project they commented on?
 
 	public Comment() {
 	}

@@ -1,7 +1,4 @@
 package com.kgn.FreelanceProject.controllers;
-import java.text.DecimalFormat;
-import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -14,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import net.bytebuddy.agent.builder.AgentBuilder.FallbackStrategy;
-
 import com.kgn.FreelanceProject.models.Answer;
 import com.kgn.FreelanceProject.models.Category;
 import com.kgn.FreelanceProject.models.Client;
@@ -33,7 +27,6 @@ import com.kgn.FreelanceProject.services.UserService;
 public class HomeController {
 	private final UserService userSer;
 	private final FreelanceService freelanceSer;
-
 	public HomeController(UserService userSer, FreelanceService freelanceSer) {
 		this.userSer = userSer;
 		this.freelanceSer = freelanceSer;
@@ -44,7 +37,7 @@ public class HomeController {
 		return "index.jsp";
 	}
 
-//    register freelancer
+	// login and registration
 	@RequestMapping(value = "/freelancer/register", method = RequestMethod.POST)
 	public String registerFreelancer(HttpSession session, @Valid @ModelAttribute("newUser") Freelancer newUser, BindingResult result, Model model) {
 		userSer.registerFreelancer(newUser, result);
@@ -65,7 +58,6 @@ public class HomeController {
 		return "register_f.jsp";
 	}
 
-//   register client 
 	@RequestMapping(value = "/client/register", method = RequestMethod.POST)
 	public String registerClient(HttpSession session, @Valid @ModelAttribute("newUser") Client newUser, BindingResult result, Model model) {
 		userSer.registerClient(newUser, result);
@@ -86,7 +78,6 @@ public class HomeController {
 		return "register_c.jsp";
 	}
 
-// login freelancer
 	@RequestMapping(value = "/freelancer/login", method = RequestMethod.POST)
 	public String loginFreelancer(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result,
 			Model model, HttpSession session) {
@@ -108,7 +99,6 @@ public class HomeController {
 		return "login_f.jsp";
 	}
 
-//    login client
 	@RequestMapping(value = "/client/login", method = RequestMethod.POST)
 	public String loginClient(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model,
 			HttpSession session) {
@@ -136,18 +126,8 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-//    @RequestMapping("/home")
-//	public String home(HttpSession session, Model model) {
-//		// if we're logged in we get back a user
-//    	Client loggedInUser = userSer.findById((Long) session.getAttribute("user_id"));
-//		if(loggedInUser == null) {
-//			// if the user is null return them to the login form
-//			return "redirect:/";
-//		}
-//		model.addAttribute("user", loggedInUser);
-//    	System.out.print(session.getAttribute("user_type"));
-//		return "home.jsp";
-//	}
+
+
 
 	@RequestMapping("/freelance/freelancers")
 	public String allFreelancers(Model model, HttpSession session) {
@@ -157,15 +137,12 @@ public class HomeController {
 			model.addAttribute("freelancers", freelanceSer.getAllFreelancers());
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-				model.addAttribute("isFreelancer", true);
 				model.addAttribute("isClient", false);
 			} else {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
-				model.addAttribute("isFreelancer", false);
 			}
 			return "freelancers.jsp";
-
 		}
 	}
 
@@ -177,11 +154,9 @@ public class HomeController {
 		else {
 			model.addAttribute("projects", freelanceSer.getAllProjects());
 			model.addAttribute("categories", freelanceSer.getAllCategories());
-			model.addAttribute("isFreelancer", false);
-			model.addAttribute("isClient", false);
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-				model.addAttribute("isFreelancer", true);
+				model.addAttribute("isClient", false);
 			} else if (session.getAttribute("user_type").equals("client")) {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
@@ -192,32 +167,25 @@ public class HomeController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpSession session, @RequestParam(value = "title") String title) {
-
 		model.addAttribute("projects", freelanceSer.searchTitle(title));
 		model.addAttribute("categories", freelanceSer.getAllCategories());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 		} else {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
 		return "projects.jsp";
-
 	}
 
 	@RequestMapping(value = "/freelance/projects/category/{id}")
 	public String filterByCategory(Model model, HttpSession session, @PathVariable Long id) {
-
 		model.addAttribute("projects", freelanceSer.filterByCategory(id));
 		model.addAttribute("categories", freelanceSer.getAllCategories());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 		} else {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
@@ -225,12 +193,29 @@ public class HomeController {
 		return "projects.jsp";
 	}
 
+	// CRUD - project
+	@RequestMapping("/freelance/projects/{id}")
+	public String viewProject(Model model, HttpSession session, @PathVariable Long id, @ModelAttribute(name = "newQuestion") Question newQuestion, @ModelAttribute(name = "newAnswer") Answer newAnswer) {
+		model.addAttribute("project", freelanceSer.getOneProject(id));
+		model.addAttribute("questions", freelanceSer.getAllQuestions(id));
+		model.addAttribute("answers", freelanceSer.getAllAnswers());
+		if (session.getAttribute("user_type").equals("freelancer")) {
+			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isClient", false);
+		} else {
+			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isClient", true);
+		}
+		return "viewProject.jsp";
+	}
+	
 	@RequestMapping("/freelance/projects/new")
 	public String newProjectPage(@ModelAttribute("newProject") Project newProject, HttpSession session, Model model) {
-		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
-		model.addAttribute("user", u);
-		List<Category> c = freelanceSer.getAllCategories();
-		model.addAttribute("categories", c);
+		if(session.getAttribute("user_type").equals("freelancer")){
+			return "redirect:/freelance/projects";
+		}
+		model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+		model.addAttribute("categories", freelanceSer.getAllCategories());
 		model.addAttribute("isClient", true);
 		return "newProject.jsp";
 	}
@@ -238,116 +223,69 @@ public class HomeController {
 	@RequestMapping(value = "/freelance/projects/create", method = RequestMethod.POST)
 	public String createProject(Model model, @Valid @ModelAttribute("newProject") Project newProject, BindingResult result, HttpSession session) {
 		if (result.hasErrors()) {
-			List<Category> c = freelanceSer.getAllCategories();
-			model.addAttribute("categories", c);
-			Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
-			model.addAttribute("user", u);
+			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+			model.addAttribute("isClient", true);
+			model.addAttribute("categories", freelanceSer.getAllCategories());
+			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			return "newProject.jsp";
 		}
 		Project p = freelanceSer.createProject(newProject);
 		return "redirect:/freelance/projects/" + p.getId();
 	}
 
-	@RequestMapping("/freelance/projects/{id}")
-	public String viewProject(Model model, HttpSession session, @PathVariable(value = "id") Long id,
-			@ModelAttribute(name = "newQuestion") Question newQuestion, @ModelAttribute(name = "newAnswer") Answer newAnswer) {
-		model.addAttribute("project", freelanceSer.getOneProject(id));
-		model.addAttribute("questions", freelanceSer.getAllQuestions());
-		model.addAttribute("answers", freelanceSer.getAllAnswers());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-		model.addAttribute("user_id", session.getAttribute("user_id"));
-
-		if (session.getAttribute("user_type").equals("freelancer")) {
-			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
-		} else {
-			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isClient", true);
-		}
-		// Date date = new Date();
-		// if (date.compareTo(freelanceSer.getOneProject(id).getOfferEnd()) > 0) {
-		// 	freelanceSer.changeStatus(freelanceSer.getOneProject(id));
-		// }
-		Date date = new Date();
-		if (date.compareTo(freelanceSer.getOneProject(id).getOfferEnd()) > 0) {
-			model.addAttribute("isClose", true);
-		} else {
-			model.getAttribute("isClose");
-		}
-		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(freelanceSer.getOneProject(id).getClient().getId())));
-		return "viewProject.jsp";
-	}
-	
 	@RequestMapping("/freelance/projects/{id}/edit")
-	public String editProjectPage(@PathVariable(value = "id") Long id, Model model, HttpSession session) {
+	public String editProjectPage(@PathVariable Long id, Model model, HttpSession session) {
 		if (session.getAttribute("user_id") == null) {
 			return "redirect:/";
 		}
-		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
 		model.addAttribute("project", freelanceSer.getOneProject(id));
-		model.addAttribute("user", u);
-		List<Category> c = freelanceSer.getAllCategories();
-		model.addAttribute("categories", c);
+		model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+		model.addAttribute("categories", freelanceSer.getAllCategories());
 		model.addAttribute("isClient", true);
 		return "editProject.jsp";
 	}
 	
 	@RequestMapping(value = "/freelance/projects/{id}/update", method = RequestMethod.POST)
-	public String updateProject(Model model, @Valid@ModelAttribute("project") Project project, BindingResult result, HttpSession session,
-			@PathVariable("id") Long id) {
+	public String updateProject(Model model, @Valid @ModelAttribute("project") Project project, BindingResult result, HttpSession session, @PathVariable Long id) {
 		if (result.hasErrors()) {
-			System.out.println(result.getAllErrors());			
-			model.addAttribute("project", freelanceSer.getOneProject(id));
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
-			List<Category> c = freelanceSer.getAllCategories();
-			model.addAttribute("categories", c);
 			model.addAttribute("isClient", true);
+			model.addAttribute("categories", freelanceSer.getAllCategories());
 			return "editProject.jsp";
-		} else {
-			freelanceSer.updateProject(project);
-			
-			return "redirect:/freelance/projects/" + id;
 		}
+		freelanceSer.updateProject(project);
+		return "redirect:/freelance/projects/" + id;
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/delete")
-	public String deleteProject(@PathVariable(name = "id") Long id, HttpSession session) {
-		Project p = freelanceSer.getOneProject(id);
-		if(p.getClient().getId() != session.getAttribute("user_id")){
-			return "redirect:/freelance/projects";
-		}else{
+	public String deleteProject(@PathVariable Long id, HttpSession session) {
+		if(session.getAttribute("user_id").equals(freelanceSer.getOneProject(id).getClient().getId())){
+			System.err.println("here");
 			freelanceSer.deleteProject(id);
 			return "redirect:/freelance/projects";
 		}
+		return "redirect:/freelance/projects";
 	}
 
 	@GetMapping("/freelance/favorites")
-	public String favorites(Model model, HttpSession session) {		
-		// model.addAttribute("projects", freelanceSer.getAllProjects());
-		// model.addAttribute("categories", freelanceSer.getAllCategories());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
+	public String favorites(Model model, HttpSession session) {
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 		} else {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
 		return "favorites.jsp";
-		
 	}
 
 	@GetMapping("/freelance/myprojects")
 	public String myProjects(Model model, HttpSession session) {		
 		model.addAttribute("categories", freelanceSer.getAllCategories());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			Freelancer user = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 			model.addAttribute("user", user);
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 			model.addAttribute("projects", freelanceSer.findProjectsByFreelancerId(user.getId()));
 		} else {
 			Client user = userSer.findClientById((Long) session.getAttribute("user_id"));
@@ -356,18 +294,15 @@ public class HomeController {
 			model.addAttribute("projects", freelanceSer.findProjectsByClientId(user.getId()));
 		}
 		return "myProjects.jsp";
-		
 	}
 
 	@RequestMapping(value = "/freelance/myprojects/category/{id}")
 	public String filterMyProjectsByCategory(Model model, HttpSession session, @PathVariable Long id) {
 		model.addAttribute("categories", freelanceSer.getAllCategories());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			Freelancer user = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 			model.addAttribute("user", user);
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 			model.addAttribute("projects", freelanceSer.filterMyProjectsByCategory(user.getId(), id, "freelancer"));
 		} else {
 			Client user = userSer.findClientById((Long) session.getAttribute("user_id"));
@@ -380,81 +315,57 @@ public class HomeController {
 
 //	question
 	@RequestMapping(value = "/freelance/projects/{id}/create/question", method = RequestMethod.POST)
-	public String createQuestion(Model model, @PathVariable(value = "id") Long id, @Valid @ModelAttribute("newQuestion") Question newQuestion, BindingResult result,HttpSession session) {
+	public String createQuestion(Model model, @PathVariable Long id, @Valid @ModelAttribute("newQuestion") Question newQuestion, BindingResult result,HttpSession session) {
 		if (result.hasErrors()) {
 			model.addAttribute("project", freelanceSer.getOneProject(id));
-			model.addAttribute("questions", freelanceSer.getAllQuestions());
+			model.addAttribute("questions", freelanceSer.getAllQuestions(id));
 			model.addAttribute("answers", freelanceSer.getAllAnswers());
-			model.addAttribute("isFreelancer", false);
-			model.addAttribute("isClient", false);
-			model.addAttribute("user_id", session.getAttribute("user_id"));
-
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-				model.addAttribute("isFreelancer", true);
+				model.addAttribute("isClient", false);
 			} else {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
 			}
-			Date date = new Date();
-			if (date.compareTo(freelanceSer.getOneProject(id).getOfferEnd()) > 0) {
-				model.addAttribute("isClose", true);
-			} else {
-				model.getAttribute("isClose");
-			}
-			model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(freelanceSer.getOneProject(id).getClient().getId())));
-			
-				return "viewProject.jsp";
+			return "viewProject.jsp";
 		}
-		Question q = freelanceSer.createQuestion(newQuestion);
+		freelanceSer.createQuestion(newQuestion);
 		return "redirect:/freelance/projects/" + id;
 	}
 	
 	@RequestMapping(value = "/freelance/projects/{pId}/{qId}/delete")
-	public String deleteQuestion(@PathVariable(name = "pId") Long pId, @PathVariable(name = "qId") Long qId) {
+	public String deleteQuestion(@PathVariable Long pId, @PathVariable Long qId) {
 		freelanceSer.deleteQuestion(qId);
 		return "redirect:/freelance/projects/"+pId;
 	}
 	
 //	answer
 	@RequestMapping(value = "/freelance/projects/{id}/create/answer", method = RequestMethod.POST)
-	public String createAnswer(Model model, @PathVariable("id") Long id, @Valid @ModelAttribute("newAnswer") Answer newAnswer, BindingResult result,HttpSession session) {
+	public String createAnswer(Model model, @PathVariable Long id, @Valid @ModelAttribute("newAnswer") Answer newAnswer, BindingResult result,HttpSession session) {
 		if (result.hasErrors()) {
 			model.addAttribute("project", freelanceSer.getOneProject(id));
-			model.addAttribute("questions", freelanceSer.getAllQuestions());
+			model.addAttribute("questions", freelanceSer.getAllQuestions(id));
 			model.addAttribute("answers", freelanceSer.getAllAnswers());
-			model.addAttribute("isFreelancer", false);
-			model.addAttribute("isClient", false);
-			model.addAttribute("user_id", session.getAttribute("user_id"));
-
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-				model.addAttribute("isFreelancer", true);
+				model.addAttribute("isClient", false);
 			} else {
 				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 				model.addAttribute("isClient", true);
 			}
-			Date date = new Date();
-			if (date.compareTo(freelanceSer.getOneProject(id).getOfferEnd()) > 0) {
-				model.addAttribute("isClose", true);
-			} else {
-				model.getAttribute("isClose");
-			}
-			model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(freelanceSer.getOneProject(id).getClient().getId())));
-			
-				return "viewProject.jsp";
+			return "viewProject.jsp";
 		}
 		freelanceSer.createAnswer(newAnswer);
 		return "redirect:/freelance/projects/" + id;
 	}
 
-	
 	@RequestMapping(value = "/freelance/projects/{pId}/{qId}/{aId}/delete")
-	public String deleteAnswer(@PathVariable(name = "pId") Long pId, @PathVariable(name = "qId") Long qId, @PathVariable(name = "aId") Long aId) {
+	public String deleteAnswer(@PathVariable(name = "pId") Long pId, @PathVariable Long qId, @PathVariable Long aId) {
 		freelanceSer.deleteAnswer(aId);
 		return "redirect:/freelance/projects/"+pId;
 	}
 	
+// 	Category
 	@RequestMapping("/freelance/category/new")
 	public String newCat(@ModelAttribute("newCategory") Category newCategory, Model model) {
 		return "category.jsp";
@@ -471,7 +382,7 @@ public class HomeController {
 
 //    like and unlike
 	@RequestMapping(value = "/freelance/projects/{id}/like")
-	public String like(@PathVariable(value = "id") Long id, HttpSession session) {
+	public String like(@PathVariable Long id, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.like(u, p);
@@ -479,14 +390,15 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/unlike/{page}")
-	public String unlike(@PathVariable(value = "id") Long id,@PathVariable(value = "page") String page, HttpSession session) {
+	public String unlike(@PathVariable Long id,@PathVariable String page, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.unlike(u, p);
 		return "redirect:/freelance/"+page;
 	}
+	
 	@RequestMapping(value = "/freelance/projects/{id}/client/like")
-	public String clientlike(@PathVariable(value = "id") Long id, HttpSession session) {
+	public String clientlike(@PathVariable Long id, HttpSession session) {
 		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.clientLike(u, p);
@@ -494,7 +406,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/client/unlike/{page}")
-	public String clientunlike(@PathVariable(value = "id") Long id,@PathVariable(value = "page") String page, HttpSession session) {
+	public String clientunlike(@PathVariable Long id,@PathVariable String page, HttpSession session) {
 		Client u = userSer.findClientById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.clientUnlike(u, p);
@@ -502,7 +414,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/likeFromViewProject")
-	public String likeFromViewProject(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
+	public String likeFromViewProject(@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		model.addAttribute("project", p);
@@ -511,7 +423,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/unlikeFromViewProject")
-	public String unlikeFromViewProject(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
+	public String unlikeFromViewProject(@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		model.addAttribute("project", p);
@@ -521,7 +433,7 @@ public class HomeController {
 
 //  offer and withdraw
 	@RequestMapping(value = "/freelance/projects/{id}/offer")
-	public String offer(@PathVariable(value = "id") Long id, HttpSession session) {
+	public String offer(@PathVariable Long id, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.offer(u, p);
@@ -529,7 +441,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/withdraw")
-	public String withdraw(@PathVariable(value = "id") Long id, HttpSession session) {
+	public String withdraw(@PathVariable Long id, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		freelanceSer.withdraw(u, p);
@@ -537,7 +449,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/offerFromViewProject")
-	public String offerFromViewProject(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
+	public String offerFromViewProject(@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		model.addAttribute("project", p);
@@ -546,7 +458,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/withdrawFromViewProject")
-	public String withdrawFromViewProject(@PathVariable(value = "id") Long id, HttpSession session, Model model) {
+	public String withdrawFromViewProject(@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
 		Project p = freelanceSer.getOneProject(id);
 		model.addAttribute("project", p);
@@ -556,7 +468,7 @@ public class HomeController {
 
 //  accept and reject offers
 	@RequestMapping(value = "/freelance/projects/{pId}/offer/accept/{fId}")
-	public String accept(@PathVariable(value = "pId") Long pId, @PathVariable(value = "fId") Long fId, HttpSession session, Model model) {
+	public String accept(@PathVariable Long pId, @PathVariable Long fId) {
 		Freelancer u = userSer.findFreelancerById(fId);
 		Project p = freelanceSer.getOneProject(pId);
 		freelanceSer.accept(u, p);
@@ -565,8 +477,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/freelance/projects/{pId}/offer/reject/{fId}")
-	public String reject(@PathVariable(value = "pId") Long pId, @PathVariable(value = "fId") Long fId,
-			HttpSession session, Model model) {
+	public String reject(@PathVariable Long pId, @PathVariable Long fId) {
 		Freelancer u = userSer.findFreelancerById(fId);
 		Project p = freelanceSer.getOneProject(pId);
 		freelanceSer.reject(p);
@@ -582,153 +493,145 @@ public class HomeController {
 		return "redirect:/client/profile/"+p.getClient().getId();
 	}
 
+// 	Freelancer & client profiles
 	@RequestMapping("/freelancer/profile/{id}")
 	public String freelancerProfile(@PathVariable Long id, HttpSession session, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(id);
 		model.addAttribute("newReview", new ReviewOnFreelancer());
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-		model.addAttribute("user_id", session.getAttribute("user_id"));
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 		} else {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
 		model.addAttribute("freelancer", freelancer);
-//		model.addAttribute("rating",0);
-		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findFreelancerAvgRating(id)));
-		// System.out.println(freelanceSer.findFreelancerAvgRating(id));
 		return "profile_f.jsp";
 	}
 
-	@RequestMapping("/freelancer/profile/{idx}/edit")
-	public String freelancerEditPage(@PathVariable Long idx, HttpSession session, Model model) {
-		Freelancer freelancer = userSer.findFreelancerById(idx);
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-		model.addAttribute("user_id", session.getAttribute("user_id"));
-
-		if (session.getAttribute("user_type").equals("freelancer")) {
-			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
-		} else {
-			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isClient", true);
+	@RequestMapping("/freelancer/profile/{id}/edit")
+	public String freelancerEditPage(@PathVariable Long id, HttpSession session, Model model) {
+		if(session.getAttribute("user_type").equals("freelancer") && session.getAttribute("user_id").equals(id)){
+			model.addAttribute("freelancer", userSer.findFreelancerById(id));
+			model.addAttribute("editFreelancer", new Freelancer());
+			return "edit_f.jsp";
 		}
-		model.addAttribute("freelancer", freelancer);
-		model.addAttribute("editFreelancer", new Freelancer());
-		return "edit_f.jsp";
+		return "redirect:/freelance/projects";
 	}
 
 	@PostMapping("/freelancer/profile/{id}/update")
-	public String freelancerEdit(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer,@PathVariable("id") Long id, BindingResult result, HttpSession session, Model model) {
+	public String updateFreelancer(@Valid @ModelAttribute("editFreelancer") Freelancer editFreelancer,BindingResult result, @PathVariable Long id, Model model) {
 		Freelancer freelancer = userSer.findFreelancerById(id);
-		model.addAttribute("freelancer", freelancer);
 		if (result.hasErrors()) {
 			model.addAttribute("freelancer", freelancer);
 			return "edit_f.jsp";
 		}
+		model.addAttribute("freelancer", freelancer);
 		freelanceSer.editFreelancer(editFreelancer,id);
 		return "redirect:/freelancer/profile/" + id;
-
 	}
 
 	@RequestMapping("/client/profile/{id}")
 	public String clientProfile(@PathVariable Long id, HttpSession session, Model model) {
 		Client client = userSer.findClientById(id);
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-		model.addAttribute("user_id", session.getAttribute("user_id"));
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 		} else {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
 		model.addAttribute("newReview", new ReviewOnClient());
 		model.addAttribute("client", client);
-		model.addAttribute("rating", new DecimalFormat("#").format(freelanceSer.findClientAvgRating(id)));
 		return "profile_c.jsp";
 	}
 
 	@RequestMapping("/client/profile/{id}/edit")
-	public String cEditPage(@PathVariable Long id, HttpSession session, Model model) {
-		Client client = userSer.findClientById(id);
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-		model.addAttribute("user_id", session.getAttribute("user_id"));
-
-		if (session.getAttribute("user_type").equals("freelancer")) {
-			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
-		} else {
-			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isClient", true);
+	public String clientEditPage(@PathVariable Long id, HttpSession session, Model model) {
+		if(session.getAttribute("user_type").equals("client") && session.getAttribute("user_id").equals(id)){
+			model.addAttribute("client", userSer.findClientById(id));
+			model.addAttribute("editClient", new Client());
+			return "edit_c.jsp";
 		}
-		model.addAttribute("client", client);
-		model.addAttribute("editClient", new Client());
-		return "edit_c.jsp";
+		return "redirect:/freelance/projects";
 	}
 
 	@PostMapping("/client/profile/{id}/update")
-	public String cEdit(@Valid @ModelAttribute("editClient") Client editClient, BindingResult result,
-			@PathVariable Long id, HttpSession session, Model model) {
+	public String updateClient(@Valid @ModelAttribute("editClient") Client editClient, BindingResult result, @PathVariable Long id, Model model) {
 		Client client = userSer.findClientById(id);
 		model.addAttribute("client", client);
-
 		if (result.hasErrors()) {
-			model.addAttribute("client", client);
 			return "edit_c.jsp";
 		}
-		freelanceSer.EditClient(editClient,id);
+		freelanceSer.editClient(editClient,id);
 		return "redirect:/client/profile/" + id;
-
 	}
 
 	@PostMapping("/freelancer/profile/{freelancerId}/review/create")
-	public String reviewf(@Valid @ModelAttribute("newReview") ReviewOnFreelancer newReview, BindingResult result,
-			@PathVariable Long freelancerId, HttpSession session, Model model) {
+	public String createReviewOnfreelancer(@Valid @ModelAttribute("newReview") ReviewOnFreelancer newReview, BindingResult result, @PathVariable Long freelancerId, HttpSession session, Model model) {
+		if(result.hasErrors()){
+			Freelancer freelancer = userSer.findFreelancerById(freelancerId);
+			if (session.getAttribute("user_type").equals("freelancer")) {
+				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", false);
+			} else {
+				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", true);
+			}
+			model.addAttribute("freelancer", freelancer);
+			return "profile_f.jsp";
+		}
 		freelanceSer.reviewFreelancer(newReview);
 		return "redirect:/freelancer/profile/" + freelancerId;
 	}
 
 	@PostMapping("/client/profile/{clientId}/review/create")
-	public String reviewc(@Valid @ModelAttribute("newReview") ReviewOnClient newReview, BindingResult result,
-			@PathVariable Long clientId, HttpSession session, Model model) {
+	public String createReviewOnClient(@Valid @ModelAttribute("newReview") ReviewOnClient newReview, BindingResult result, @PathVariable Long clientId, Model model, HttpSession session) {
+		if (result.hasErrors()) {
+			Client client = userSer.findClientById(clientId);
+			if (session.getAttribute("user_type").equals("freelancer")) {
+				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", false);
+			} else {
+				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", true);
+			}
+			model.addAttribute("client", client);
+			return "profile_c.jsp";
+		}
 		freelanceSer.reviewClient(newReview);
 		return "redirect:/client/profile/" + clientId;
 	}
 
 	@RequestMapping("/freelance/projects/{id}/chating")
 	public String chatPage(HttpSession session, @PathVariable Long id, Model model) {
-
-		model.addAttribute("isFreelancer", false);
-		model.addAttribute("isClient", false);
-
 		if (session.getAttribute("user_type").equals("freelancer")) {
 			model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
-			model.addAttribute("isFreelancer", true);
+			model.addAttribute("isClient", false);
 		} else {
 			model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
 			model.addAttribute("isClient", true);
 		}
-
 		Project project = freelanceSer.getOneProject(id);
 		model.addAttribute("newComment", new Comment());
 		model.addAttribute("project", project);
-		model.addAttribute("comments", freelanceSer.getProperComments(project.getId()));
+		model.addAttribute("comments", freelanceSer.getRelatedComments(project.getId()));
 		return "chatRoom.jsp";
 	}
 
 	@RequestMapping(value = "/freelance/projects/{id}/chating/create", method = RequestMethod.POST)
-	public String comment(@Valid @ModelAttribute("newComment") Comment newComment, BindingResult result, @PathVariable Long id, HttpSession session, Model model) {
+	public String createComment(@Valid @ModelAttribute("newComment") Comment newComment, BindingResult result, @PathVariable Long id, Model model,HttpSession session) {
 		Project project = freelanceSer.getOneProject(id);
 		if (result.hasErrors()) {
+			if (session.getAttribute("user_type").equals("freelancer")) {
+				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", false);
+			} else {
+				model.addAttribute("user", userSer.findClientById((Long) session.getAttribute("user_id")));
+				model.addAttribute("isClient", true);
+			}
 			model.addAttribute("project", project);
-			model.addAttribute("comments",freelanceSer.getProperComments(project.getId()));
+			model.addAttribute("comments",freelanceSer.getRelatedComments(project.getId()));
 			return "chatRoom.jsp";
 		}
 		freelanceSer.leaveAComment(newComment);

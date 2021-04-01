@@ -37,47 +37,25 @@
 
 			<div class="col p-0 right-menu">
 				<div class="float-right">
-					<c:if test="${isClient eq true }">
-						<div class="dropdown-right">
-							<div class="dropbtn-right">
-								<span class="user-info">
-									<span>Hello, </span>${user.firstname }
-									<img src="/images/user_pic.svg" id="user-img" alt="user" />
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-									</svg>
-								</span>
-							</div>
-							<div class="dropdown-content-right shadow-sm">
-								<a href="/freelance/projects/new" id="post-project-menu">New Project</a>
-								<a href="/client/profile/${user.id}">Profile</a>
-								<a href="/freelance/myprojects">My Projects</a>
-								<a href="/freelance/favorites">Favorites</a>
-								<a href="/logout">Logout</a>
-							</div>
+					<div class="dropdown-right">
+						<div class="dropbtn-right">
+							<span class="user-info">
+								<span>Hello, </span>${client.firstname }
+								<img src="/images/user_pic.svg" id="user-img" alt="user" />
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+								</svg>
+							</span>
 						</div>
-						<a href="/freelance/projects/new"><button class="post-project">+ New Project</button></a>
-					</c:if>
-
-					<c:if test="${isClient eq false }">
-						<div class="dropdown-right" style="float:right;">
-							<div class="dropbtn-right">
-								<span class="user-info">
-									<span>Hello, </span>${user.firstname }
-									<img src="/images/user_pic.svg" id="user-img" alt="user" />
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-									</svg>
-								</span>
-							</div>
-							<div class="dropdown-content-right shadow-sm">
-								<a href="/freelancer/profile/${user.id}">Profile</a>
-								<a href="/freelance/myprojects">My Projects</a>
-								<a href="/freelance/favorites">Favorites</a>
-								<a href="/logout">Logout</a>
-							</div>
+						<div class="dropdown-content-right shadow-sm">
+							<a href="/freelance/projects/new" id="post-project-menu">New Project</a>
+							<a href="/client/profile/${client.id}">Profile</a>
+							<a href="/freelance/myprojects">My Projects</a>
+							<a href="/freelance/favorites">Favorites</a>
+							<a href="/logout">Logout</a>
 						</div>
-					</c:if>
+					</div>
+					<a href="/freelance/projects/new"><button class="post-project">+ New Project</button></a>
 				</div>
 			</div>
 		</div>
@@ -89,42 +67,42 @@
 			<form:form action="/client/profile/${client.id}/update" method="post" modelAttribute="editClient">
 				<input type="hidden" name="_method" value="put">
 				<div class="row my-4">
-					<div class="col-sm-6">
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>First Name:</label>
 							<form:input path="firstname" value="${client.firstname }" />
 							<form:errors path="firstname" class="text-danger" />
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>Last Name:</label>
 							<form:input path="lastname" value="${client.lastname }" />
 							<form:errors path="lastname" class="text-danger" />
 						</div>
 					</div>
-					<div class="col-sm-12">
+					<div class="col-sm-12 mb-3">
 						<div class="form-group">
 							<label>Email:</label>
 							<form:input path="email" value="${client.email }" />
 							<form:errors path="email" class="text-danger" />
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>Password:</label>
 							<form:password path="password" />
 							<form:errors path="password" class="text-danger" />
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>Confirm Password:</label>
 							<form:password path="confirm" />
 							<form:errors path="confirm" class="text-danger" />
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<form:label path="">Gender:</form:label>
 							<select name="gender">
@@ -134,14 +112,14 @@
 						</div>
 					</div>
 
-					<div class="col-sm-6">
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>Bio:</label>
 							<form:input path="bio" value="${client.bio }" />
 						</div>
 					</div>
 
-					<div class="col-sm">
+					<div class="col-sm mb-3">
 						<label>Photo:</label>
 						<div class="custom-file">
 							<label>Photo:</label>
@@ -150,12 +128,11 @@
 						</div>
 					</div>
 				</div>
-				<input type="submit" value="Update" class="btn btn-block form-btn" />
+				<input type="submit" value="Update" class="btn btn-block form-btn my-3" />
 			</form:form>
 			<a href="/client/profile/${client.id}" class="btn btn-block cancel-btn">Cancel</a>
 		</div>
 	</div>
-
 </body>
 
 </html>

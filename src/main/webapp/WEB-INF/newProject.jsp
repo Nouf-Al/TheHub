@@ -92,42 +92,42 @@
 				<p>Create new project</p>
 				<form:form action="/freelance/projects/create" method="post" modelAttribute="newProject">
 					<div class="row">
-						<div class="col-sm-12">
+						<div class="col-sm-12 mb-3">
 							<div class="form-group">
 								<label>Title:</label>
 								<form:input path="title" />
 								<form:errors path="title" class="text-danger" />
 							</div>
 						</div>
-						<div class="col-sm-12">
+						<div class="col-sm-12 mb-3">
 							<div class="form-group">
 								<label>Description:</label>
 								<form:textarea path="description" />
 								<form:errors path="description" class="text-danger" />
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6 mb-3">
 							<div class="form-group">
 								<label>Offer end:</label>
 								<form:input type="date" path="offerEnd" />
 								<form:errors path="offerEnd" class="text-danger" />
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6 mb-3">
 							<div class="form-group">
 								<label>How Long the project will take? (Day)</label>
 								<form:input path="duration" />
 								<form:errors path="duration" class="text-danger" />
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6 mb-3">
 							<div class="form-group">
 								<label>Price:</label>
 								<form:input path="price" />
 								<form:errors path="price" class="text-danger" />
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6 mb-3">
 							<div class="form-group">
 								<form:label path="category">Category:</form:label>
 								<select name="category">
@@ -139,7 +139,7 @@
 						</div>
 					</div>
 					<input type="hidden" name="client" value="${user.id }" />
-					<input type="submit" value="Create" class="btn btn-block form-btn mt-3" />
+					<input type="submit" value="Create" class="btn btn-block form-btn my-3" />
 				</form:form>
 				<a href="/freelance/projects" class="btn btn-block cancel-btn">Cancel</a>
 			</div>
