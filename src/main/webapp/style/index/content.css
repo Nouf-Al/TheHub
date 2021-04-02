@@ -308,10 +308,6 @@
   background: #F9F7FB !important;
 }
 
-.section-1 .gray :hover {
-  background: white;
-}
-
 .section-2 {
   height: 108vh;
   background: #F9F7FB;
@@ -451,10 +447,11 @@
   position: relative;
   background: white;
   border-radius: 10px;
-  height: 354px;
+  height: 329px;
   width: 359px;
   margin: 2em 1em;
   color: black;
+  vertical-align: top;
 }
 
 .section-3 .item svg {
@@ -463,7 +460,7 @@
 }
 
 .section-3 .item .user-info {
-  margin: 22px 0;
+  margin: 15px 0 0 0;
 }
 
 .section-3 .item .user-info h5 {
@@ -474,24 +471,11 @@
   letter-spacing: 1;
 }
 
-.section-3 .item .user-info .city {
-  font-size: 13px;
-  font-weight: normal;
-  font-family: eina01,sans-serif;
-  margin: 0 0 4px 0;
-}
-
 .section-3 .item .user-info .major {
   font-size: 14px;
   font-family: eina01,sans-serif;
   font-weight: lighter;
   color: #767676e0;
-}
-
-.section-3 .item .stars svg {
-  color: #ffd642;
-  width: 14px;
-  height: 14px;
 }
 
 .section-3 .item .bio {
@@ -537,6 +521,12 @@ footer {
 
 footer p {
   text-align: center;
+}
+
+.fa-star:before {
+  content: "\f005";
+  color: #ffd642;
+  font-size: 13px;
 }
 
 @media only screen and (max-width: 480px) {

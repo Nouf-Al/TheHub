@@ -76,6 +76,10 @@ public class FreelanceService {
 		return getter.get();
 	}
 
+	public ArrayList<Client> getAllClients() {
+		return (ArrayList<Client>) clientRepo.findAll();
+	}
+
 	public Project updateProject(Project toEdit) {
 		return projectRepo.save(toEdit);
 	}
@@ -324,6 +328,10 @@ public class FreelanceService {
 		} else{
 			return 0;
 		}
+	}
+
+	public ArrayList<ReviewOnClient> getAllReviewsOnClients() {
+		return (ArrayList<ReviewOnClient>) reviewOnClientRepo.findAll();
 	}
 
 	public ArrayList<ReviewOnFreelancer> getAllReviewsOnFreelancers() {

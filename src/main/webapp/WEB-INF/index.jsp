@@ -12,6 +12,7 @@
    <link rel="stylesheet" href="/style/style.css" />
    <link rel="stylesheet" href="/style/index/content.css" />
    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   <script src="https://kit.fontawesome.com/9e73ca32ae.js" crossorigin="anonymous"></script>
    <title>The Hub</title>
 </head>
 <body>
@@ -35,15 +36,26 @@
                   <div id="logo">
                      <h1>The Hub</h1>
                   </div>
-                  <a class="slide-up-nav" href="#">Projects</a>
-                  <a class="slide-up-nav" href="#">Freelancers</a>
+                  <a class="slide-up-nav" href="/freelance/projects">Projects</a>
+                  <a class="slide-up-nav" href="/freelance/freelancers">Freelancers</a>
                </div>
-               <div class="col p-0 right-nav">
-                  <span>
-                     <a href="/client/login">Client</a>
-                     <a href="/freelancer/login">Freelancer</a>
-                  </span>
-               </div>
+               <c:choose>
+                  <c:when test="${user_id eq null}">
+                     <div class="col p-0 right-nav">
+                        <span>
+                           <a href="/client/login">Client</a>
+                           <a href="/freelancer/login">Freelancer</a>
+                        </span>
+                     </div>
+                  </c:when>
+                  <c:otherwise>
+                     <div class="col p-0 right-nav">
+                        <span>
+                           <a href="/logout">Logout</a>
+                        </span>
+                     </div>
+                  </c:otherwise>
+               </c:choose>
             </div>
          </nav>
          <div class="content">
@@ -54,7 +66,15 @@
                   <p>A whole world of freelance talent at your fingertips, Find the talent needed to get your
                      business
                      growing.</p>
-                  <a href="/client/login"><span>Get Started</span></a>
+                  
+                  <c:choose>
+                     <c:when test="${user_id eq null}">
+                        <a href="/client/login"><span>Get Started</span></a>
+                     </c:when>
+                     <c:otherwise>
+                        <a href="/freelance/projects"><span>Get Started</span></a>
+                     </c:otherwise>
+                  </c:choose>
                </div>
             </div>
          </div>
@@ -146,21 +166,21 @@
          <div class="blocks">
             <div class="block shadow" data-aos="slide-up">
                <p>Freelancers working in the hub</p>
-               <h4>30,000</h4>
+               <h4>${freelancersLength}</h4>
             </div>
             <div class="block shadow" data-aos="slide-up">
                <p>Clients dealing with the hub</p>
-               <h4>2,000</h4>
+               <h4>${clientsLength}</h4>
             </div>
          </div>
          <div class="blocks">
             <div class="block shadow" data-aos="slide-up">
                <p>Projects created in the hub</p>
-               <h4>35,000</h4>
+               <h4>${projectsLength}</h4>
             </div>
             <div class="block shadow" data-aos="slide-up">
                <p>Reviews written in the hub</p>
-               <h4>300</h4>
+               <h4>${reviewsLength}</h4>
             </div>
          </div>
       </div>
@@ -172,246 +192,71 @@
       <div class="grid-container">
          <div class="main">
             <div class="items">
-               <div class="item shadow p-4">
-                  <div class="row m-0 p-0">
-                     <div class="col-4 p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-person-circle" viewBox="0 0 16 16">
-                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                           <path fill-rule="evenodd"
-                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg>
+               <c:forEach items="${freelancers}" var="freelancer">
+                  <div class="item shadow p-4">
+                     <div class="row m-0 p-0">
+                        <div class="col-4 p-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                           </svg>
+                        </div>
+                        <div class="col p-0 user-info">
+                           <h5>${freelancer.firstname} ${freelancer.lastname}</h5>
+                           <p class="major m-0">${freelancer.speciality}</p>
+                           <div class="rating my-2">
+                              <c:choose>
+                                 <c:when test="${freelancer.calculateAvgRating() == 1 }">
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                 </c:when>
+                                 <c:when test="${freelancer.calculateAvgRating() == 2 }">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                 </c:when>
+                                 <c:when test="${freelancer.calculateAvgRating() == 3 }">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                 </c:when>
+                                 <c:when test="${freelancer.calculateAvgRating() == 4 }">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                 </c:when>
+                                 <c:when test="${freelancer.calculateAvgRating() == 5}">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                 </c:otherwise>
+                              </c:choose>
+                           </div>
+                        </div>
                      </div>
-                     <div class="col p-0 user-info">
-                        <h5>Nouf Alotaibi</h5>
-                        <p class="city">Riyadh, SA</p>
-                        <p class="major">Programmer</p>
-                     </div>
+                     
+                     <h4 class="bio px-4 py-3">${freelancer.bio}</h4>
+                     <a href="/freelancer/profile/${freelancer.id}" class="view">View Profile</a>
                   </div>
-                  <div class="stars px-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                  </div>
-                  <h4 class="bio p-4">Hello I'm Nouf I work as a freelancer for web sev projects, I'm a good
-                     and fast
-                     freelacer.</h4>
-                  <a href="#" class="view">View Profile</a>
-               </div>
-               <div class="item shadow p-4">
-                  <div class="row m-0 p-0">
-                     <div class="col-4 p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-person-circle" viewBox="0 0 16 16">
-                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                           <path fill-rule="evenodd"
-                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg>
-                     </div>
-                     <div class="col p-0 user-info">
-                        <h5>Nouf Alotaibi</h5>
-                        <p class="city">Riyadh, SA</p>
-                        <p class="major">Programmer</p>
-                     </div>
-                  </div>
-                  <div class="stars px-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                  </div>
-                  <h4 class="bio p-4">Hello I'm Nouf I work as a freelancer for web sev projects, I'm a good
-                     and fast
-                     freelacer.</h4>
-                  <a href="#" class="view">View Profile</a>
-               </div>
-               <div class="item shadow p-4">
-                  <div class="row m-0 p-0">
-                     <div class="col-4 p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-person-circle" viewBox="0 0 16 16">
-                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                           <path fill-rule="evenodd"
-                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg>
-                     </div>
-                     <div class="col p-0 user-info">
-                        <h5>Nouf Alotaibi</h5>
-                        <p class="city">Riyadh, SA</p>
-                        <p class="major">Programmer</p>
-                     </div>
-                  </div>
-                  <div class="stars px-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                  </div>
-                  <h4 class="bio p-4">Hello I'm Nouf I work as a freelancer for web sev projects, I'm a good
-                     and fast
-                     freelacer.</h4>
-                  <a href="#" class="view">View Profile</a>
-               </div>
-               <div class="item shadow p-4">
-                  <div class="row m-0 p-0">
-                     <div class="col-4 p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-person-circle" viewBox="0 0 16 16">
-                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                           <path fill-rule="evenodd"
-                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg>
-                     </div>
-                     <div class="col p-0 user-info">
-                        <h5>Nouf Alotaibi</h5>
-                        <p class="city">Riyadh, SA</p>
-                        <p class="major">Programmer</p>
-                     </div>
-                  </div>
-                  <div class="stars px-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                  </div>
-                  <h4 class="bio p-4">Hello I'm Nouf I work as a freelancer for web sev projects, I'm a good
-                     and fast
-                     freelacer.</h4>
-                  <a href="#" class="view">View Profile</a>
-               </div>
-               <div class="item shadow p-4">
-                  <div class="row m-0 p-0">
-                     <div class="col-4 p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-person-circle" viewBox="0 0 16 16">
-                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                           <path fill-rule="evenodd"
-                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg>
-                     </div>
-                     <div class="col p-0 user-info">
-                        <h5>Nouf Alotaibi</h5>
-                        <p class="city">Riyadh, SA</p>
-                        <p class="major">Programmer</p>
-                     </div>
-                  </div>
-                  <div class="stars px-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path
-                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                     </svg>
-                  </div>
-                  <h4 class="bio p-4">Hello I'm Nouf I work as a freelancer for web sev projects, I'm a good
-                     and fast
-                     freelacer.</h4>
-                  <a href="#" class="view">View Profile</a>
-               </div>
+               </c:forEach>
             </div>
          </div>
       </div>

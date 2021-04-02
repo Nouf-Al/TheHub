@@ -1,4 +1,6 @@
 package com.kgn.FreelanceProject.controllers;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,22 @@ public class HomeController {
 	}
 
 	@RequestMapping("/")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
+		List<Project> p = freelanceSer.getAllProjects();
+		model.addAttribute("projectsLength", p.size());
+
+		List<Freelancer> f = freelanceSer.getAllFreelancers();
+		model.addAttribute("freelancersLength", f.size());
+		model.addAttribute("freelancers", f);
+
+		List<Client> c = freelanceSer.getAllClients();
+		model.addAttribute("clientsLength", c.size());
+
+		int reviews = freelanceSer.getAllReviewsOnFreelancers().size() + freelanceSer.getAllReviewsOnClients().size();
+		// List<ReviewOnClient> reviewC = freelanceSer.getAllReviewsOnClients();
+		model.addAttribute("reviewsLength", reviews);
+
+		model.addAttribute("user_id", session.getAttribute("user_id"));
 		return "index.jsp";
 	}
 
@@ -496,6 +513,11 @@ public class HomeController {
 // 	Freelancer & client profiles
 	@RequestMapping("/freelancer/profile/{id}")
 	public String freelancerProfile(@PathVariable Long id, HttpSession session, Model model) {
+		if (userSer.findClientById((Long) session.getAttribute("user_id")) == null && (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null)) {
+			System.err.println("here");
+			return "redirect:/client/login";
+		} 
+
 		Freelancer freelancer = userSer.findFreelancerById(id);
 		model.addAttribute("newReview", new ReviewOnFreelancer());
 		if (session.getAttribute("user_type").equals("freelancer")) {
