@@ -252,6 +252,10 @@ public class FreelanceService {
 		return properComments;
 	}
 
+	public void deleteComments(Long id) {
+		commentRepo.deleteById(id);
+	}
+
 	// category model
 	public Category createCategory(Category newO) {
 		newO.setId(null);

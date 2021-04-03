@@ -278,6 +278,18 @@ public class HomeController {
 	public String deleteProject(@PathVariable Long id, HttpSession session) {
 		if(session.getAttribute("user_id").equals(freelanceSer.getOneProject(id).getClient().getId())){
 			System.err.println("here");
+			List<Question> questions = freelanceSer.getAllQuestions(id);
+			if(questions.size()>0){
+				for (Question question : questions){
+					freelanceSer.deleteQuestion(question.getId());
+				}
+			}
+			List<Comment> comments = freelanceSer.getRelatedComments(id);
+			if(comments.size()>0){
+				for (Comment comment : comments){
+					freelanceSer.deleteComments(comment.getId());
+				}
+			}
 			freelanceSer.deleteProject(id);
 			return "redirect:/freelance/projects";
 		}
