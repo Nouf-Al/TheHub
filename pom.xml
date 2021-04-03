@@ -12,7 +12,6 @@
 	<groupId>com.kgn.FreelanceProject</groupId>
 	<artifactId>FreelanceProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>FreelanceProject</name>
 	<description>A website that serve clients and freelancers </description>
 	<properties>
