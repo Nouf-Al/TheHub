@@ -47,10 +47,11 @@ public class Freelancer {
 
 	@Column(nullable = true, length = 64)
 	private String photos;
-
+	
+	@Size(max = 255, message = "Bio must be at most 255 characters.")
 	private String bio;
 
-	//	@NotEmpty(message = "Password is required!")
+	//@NotEmpty(message = "Password is required!")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
 	

@@ -116,6 +116,7 @@
 						<div class="form-group">
 							<label>Bio:</label>
 							<form:input path="bio" value="${client.bio }" />
+							<form:errors path="bio" class="text-danger" />
 						</div>
 					</div>
 

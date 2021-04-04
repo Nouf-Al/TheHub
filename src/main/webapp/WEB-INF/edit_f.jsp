@@ -117,6 +117,7 @@
 						<div class="form-group">
 							<label>Bio:</label>
 							<form:input path="bio" value="${freelancer.bio }" />
+							<form:errors path="bio" class="text-danger" />
 						</div>
 					</div>
 					<!-- <div class="col-sm-6 mb-3">

@@ -44,6 +44,7 @@ public class Client {
 	@Column(nullable = true, length = 64)
     private String photo;
 
+	@Size(max = 255, message = "Bio must be at most 255 characters.")
 	private String bio;
 
 //	@NotEmpty(message = "Password is required!")
