@@ -119,19 +119,19 @@
 							<form:input path="bio" value="${freelancer.bio }" />
 						</div>
 					</div>
-					<div class="col-sm-6 mb-3">
+					<!-- <div class="col-sm-6 mb-3">
 						<label>Photo:</label>
 						<div class="custom-file">
 							<label>Photo:</label> 
 							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> 
 							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 						</div>
-					</div>
-					<div class="col-sm-12 mb-3">
+					</div> -->
+					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>skills:</label>
 							<form:textarea path="skillString" />
-							<h6 class="text-danger">please separate by , between skill </h6>
+							<h6 class="text-danger">Please separate by , between each skill. </h6>
 						</div>
 					</div>
 				</div>

@@ -41,7 +41,7 @@ public class HomeController {
 
 		List<Freelancer> f = freelanceSer.getAllFreelancers();
 		model.addAttribute("freelancersLength", f.size());
-		model.addAttribute("freelancers", f);
+		model.addAttribute("freelancers", freelanceSer.getFourFreelancers());
 
 		List<Client> c = freelanceSer.getAllClients();
 		model.addAttribute("clientsLength", c.size());

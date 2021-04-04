@@ -1,13 +1,10 @@
 package com.kgn.FreelanceProject.services;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.kgn.FreelanceProject.models.Answer;
 import com.kgn.FreelanceProject.models.Category;
 import com.kgn.FreelanceProject.models.Client;
@@ -180,6 +177,21 @@ public class FreelanceService {
 
 	public ArrayList<Freelancer> getAllFreelancers() {
 		return (ArrayList<Freelancer>) freelancerRepo.findAll();
+	}
+	public List<Freelancer> getFourFreelancers() {
+		Iterable<Freelancer> freelancers = freelancerRepo.findAll();
+		ArrayList<Freelancer> fourFreelancers = new ArrayList<Freelancer>();
+		int i =1;
+		for(Freelancer f: freelancers){
+			if(i<5){
+				fourFreelancers.add(f);
+				i++;
+			}
+			if(i==5){
+				break;
+			}
+		}
+		return fourFreelancers;
 	}
 
 	public Freelancer editFreelancer(Freelancer newFreelancer,Long id) {

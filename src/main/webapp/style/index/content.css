@@ -499,7 +499,6 @@
   border: none;
   text-align: center;
   font-size: 13px;
-  font-weight: 500;
   padding: 14px 28px;
   width: 150px;
   border-radius: 23px;
@@ -527,6 +526,35 @@ footer p {
   content: "\f005";
   color: #ffd642;
   font-size: 13px;
+}
+
+.seemore p{
+  padding: 73px 0 0 0;
+  font-size: 23px;
+  line-height: 39px;
+  text-align: center;
+}
+
+.seemore a{
+  display: block;
+  margin: 25px auto;
+  font-family: eina01,sans-serif;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  color: white;
+  background: black;
+  border: none;
+  text-align: center;
+  font-size: 13px;
+  padding: 14px 28px;
+  width: 112px;
+  border-radius: 23px;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.seemore a:hover {
+  color: black;
+  background: white;
 }
 
 @media only screen and (max-width: 480px) {

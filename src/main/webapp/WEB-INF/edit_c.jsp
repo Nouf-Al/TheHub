@@ -119,14 +119,14 @@
 						</div>
 					</div>
 
-					<div class="col-sm mb-3">
+					<!-- <div class="col-sm mb-3">
 						<label>Photo:</label>
 						<div class="custom-file">
 							<label>Photo:</label>
 							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<input type="submit" value="Update" class="btn btn-block form-btn my-3" />
 			</form:form>

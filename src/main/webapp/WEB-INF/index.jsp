@@ -257,6 +257,10 @@
                      <a href="/freelancer/profile/${freelancer.id}" class="view">View Profile</a>
                   </div>
                </c:forEach>
+               <div class="item shadow p-4 seemore">
+                  <p>Register to See <br> More Profiles</p>
+                  <a href="/client/register" class="register">Register</a>
+               </div>
             </div>
          </div>
       </div>
