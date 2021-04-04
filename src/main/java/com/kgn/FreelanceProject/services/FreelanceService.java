@@ -58,6 +58,10 @@ public class FreelanceService {
 		return (ArrayList<Project>) projectRepo.findAll();
 	}
 
+	public ArrayList<Project> getAllProjectsSorted() {
+		return (ArrayList<Project>) projectRepo.findByOrderByCreatedAtDesc();
+	}
+
 	public Project getOneProject(Long id) {
 		Optional<Project> getter = projectRepo.findById(id);
 		return getter.get();

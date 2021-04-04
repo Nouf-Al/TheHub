@@ -15,6 +15,7 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
 	List<Project> findByClientId(Long id);
 	List<Project> findByfreelancerId(Long id);
 	List<Project> findByStatus(String status);
+	List<Project> findByOrderByCreatedAtDesc();
 	
 }
 

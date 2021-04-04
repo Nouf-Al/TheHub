@@ -169,7 +169,7 @@ public class HomeController {
 			return "redirect:/";
 		} 
 		else {
-			model.addAttribute("projects", freelanceSer.getAllProjects());
+			model.addAttribute("projects", freelanceSer.getAllProjectsSorted());
 			model.addAttribute("categories", freelanceSer.getAllCategories());
 			if (session.getAttribute("user_type").equals("freelancer")) {
 				model.addAttribute("user", userSer.findFreelancerById((Long) session.getAttribute("user_id")));
