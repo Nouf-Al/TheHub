@@ -258,8 +258,16 @@
                   </div>
                </c:forEach>
                <div class="item shadow p-4 seemore">
-                  <p>Register to See <br> More Profiles</p>
-                  <a href="/client/register" class="register">Register</a>
+                  <c:choose>
+                     <c:when test="${user_id eq null}">
+                        <p>Register to See <br> More Profiles</p>
+                        <a href="/client/register" class="register">Register</a>
+                     </c:when>
+                     <otherwise>
+                        <p>Click to See <br> More Profiles</p>
+                        <a href="/freelance/freelancers" class="register">See More</a>
+                     </otherwise>
+                  </c:choose>
                </div>
             </div>
          </div>
