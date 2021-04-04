@@ -263,10 +263,10 @@
                         <p>Register to See <br> More Profiles</p>
                         <a href="/client/register" class="register">Register</a>
                      </c:when>
-                     <otherwise>
+                     <c:otherwise>
                         <p>Click to See <br> More Profiles</p>
                         <a href="/freelance/freelancers" class="register">See More</a>
-                     </otherwise>
+                     </c:otherwise>
                   </c:choose>
                </div>
             </div>
