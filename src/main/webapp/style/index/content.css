@@ -726,7 +726,7 @@ footer p {
 
 .slide-up-h1 {
   -webkit-animation: slide-up-h1 2s;
-          animation: slide-up-h1 2s;
+  animation: slide-up-h1 2s;
 }
 
 @-webkit-keyframes slide-up-nav {

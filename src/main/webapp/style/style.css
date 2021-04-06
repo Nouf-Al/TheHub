@@ -1,5 +1,5 @@
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 * {
@@ -11,21 +11,8 @@ html {
 
 body {
   color: black;
-  /* background-color: #f4f6f84d; */
   font-family: eina01,sans-serif;
 }
-
-/* h1 {
-font-size: 2.5rem;
-font-family: "Lobster" , sans-serif;
-font-weight: lighter;
-} */
-
-/* h2 {
-font-size: 8rem;
-font-family: "Lobster" , sans-serif;
-font-weight: lighter;
-} */
 
 h3 {
 font-size: 1.5rem;
@@ -54,9 +41,6 @@ a:hover{
 } 
 
 .dashboard-container {
-  /* width: 93%;
-  margin: 0 auto;
-  padding: 50px 0; */
   width: 95%;
   margin: 14px auto;
   padding: 43px;

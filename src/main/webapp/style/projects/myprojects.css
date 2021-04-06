@@ -1,5 +1,4 @@
 .section{
-    /* background-color: #58acf70d; */
     background: #1a49ba14;
     padding: 19px 23px;
 }
@@ -9,7 +8,6 @@
     margin: 0 11px;
 }
 .left-col{
-    /* font-size: 20px; */
     margin-right: 20px;
     height: fit-content;
 }
@@ -40,10 +38,6 @@
 .right-col p{
     font-size: 13.5px;
 }
-/* 
-.section:hover {
-    background:#58acf74b;
-} */
 
 a.form-btn {
     font-size: 13px;
@@ -77,12 +71,6 @@ a.form-btn:hover {
     padding: 19px;
 }
 
-@media screen and (max-width: 576px) {
-    .left-col{
-        margin-right: 0;
-    }
-}
-
 .new-project {
     background: #1A488E;
     color: white;
@@ -92,4 +80,10 @@ a.form-btn:hover {
     border: none;
     font-size: 12px;
     width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+    .left-col{
+        margin-right: 0;
+    }
 }

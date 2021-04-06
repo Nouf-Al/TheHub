@@ -1,5 +1,4 @@
 .section{
-    /* background-color: #58acf70d; */
     background: #1a49ba14;
     padding: 19px 23px;
 }
@@ -9,7 +8,6 @@
     margin: 0 11px;
 }
 .left-col{
-    /* font-size: 20px; */
     margin-right: 20px;
     height: fit-content;
 }
@@ -38,10 +36,6 @@
 .right-col p{
     font-size: 13px;
 }
-
-/* .section:hover {
-    background:#58acf74b;
-} */
 
 .box{
     background: white;

@@ -19,8 +19,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   font-family: eina01,sans-serif;
 }
 
@@ -58,7 +58,7 @@
 
 .nav-container nav .left-nav a .slide-up {
   -webkit-animation: slide-up 2s;
-          animation: slide-up 2s;
+  animation: slide-up 2s;
 }
 
 .nav-container nav .right-nav {
@@ -73,8 +73,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .nav-container nav .right-nav span p {
@@ -213,7 +213,7 @@
 
 .slide-up-nav {
   -webkit-animation: slide-up-nav 1s;
-          animation: slide-up-nav 1s;
+  animation: slide-up-nav 1s;
 }
 
 @media only screen and (max-width: 480px) {
@@ -258,11 +258,7 @@
   .content-container .right-section form {
     padding: 49px 44px;
   }
-  .nav-container nav .left-nav a {
-    /* display: none; */
-  }
-
   .nav-container nav .right-nav span a {
     padding: 13px 11px;
-}
+  }
 }
