@@ -147,15 +147,6 @@
 								</c:when>
 								<c:otherwise>
 									<div class="col-sm-3 px-5 right-col">
-										<!-- <c:choose>
-											<c:when test="${project.isOffer(user.id) }">
-												<a href="/freelance/projects/${project.id }/withdrawFromViewProject" class="btn btn-outline-danger btn-block py-3">Cancel Offer</a>
-											</c:when>
-											<c:otherwise>
-												<a href="/freelance/projects/${project.id }/offerFromViewProject" class="btn btn-outline-success btn-block py-3">Send Offer</a>
-											</c:otherwise>
-										</c:choose> -->
-
 										<c:choose>
 											<c:when test="${project.isOffer(user.id) }">
 												<c:if test="${project.freelancer.id eq user.id}">

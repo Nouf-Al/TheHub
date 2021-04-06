@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -43,8 +42,7 @@ pageEncoding="UTF-8"%>
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 										fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-										<path fill-rule="evenodd"
-											d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
 									</svg>
 								</span>
 							</div>
@@ -56,8 +54,7 @@ pageEncoding="UTF-8"%>
 								<a href="/logout">Logout</a>
 							</div>
 						</div>
-						<a href="/freelance/projects/new"><button class="post-project">+ New
-								Project</button></a>
+						<a href="/freelance/projects/new"><button class="post-project">+ New Project</button></a>
 					</c:if>
 
 					<c:if test="${isClient eq false }">
@@ -68,8 +65,7 @@ pageEncoding="UTF-8"%>
 									<img src="/images/user_pic.svg" id="user-img" alt="user" />
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 										fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-										<path fill-rule="evenodd"
-											d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+										<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
 									</svg>
 								</span>
 							</div>

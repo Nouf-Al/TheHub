@@ -4,7 +4,6 @@
 <%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Edit Profile</title>
 	<meta charset="ISO-8859-1">
@@ -16,7 +15,6 @@
 	<link rel="stylesheet" href="/style/projects/newProject.css" />
 	<link rel="stylesheet" href="/style/menu.css" />
 </head>
-
 <body>
 	<div class="nav-container">
 		<div class="row menu-row">
@@ -119,15 +117,6 @@
 							<form:errors path="bio" class="text-danger" />
 						</div>
 					</div>
-
-					<!-- <div class="col-sm mb-3">
-						<label>Photo:</label>
-						<div class="custom-file">
-							<label>Photo:</label>
-							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-						</div>
-					</div> -->
 				</div>
 				<input type="submit" value="Update" class="btn btn-block form-btn my-3" />
 			</form:form>
@@ -135,5 +124,4 @@
 		</div>
 	</div>
 </body>
-
 </html>

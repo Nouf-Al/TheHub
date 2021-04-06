@@ -14,7 +14,6 @@
 	<link rel="stylesheet" href="/style/registerAndLogin/style.css" /> 
     <title>Client login</title>
 </head>
-
 <body>
     <div class="background">
         <div class="yellow"></div>

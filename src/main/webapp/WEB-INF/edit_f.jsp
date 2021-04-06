@@ -120,14 +120,6 @@
 							<form:errors path="bio" class="text-danger" />
 						</div>
 					</div>
-					<!-- <div class="col-sm-6 mb-3">
-						<label>Photo:</label>
-						<div class="custom-file">
-							<label>Photo:</label> 
-							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> 
-							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-						</div>
-					</div> -->
 					<div class="col-sm-6 mb-3">
 						<div class="form-group">
 							<label>skills:</label>
