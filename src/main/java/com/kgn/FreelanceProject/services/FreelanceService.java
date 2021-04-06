@@ -25,7 +25,6 @@ import com.kgn.FreelanceProject.repositories.QuestionRepository;
 import com.kgn.FreelanceProject.repositories.ReviewOnClientRepository;
 import com.kgn.FreelanceProject.repositories.ReviewOnFreelancerRepository;
 import com.kgn.FreelanceProject.repositories.SkillRepository;
-
 @Service
 public class FreelanceService {
 	@Autowired
@@ -48,8 +47,11 @@ public class FreelanceService {
 	private ClientRepository clientRepo;
 	@Autowired
 	private AnswerRepository answerRepo;
-
-	// project model
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Project ///////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public Project createProject(Project p) {
 		return projectRepo.save(p);
 	}
@@ -63,22 +65,8 @@ public class FreelanceService {
 	}
 
 	public Project getOneProject(Long id) {
-		Optional<Project> getter = projectRepo.findById(id);
-		return getter.get();
-	}
-
-	public Freelancer getOneFreelancer(Long id) {
-		Optional<Freelancer> getter = freelancerRepo.findById(id);
-		return getter.get();
-	}
-
-	public Client getOneClient(Long id) {
-		Optional<Client> getter = clientRepo.findById(id);
-		return getter.get();
-	}
-
-	public ArrayList<Client> getAllClients() {
-		return (ArrayList<Client>) clientRepo.findAll();
+		Optional<Project> project = projectRepo.findById(id);
+		return project.get();
 	}
 
 	public Project updateProject(Project toEdit) {
@@ -126,7 +114,7 @@ public class FreelanceService {
 			return projectsFilterd;
 		}
 	}
-
+	
 	public void like(Freelancer u, Project p) {
 		p.getFreelancers_like().add(u);
 		projectRepo.save(p);
@@ -173,8 +161,16 @@ public class FreelanceService {
 		p.setStatus(status);
 		projectRepo.save(p);
 	}
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Freelancer ////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	public Freelancer getOneFreelancer(Long id) {
+		Optional<Freelancer> freelancer = freelancerRepo.findById(id);
+		return freelancer.get();
+	}
 
-	// freelancer model
 	public Freelancer updateFreelancer(Freelancer user) {
 		return freelancerRepo.save(user);
 	}
@@ -182,6 +178,7 @@ public class FreelanceService {
 	public ArrayList<Freelancer> getAllFreelancers() {
 		return (ArrayList<Freelancer>) freelancerRepo.findAll();
 	}
+
 	public List<Freelancer> getFourFreelancers() {
 		Iterable<Freelancer> freelancers = freelancerRepo.findAll();
 		ArrayList<Freelancer> fourFreelancers = new ArrayList<Freelancer>();
@@ -218,8 +215,37 @@ public class FreelanceService {
 		theFreelancer.setSkills(skills);
 		return updateFreelancer(theFreelancer);
 	}
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Client ////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	public Client getOneClient(Long id) {
+		Optional<Client> getter = clientRepo.findById(id);
+		return getter.get();
+	}
 
-	// question model
+	public ArrayList<Client> getAllClients() {
+		return (ArrayList<Client>) clientRepo.findAll();
+	}
+	
+	public Client editClient(Client editClient,Long id) {
+		Client theClient = getOneClient(id);
+		String hashed = BCrypt.hashpw(editClient.getPassword(), BCrypt.gensalt());
+		theClient.setFirstname(editClient.getFirstname());
+		theClient.setLastname(editClient.getLastname());
+		theClient.setEmail(editClient.getEmail());
+		theClient.setPassword(hashed);
+		theClient.setGender(editClient.getGender());
+		theClient.setBio(editClient.getBio());
+		theClient.setPhoto(editClient.getPhoto());
+		return clientRepo.save(theClient);
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Question ///////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public Question createQuestion(Question q) {
 		q.setId(null);
 		return questionRepo.save(q);
@@ -232,8 +258,11 @@ public class FreelanceService {
 	public void deleteQuestion(Long id) {
 		questionRepo.deleteById(id);
 	}
-
-	// answer model
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Answer ////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public Answer createAnswer(Answer a) {
 		a.setId(null);
 		return answerRepo.save(a);
@@ -246,8 +275,11 @@ public class FreelanceService {
 	public void deleteAnswer(Long id) {
 		answerRepo.deleteById(id);
 	}
-
-	// comment model
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Comment ///////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public Comment leaveAComment(Comment newO) {
 		newO.setId(null);
 		return commentRepo.save(newO);
@@ -271,8 +303,11 @@ public class FreelanceService {
 	public void deleteComments(Long id) {
 		commentRepo.deleteById(id);
 	}
-
-	// category model
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Category //////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public Category createCategory(Category newO) {
 		newO.setId(null);
 		return categoryRepo.save(newO);
@@ -286,8 +321,11 @@ public class FreelanceService {
 		Optional<Category> getter = categoryRepo.findById(id);
 		return getter.get();
 	}
-
-	// skill model
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Skill /////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public void addSkill(Freelancer freelancer, Long id) {
 		Optional<Skill> theSkill = skillRepo.findById(id);
 		Skill updatedS = theSkill.get();
@@ -300,8 +338,22 @@ public class FreelanceService {
 		Freelancer updatedF = freelancer.get();
 		return updatedF.returnTheNoExistingSkill(allSkills);
 	}
-
-	// review model
+	
+	public Skill findOrCreate(String title) {
+		Optional<Skill> skill = skillRepo.findByTitle(title);
+		if (skill.isPresent()) {
+			return skill.get();
+		} else {
+			Skill newSkill = new Skill();
+			newSkill.setTitle(title.toLowerCase());
+			return skillRepo.save(newSkill);
+		}
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////// Review ////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	
 	public ReviewOnFreelancer reviewFreelancer(ReviewOnFreelancer newO) {
 		newO.setId(null);
 		ReviewOnFreelancer review = reviewOnFreelancerRepo.save(newO);
@@ -370,38 +422,4 @@ public class FreelanceService {
 	public void removeReviewOnFreelancer(Long id) {
 		reviewOnFreelancerRepo.deleteById(id);
 	}
-
-	public Skill findOrCreate(String title) {
-		Optional<Skill> skill = skillRepo.findByTitle(title);
-		if (skill.isPresent()) {
-			return skill.get();
-		} else {
-			Skill newSkill = new Skill();
-			newSkill.setTitle(title.toLowerCase());
-			return skillRepo.save(newSkill);
-		}
-	}
-
-	public Client editClient(Client editClient,Long id) {
-		Client theClient = getOneClient(id);
-		String hashed = BCrypt.hashpw(editClient.getPassword(), BCrypt.gensalt());
-		theClient.setFirstname(editClient.getFirstname());
-		theClient.setLastname(editClient.getLastname());
-		theClient.setEmail(editClient.getEmail());
-		theClient.setPassword(hashed);
-		theClient.setGender(editClient.getGender());
-		theClient.setBio(editClient.getBio());
-		theClient.setPhoto(editClient.getPhoto());
-		return clientRepo.save(theClient);
-	}
-
-	// public List<ReviewOnFreelancer> returnFreelancerReviews(Long id) {
-	// 	ArrayList<ReviewOnFreelancer> theProperReviews = new ArrayList<ReviewOnFreelancer>();
-	// 	for (ReviewOnFreelancer rev : reviewOnFreelancerRepo.findAll()) {
-	// 		if (rev.getFreelancer().getId() == id) {
-	// 			theProperReviews.add(rev);
-	// 		}
-	// 	}
-	// 	return (List<ReviewOnFreelancer>) theProperReviews;
-	// }
 }
