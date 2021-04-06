@@ -1,6 +1,5 @@
 package com.kgn.FreelanceProject.controllers;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -47,7 +46,6 @@ public class HomeController {
 		model.addAttribute("clientsLength", c.size());
 
 		int reviews = freelanceSer.getAllReviewsOnFreelancers().size() + freelanceSer.getAllReviewsOnClients().size();
-		// List<ReviewOnClient> reviewC = freelanceSer.getAllReviewsOnClients();
 		model.addAttribute("reviewsLength", reviews);
 
 		model.addAttribute("user_id", session.getAttribute("user_id"));
@@ -277,7 +275,6 @@ public class HomeController {
 	@RequestMapping(value = "/freelance/projects/{id}/delete")
 	public String deleteProject(@PathVariable Long id, HttpSession session) {
 		if(session.getAttribute("user_id").equals(freelanceSer.getOneProject(id).getClient().getId())){
-			System.err.println("here");
 			List<Question> questions = freelanceSer.getAllQuestions(id);
 			if(questions.size()>0){
 				for (Question question : questions){
@@ -342,7 +339,7 @@ public class HomeController {
 		return "myProjects.jsp";
 	}
 
-//	question
+	//	question
 	@RequestMapping(value = "/freelance/projects/{id}/create/question", method = RequestMethod.POST)
 	public String createQuestion(Model model, @PathVariable Long id, @Valid @ModelAttribute("newQuestion") Question newQuestion, BindingResult result,HttpSession session) {
 		if (result.hasErrors()) {
@@ -368,7 +365,7 @@ public class HomeController {
 		return "redirect:/freelance/projects/"+pId;
 	}
 	
-//	answer
+	//	answer
 	@RequestMapping(value = "/freelance/projects/{id}/create/answer", method = RequestMethod.POST)
 	public String createAnswer(Model model, @PathVariable Long id, @Valid @ModelAttribute("newAnswer") Answer newAnswer, BindingResult result,HttpSession session) {
 		if (result.hasErrors()) {
@@ -394,7 +391,7 @@ public class HomeController {
 		return "redirect:/freelance/projects/"+pId;
 	}
 	
-// 	Category
+	// 	Category
 	@RequestMapping("/freelance/category/new")
 	public String newCat(@ModelAttribute("newCategory") Category newCategory, Model model) {
 		return "category.jsp";
@@ -409,7 +406,7 @@ public class HomeController {
 		return "redirect:/freelance/category/new";
 	}
 
-//    like and unlike
+	//  like and unlike
 	@RequestMapping(value = "/freelance/projects/{id}/like")
 	public String like(@PathVariable Long id, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
@@ -460,7 +457,7 @@ public class HomeController {
 		return "redirect:/freelance/projects/" + id;
 	}
 
-//  offer and withdraw
+	//  offer and withdraw
 	@RequestMapping(value = "/freelance/projects/{id}/offer")
 	public String offer(@PathVariable Long id, HttpSession session) {
 		Freelancer u = userSer.findFreelancerById((Long) session.getAttribute("user_id"));
@@ -495,7 +492,7 @@ public class HomeController {
 		return "redirect:/freelance/projects/" + id;
 	}
 
-//  accept and reject offers
+	//  accept and reject offers
 	@RequestMapping(value = "/freelance/projects/{pId}/offer/accept/{fId}")
 	public String accept(@PathVariable Long pId, @PathVariable Long fId) {
 		Freelancer u = userSer.findFreelancerById(fId);
@@ -522,11 +519,10 @@ public class HomeController {
 		return "redirect:/client/profile/"+p.getClient().getId();
 	}
 
-// 	Freelancer & client profiles
+	// 	Freelancer & client profiles
 	@RequestMapping("/freelancer/profile/{id}")
 	public String freelancerProfile(@PathVariable Long id, HttpSession session, Model model) {
 		if (userSer.findClientById((Long) session.getAttribute("user_id")) == null && (userSer.findFreelancerById((Long) session.getAttribute("user_id")) == null)) {
-			System.err.println("here");
 			return "redirect:/client/login";
 		} 
 
