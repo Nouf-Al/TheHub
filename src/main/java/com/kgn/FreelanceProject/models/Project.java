@@ -1,5 +1,4 @@
 package com.kgn.FreelanceProject.models;
-
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -21,23 +20,18 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "projects")
 public class Project {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotEmpty(message = "Title is required.")
 	@Size(min=3, message = "Title must be at least 3 characters.")
 	private String title;
 
-//	@NotEmpty(message = "Description is required.")
 	@Size(min=3,message = "Description must be at least 3 characters.")
 	private String description;
 
@@ -223,16 +217,6 @@ public class Project {
 		this.questions = questions;
 	}
 
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = new Date();
-	}
-
-	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = new Date();
-	}
-
 	public Boolean isContain(Long id) {
 		for (Freelancer u : freelancers_like) {
 			if(u.getId() == id) {
@@ -272,22 +256,11 @@ public class Project {
 		Date today = new Date();
 		Timestamp timestamp = new Timestamp(today.getTime());
 		long difference = (this.getOfferEnd().getTime()-timestamp.getTime())/86400000; //86400000 is the number of milliseconds
-		// System.out.println(timestamp);
 		if(difference<0){
 			return 0;
 		}
 		return difference;
-		// return Math.abs(difference);
 	}
-
-	// public int calculatePostedBefore() {
-	// 	Date today = new Date();
-	// 	Timestamp timestamp = new Timestamp(today.getTime());
-	// 	int difference = (timestamp.getHours()-this.getCreatedAt().getHours()) % 24 ; //86400000 is the number of milliseconds
-	// 	System.out.println(this.getCreatedAt().getHours());
-	// 	return difference;
-	// 	// return Math.abs(difference);
-	// }
 
 	public boolean isOfferEndDate(){
 		Date date = new Date();
@@ -298,4 +271,13 @@ public class Project {
 		}
 	}
 
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date();
+	}
 }

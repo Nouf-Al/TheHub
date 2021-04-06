@@ -12,10 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "skills")
 public class Skill {
@@ -23,7 +20,6 @@ public class Skill {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
 	private String title;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -36,8 +32,7 @@ public class Skill {
 	@JoinTable(name = "freelancers_skills", joinColumns = @JoinColumn(name = "skill_id"), inverseJoinColumns = @JoinColumn(name = "freelancer_id"))
 	private List<Freelancer> freelancers;
 
-	public Skill() {
-	}
+	public Skill() {}
 
 	public Long getId() {
 		return id;

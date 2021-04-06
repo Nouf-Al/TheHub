@@ -1,6 +1,4 @@
 package com.kgn.FreelanceProject.models;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +20,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "freelancers")
 public class Freelancer {
@@ -30,11 +27,9 @@ public class Freelancer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotEmpty(message = "First Name is required!")
 	@Size(min = 3, message = "First Name must be at least 3 characters.")
 	private String firstname;
 
-//	@NotEmpty(message = "Last Name is required!")
 	@Size(min = 3, message = "Last Name must be at least 3 characters.")
 	private String lastname;
 
@@ -42,7 +37,6 @@ public class Freelancer {
 	@Email(message = "Please enter a valid email!")
 	private String email;
 
-//	@NotEmpty(message = "Gender is required.")
 	private String gender;
 
 	@Column(nullable = true, length = 64)
@@ -51,12 +45,10 @@ public class Freelancer {
 	@Size(max = 255, message = "Bio must be at most 255 characters.")
 	private String bio;
 
-	//@NotEmpty(message = "Password is required!")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
 	
 	@Transient
-//	@NotEmpty(message = "Confirm Password is required!")
 	@Size(min = 8, message = "Confirm password must be at least 8 characters.")
 	private String confirm;
 
@@ -80,7 +72,6 @@ public class Freelancer {
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "freelancer_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> projects_likes;
 	
-	
 	@OneToMany(mappedBy="freelancer", fetch = FetchType.LAZY)
     private List<Question> questions;
 
@@ -100,8 +91,7 @@ public class Freelancer {
 	@Transient
 	private String skillString;
 
-	public Freelancer() {
-	}
+	public Freelancer() {}
 
 	public String getSpeciality() {
 		return speciality;
@@ -289,16 +279,6 @@ public class Freelancer {
 		this.reviewsOnClient = reviewsOnClient;
 	}
 
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = new Date();
-	}
-
-	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = new Date();
-	}
-
 	public int isStatus(int status) {
 		int countComplete =0;
 		int countActive =0;
@@ -333,5 +313,15 @@ public class Freelancer {
 		} else{
 			return 0;
 		}
+	}
+	
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date();
 	}
 }

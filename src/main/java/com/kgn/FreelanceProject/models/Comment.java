@@ -13,7 +13,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -45,8 +44,7 @@ public class Comment {
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	public Comment() {
-	}
+	public Comment() {}
 
 	public Long getId() {
 		return id;
@@ -96,16 +94,6 @@ public class Comment {
 		this.updatedAt = updatedAt;
 	}
 
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = new Date();
-	}
-
-	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = new Date();
-	}
-
 	public Project getProject() {
 		return project;
 	}
@@ -121,6 +109,14 @@ public class Comment {
 	public void setWriterType(String writerType) {
 		this.writerType = writerType;
 	}
-	
-	
+
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date();
+	}
 }

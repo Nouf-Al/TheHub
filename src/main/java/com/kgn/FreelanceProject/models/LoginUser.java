@@ -1,15 +1,12 @@
 package com.kgn.FreelanceProject.models;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 public class LoginUser {
 	@NotEmpty(message="Email is required.")
 	@Email(message="Please enter a valid email!")
 	private String email;
 	
-//	@NotEmpty(message="Password is required.")
 	@Size(min = 8, message = "Password must be at least 8 characters.")
 	private String password;
 	
@@ -30,7 +27,4 @@ public class LoginUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-
-
 }

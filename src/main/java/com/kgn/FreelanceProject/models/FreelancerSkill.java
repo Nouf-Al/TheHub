@@ -12,11 +12,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name="freelancers_skills")
 public class FreelancerSkill {
-	//what is the relationship exactly?
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,8 +34,7 @@ public class FreelancerSkill {
 	@JoinColumn(name = "skill_id")
 	private Skill skill;
 
-	public FreelancerSkill() {
-	}
+	public FreelancerSkill() {}
 
 	public Long getId() {
 		return id;

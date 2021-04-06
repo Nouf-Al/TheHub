@@ -11,7 +11,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,8 +36,7 @@ public class Answer {
     @JoinColumn(name="question_id")
     private Question question;
 	
-	public Answer() {
-	}
+	public Answer() {}
 
 	public Long getId() {
 		return id;

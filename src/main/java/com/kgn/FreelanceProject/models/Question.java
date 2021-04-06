@@ -1,7 +1,5 @@
 package com.kgn.FreelanceProject.models;
-
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "questions")
 public class Question {
@@ -48,8 +43,7 @@ public class Question {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
-	public Question() {
-	}
+	public Question() {}
 
 	public Long getId() {
 		return id;
@@ -116,5 +110,4 @@ public class Question {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
-
 }

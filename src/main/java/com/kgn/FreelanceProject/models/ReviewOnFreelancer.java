@@ -12,7 +12,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "reviewsOnFreelancers")
@@ -108,7 +107,6 @@ public class ReviewOnFreelancer {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
-	
 }
 
 
